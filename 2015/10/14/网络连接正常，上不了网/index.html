@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>网络连接正常，上不了网 | 水面下的冰山</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="昨天办公室网络不稳定，最后我的电脑上不了网了，网络连接一切正常。IP、DNS、MAC地址冲突都排查了，本地网络可以互通，DNS可以解析，最后就是是不能连上网络。但是无线连接可以使用，最后怀疑到驱动上了，或者系统bug，bug这条先不考虑。今天到办公室的时候和昨天一样的情况，还是上不了网，重新想了想，可能是ARP的问题。就arp -a了下，果然运气不错，发现网关的mac竟然是99-99-99-99-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络连接正常，上不了网">
+<meta property="og:url" content="http://say520.xyz/2015/10/14/网络连接正常，上不了网/index.html">
+<meta property="og:site_name" content="水面下的冰山">
+<meta property="og:description" content="昨天办公室网络不稳定，最后我的电脑上不了网了，网络连接一切正常。IP、DNS、MAC地址冲突都排查了，本地网络可以互通，DNS可以解析，最后就是是不能连上网络。但是无线连接可以使用，最后怀疑到驱动上了，或者系统bug，bug这条先不考虑。今天到办公室的时候和昨天一样的情况，还是上不了网，重新想了想，可能是ARP的问题。就arp -a了下，果然运气不错，发现网关的mac竟然是99-99-99-99-">
+<meta property="og:updated_time" content="2016-10-20T07:45:09.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络连接正常，上不了网">
+<meta name="twitter:description" content="昨天办公室网络不稳定，最后我的电脑上不了网了，网络连接一切正常。IP、DNS、MAC地址冲突都排查了，本地网络可以互通，DNS可以解析，最后就是是不能连上网络。但是无线连接可以使用，最后怀疑到驱动上了，或者系统bug，bug这条先不考虑。今天到办公室的时候和昨天一样的情况，还是上不了网，重新想了想，可能是ARP的问题。就arp -a了下，果然运气不错，发现网关的mac竟然是99-99-99-99-">
+  
+    <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">水面下的冰山</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/categories/Linux">Linux</a>
+        
+          <a class="main-nav-link" href="/categories/命令">命令</a>
+        
+          <a class="main-nav-link" href="/categories/活动">活动</a>
+        
+          <a class="main-nav-link" href="/categories/电台">电台</a>
+        
+          <a class="main-nav-link" href="/categories/阅读">阅读</a>
+        
+          <a class="main-nav-link" href="/categories/随笔">随笔</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://say520.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-网络连接正常，上不了网" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/14/网络连接正常，上不了网/" class="article-date">
+  <time datetime="2015-10-14T08:31:38.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      网络连接正常，上不了网
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+        <!-- Table of Contents -->
+ 
+        <p>昨天办公室网络不稳定，最后我的电脑上不了网了，网络连接一切正常。IP、DNS、MAC地址冲突都排查了，本地网络可以互通，DNS可以解析，最后就是是不能连上网络。但是无线连接可以使用，最后怀疑到驱动上了，或者系统bug，bug这条先不考虑。<br>今天到办公室的时候和昨天一样的情况，还是上不了网，重新想了想，可能是ARP的问题。<br>就arp -a了下，果然运气不错，发现网关的mac竟然是99-99-99-99-99-99。<br>不知道为什么变成这样了，arp中毒？<br>不过查到原因了就知道怎么解决了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">arp <span class="_">-d</span> 192.168.1.1 </div><div class="line">arp <span class="_">-s</span> 192.168.1.1 xx-xx-xx-xx-xx-xx</div><div class="line"></div><div class="line">最后在启动项中添加一条，可以在开机之后清空ARP缓存，或者写一个脚本固定10分钟清空一次</div><div class="line">reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /ve /t REG_SZ /d <span class="string">"C:\Windows\System\cmd.exe /c arp -d"</span></div></pre></td></tr></table></figure></p>
+<p>这次问题发生原因还不清楚，一开始也莫名其妙，总结一下思路：<br>1.本地网络畅通，网关ping的通，手动自动设置都可以<br>2.DNS解析，hosts文件<br>3.ARP映射<br>4.驱动问题，尝试重新安装</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://say520.xyz/2015/10/14/网络连接正常，上不了网/" data-id="ciui4ggv7001xidriuxwbl6la" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARP/">ARP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/23/自建ngrok服务器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          自建ngrok服务器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/10/国庆节宣桥架台/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">国庆节宣桥架台</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LINUX/">LINUX</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读/">阅读</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阅读/" style="font-size: 10px;">阅读</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/20/FreeBSD上安装hexo/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/阿里云VPS搭建keepalived主备同时都有VIP/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/22/python实现vpn自动重连/">python实现vpn自动重连</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/tengine安装脚本/">tengine安装脚本</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 bh4cxj | 
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/categories/Linux" class="mobile-nav-link">Linux</a>
+  
+    <a href="/categories/命令" class="mobile-nav-link">命令</a>
+  
+    <a href="/categories/活动" class="mobile-nav-link">活动</a>
+  
+    <a href="/categories/电台" class="mobile-nav-link">电台</a>
+  
+    <a href="/categories/阅读" class="mobile-nav-link">阅读</a>
+  
+    <a href="/categories/随笔" class="mobile-nav-link">随笔</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

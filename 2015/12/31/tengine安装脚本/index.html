@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>tengine安装脚本 | 水面下的冰山</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了12345678910111213141516171819202122232425262728293031#!/bin/bashWORKPATH=&apos;tengine-2.1.2&apos;BASEPATH=&apos;tengine&apos;EPELSOURCE=&apos;http://mirrors.ustc.edu.cn/centos/6.7/ex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tengine安装脚本">
+<meta property="og:url" content="http://say520.xyz/2015/12/31/tengine安装脚本/index.html">
+<meta property="og:site_name" content="水面下的冰山">
+<meta property="og:description" content="重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了12345678910111213141516171819202122232425262728293031#!/bin/bashWORKPATH=&apos;tengine-2.1.2&apos;BASEPATH=&apos;tengine&apos;EPELSOURCE=&apos;http://mirrors.ustc.edu.cn/centos/6.7/ex">
+<meta property="og:updated_time" content="2016-10-20T09:03:30.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tengine安装脚本">
+<meta name="twitter:description" content="重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了12345678910111213141516171819202122232425262728293031#!/bin/bashWORKPATH=&apos;tengine-2.1.2&apos;BASEPATH=&apos;tengine&apos;EPELSOURCE=&apos;http://mirrors.ustc.edu.cn/centos/6.7/ex">
+  
+    <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">水面下的冰山</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/categories/Linux">Linux</a>
+        
+          <a class="main-nav-link" href="/categories/命令">命令</a>
+        
+          <a class="main-nav-link" href="/categories/活动">活动</a>
+        
+          <a class="main-nav-link" href="/categories/电台">电台</a>
+        
+          <a class="main-nav-link" href="/categories/阅读">阅读</a>
+        
+          <a class="main-nav-link" href="/categories/随笔">随笔</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://say520.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tengine安装脚本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/31/tengine安装脚本/" class="article-date">
+  <time datetime="2015-12-31T02:22:17.000Z" itemprop="datePublished">2015-12-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LINUX/">LINUX</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      tengine安装脚本
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+        <!-- Table of Contents -->
+ 
+        <p>重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WORKPATH=<span class="string">'tengine-2.1.2'</span></div><div class="line">BASEPATH=<span class="string">'tengine'</span></div><div class="line">EPELSOURCE=<span class="string">'http://mirrors.ustc.edu.cn/centos/6.7/extras/x86_64/Packages/epel-release-6-8.noarch.rpm'</span></div><div class="line"></div><div class="line">[ `yum repolist |grep epel` ] || rpm -Uvh <span class="variable">$&#123;EPELSOURCE&#125;</span></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;BASEPATH&#125;</span> ] || mkdir <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;BASEPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;BASEPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">yum install -y pcre pcre-devel openssl openssl-devel jemalloc-devel</div><div class="line">[ <span class="_">-f</span> <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz ] || wget http://tengine.taobao.org/download/<span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-f</span> ngx_cache_purge-2.1.tar.gz ] || wget http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;WORKPATH&#125;</span> ] || tar xf <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-d</span> ngx_cache_purge-2.1 ] || tar xf ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;WORKPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;WORKPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;WORKPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">./configure --prefix=/etc/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-jemalloc --with-http_concat_module --add-module=../ngx_cache_purge-2.1</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://say520.xyz/2015/12/31/tengine安装脚本/" data-id="ciui4ggui0011idri1zk4y7fc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/02/22/python实现vpn自动重连/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python实现vpn自动重连
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/28/监控网站URL脚本/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">监控网站URL脚本</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LINUX/">LINUX</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读/">阅读</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阅读/" style="font-size: 10px;">阅读</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/20/FreeBSD上安装hexo/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/阿里云VPS搭建keepalived主备同时都有VIP/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/22/python实现vpn自动重连/">python实现vpn自动重连</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/tengine安装脚本/">tengine安装脚本</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 bh4cxj | 
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/categories/Linux" class="mobile-nav-link">Linux</a>
+  
+    <a href="/categories/命令" class="mobile-nav-link">命令</a>
+  
+    <a href="/categories/活动" class="mobile-nav-link">活动</a>
+  
+    <a href="/categories/电台" class="mobile-nav-link">电台</a>
+  
+    <a href="/categories/阅读" class="mobile-nav-link">阅读</a>
+  
+    <a href="/categories/随笔" class="mobile-nav-link">随笔</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

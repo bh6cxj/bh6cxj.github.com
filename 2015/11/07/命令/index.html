@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>命令 | 水面下的冰山</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="显示cpu信息12$lscpu$cat /proc/cpuinfo
+cat使用1234567891011显示行号#cat -n file1忽略空白行显示行号#cat -b file缩减多余空白行，保持段落的原来模样#cat -s file在每一行结尾添加一个$符#cat -e file
+trap命令trap是一个shell内建命令，它用来在脚本中指定信号如何处理123456789101112131">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令">
+<meta property="og:url" content="http://say520.xyz/2015/11/07/命令/index.html">
+<meta property="og:site_name" content="水面下的冰山">
+<meta property="og:description" content="显示cpu信息12$lscpu$cat /proc/cpuinfo
+cat使用1234567891011显示行号#cat -n file1忽略空白行显示行号#cat -b file缩减多余空白行，保持段落的原来模样#cat -s file在每一行结尾添加一个$符#cat -e file
+trap命令trap是一个shell内建命令，它用来在脚本中指定信号如何处理123456789101112131">
+<meta property="og:updated_time" content="2016-10-20T07:45:09.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="命令">
+<meta name="twitter:description" content="显示cpu信息12$lscpu$cat /proc/cpuinfo
+cat使用1234567891011显示行号#cat -n file1忽略空白行显示行号#cat -b file缩减多余空白行，保持段落的原来模样#cat -s file在每一行结尾添加一个$符#cat -e file
+trap命令trap是一个shell内建命令，它用来在脚本中指定信号如何处理123456789101112131">
+  
+    <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">水面下的冰山</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/categories/Linux">Linux</a>
+        
+          <a class="main-nav-link" href="/categories/命令">命令</a>
+        
+          <a class="main-nav-link" href="/categories/活动">活动</a>
+        
+          <a class="main-nav-link" href="/categories/电台">电台</a>
+        
+          <a class="main-nav-link" href="/categories/阅读">阅读</a>
+        
+          <a class="main-nav-link" href="/categories/随笔">随笔</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://say520.xyz"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/07/命令/" class="article-date">
+  <time datetime="2015-11-07T05:42:03.000Z" itemprop="datePublished">2015-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/命令/">命令</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      命令
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+        <!-- Table of Contents -->
+ 
+   <div id="toc" class="toc-article">
+     <strong class="toc-title">索引</strong>
+     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#显示cpu信息"><span class="toc-number">1.</span> <span class="toc-text">显示cpu信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cat使用"><span class="toc-number">2.</span> <span class="toc-text">cat使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#trap命令"><span class="toc-number">3.</span> <span class="toc-text">trap命令</span></a></li></ol>
+   </div>
+ 
+        <h2 id="显示cpu信息"><a href="#显示cpu信息" class="headerlink" title="显示cpu信息"></a>显示cpu信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$lscpu</span></div><div class="line"><span class="variable">$cat</span> /proc/cpuinfo</div></pre></td></tr></table></figure>
+<h2 id="cat使用"><a href="#cat使用" class="headerlink" title="cat使用"></a>cat使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">显示行号</div><div class="line"><span class="comment">#cat -n file1</span></div><div class="line"></div><div class="line">忽略空白行显示行号</div><div class="line"><span class="comment">#cat -b file</span></div><div class="line"></div><div class="line">缩减多余空白行，保持段落的原来模样</div><div class="line"><span class="comment">#cat -s file</span></div><div class="line"></div><div class="line">在每一行结尾添加一个$符</div><div class="line"><span class="comment">#cat -e file</span></div></pre></td></tr></table></figure>
+<h2 id="trap命令"><a href="#trap命令" class="headerlink" title="trap命令"></a>trap命令</h2><p>trap是一个shell内建命令，它用来在脚本中指定信号如何处理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#trap -l查看信号</span></div><div class="line"><span class="comment">#kill -l查看信号</span></div><div class="line"></div><div class="line">使用格式</div><div class="line"></div><div class="line">1.trap <span class="string">"commands"</span> signal-list</div><div class="line">当脚本收到signal-list清单内列出的信号时，<span class="built_in">trap</span>命令执行双引号中的命令。</div><div class="line"><span class="comment">#trap "kill -9 $BG_PID" INT</span></div><div class="line"></div><div class="line">2.trap signal-list</div><div class="line"><span class="built_in">trap</span>不指定任何命令，接受信号的默认操作，默认操作是结束进程的运行。</div><div class="line"></div><div class="line">3.trap <span class="string">" "</span> signal-list</div><div class="line"><span class="built_in">trap</span>命令指定一个空命令串，允许忽视信号。</div><div class="line">※ 请记住，脚本程序通常是以从上到下的顺序解释执行的，所以必须在你想保护的那部分代码以前指定<span class="built_in">trap</span>命令。</div></pre></td></tr></table></figure></p>
+<p>tar命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">查看tar包内文件</div><div class="line">tar -tvf file.tar</div><div class="line">查看tar.gz包内文件</div><div class="line">tar -ztvf file.tar.gz</div></pre></td></tr></table></figure></p>
+<p>scp命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scp不是标准输出，没有办法重定向输出日志,通过下面命令获取日志</div><div class="line">script <span class="_">-a</span> /tmp/scp.log -q -c <span class="string">"scp -r /data/weblogic/autodeploy/App/back 10.0.3.66:/home/weblogic/App"</span></div><div class="line"></div><div class="line">scp -q选项不显示传输进度条，不能跟上面命令结合使用</div><div class="line"></div><div class="line">执行远端机器上命令</div><div class="line">ssh -t -p <span class="variable">$port</span> <span class="variable">$user</span>@<span class="variable">$ip</span>  <span class="string">'cmd'</span></div></pre></td></tr></table></figure></p>
+<p>VIM<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令模式</div><div class="line">:.,+5s/^/<span class="comment">#&amp;/</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://say520.xyz/2015/11/07/命令/" data-id="ciui4gguq001bidrig9zivxjv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/命令/">命令</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/09/scp拷贝失败/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          scp拷贝失败
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/04/统计每天流量/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">统计每天流量</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LINUX/">LINUX</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/阅读/">阅读</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阅读/" style="font-size: 10px;">阅读</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/10/20/FreeBSD上安装hexo/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2016/10/20/阿里云VPS搭建keepalived主备同时都有VIP/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/22/python实现vpn自动重连/">python实现vpn自动重连</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/31/tengine安装脚本/">tengine安装脚本</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 bh4cxj | 
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/categories/Linux" class="mobile-nav-link">Linux</a>
+  
+    <a href="/categories/命令" class="mobile-nav-link">命令</a>
+  
+    <a href="/categories/活动" class="mobile-nav-link">活动</a>
+  
+    <a href="/categories/电台" class="mobile-nav-link">电台</a>
+  
+    <a href="/categories/阅读" class="mobile-nav-link">阅读</a>
+  
+    <a href="/categories/随笔" class="mobile-nav-link">随笔</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
