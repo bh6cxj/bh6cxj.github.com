@@ -78,40 +78,64 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/07/命令/" class="archive-article-date">
-  <time datetime="2015-11-07T05:42:03.000Z" itemprop="datePublished">11-07</time>
+    <article id="post-命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/07/命令/" class="article-date">
+  <time datetime="2015-11-07T05:42:03.000Z" itemprop="datePublished">2015-11-07</time>
 </a>
-<!-- <a href="/2015/11/07/命令/" class="archive-article-date">
-  <time datetime="2015-11-07T05:42:03.000Z" itemprop="datePublished">11月 7</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/命令/">命令</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/07/命令/">命令</a>
+      <a class="article-title" href="/2015/11/07/命令/">命令</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <h2 id="显示cpu信息"><a href="#显示cpu信息" class="headerlink" title="显示cpu信息"></a>显示cpu信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$lscpu</span></div><div class="line"><span class="variable">$cat</span> /proc/cpuinfo</div></pre></td></tr></table></figure>
+<h2 id="cat使用"><a href="#cat使用" class="headerlink" title="cat使用"></a>cat使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">显示行号</div><div class="line"><span class="comment">#cat -n file1</span></div><div class="line"></div><div class="line">忽略空白行显示行号</div><div class="line"><span class="comment">#cat -b file</span></div><div class="line"></div><div class="line">缩减多余空白行，保持段落的原来模样</div><div class="line"><span class="comment">#cat -s file</span></div><div class="line"></div><div class="line">在每一行结尾添加一个$符</div><div class="line"><span class="comment">#cat -e file</span></div></pre></td></tr></table></figure>
+<h2 id="trap命令"><a href="#trap命令" class="headerlink" title="trap命令"></a>trap命令</h2><p>trap是一个shell内建命令，它用来在脚本中指定信号如何处理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#trap -l查看信号</span></div><div class="line"><span class="comment">#kill -l查看信号</span></div><div class="line"></div><div class="line">使用格式</div><div class="line"></div><div class="line">1.trap <span class="string">"commands"</span> signal-list</div><div class="line">当脚本收到signal-list清单内列出的信号时，<span class="built_in">trap</span>命令执行双引号中的命令。</div><div class="line"><span class="comment">#trap "kill -9 $BG_PID" INT</span></div><div class="line"></div><div class="line">2.trap signal-list</div><div class="line"><span class="built_in">trap</span>不指定任何命令，接受信号的默认操作，默认操作是结束进程的运行。</div><div class="line"></div><div class="line">3.trap <span class="string">" "</span> signal-list</div><div class="line"><span class="built_in">trap</span>命令指定一个空命令串，允许忽视信号。</div><div class="line">※ 请记住，脚本程序通常是以从上到下的顺序解释执行的，所以必须在你想保护的那部分代码以前指定<span class="built_in">trap</span>命令。</div></pre></td></tr></table></figure></p>
+<p>tar命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">查看tar包内文件</div><div class="line">tar -tvf file.tar</div><div class="line">查看tar.gz包内文件</div><div class="line">tar -ztvf file.tar.gz</div></pre></td></tr></table></figure></p>
+<p>scp命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scp不是标准输出，没有办法重定向输出日志,通过下面命令获取日志</div><div class="line">script <span class="_">-a</span> /tmp/scp.log -q -c <span class="string">"scp -r /data/weblogic/autodeploy/App/back 10.0.3.66:/home/weblogic/App"</span></div><div class="line"></div><div class="line">scp -q选项不显示传输进度条，不能跟上面命令结合使用</div><div class="line"></div><div class="line">执行远端机器上命令</div><div class="line">ssh -t -p <span class="variable">$port</span> <span class="variable">$user</span>@<span class="variable">$ip</span>  <span class="string">'cmd'</span></div></pre></td></tr></table></figure></p>
+<p>VIM<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令模式</div><div class="line">:.,+5s/^/<span class="comment">#&amp;/</span></div></pre></td></tr></table></figure></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/07/命令/" data-id="cj40uprnt001geerill90c4ec" class="article-share-link" data-share="baidu" data-title="命令">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/07/命令/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/命令/">命令</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 </section>

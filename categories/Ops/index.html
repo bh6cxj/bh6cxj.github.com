@@ -78,86 +78,179 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/23/ansible+ssh代理/" class="archive-article-date">
-  <time datetime="2015-11-23T02:22:17.000Z" itemprop="datePublished">11-23</time>
+    <article id="post-ansible+ssh代理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/23/ansible+ssh代理/" class="article-date">
+  <time datetime="2015-11-23T02:22:17.000Z" itemprop="datePublished">2015-11-23</time>
 </a>
-<!-- <a href="/2015/11/23/ansible+ssh代理/" class="archive-article-date">
-  <time datetime="2015-11-23T02:22:17.000Z" itemprop="datePublished">11月 23</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ops/">Ops</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/23/ansible+ssh代理/">ansible+ssh代理</a>
+      <a class="article-title" href="/2015/11/23/ansible+ssh代理/">ansible+ssh代理</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接用跳板机iptables做端口DNAT,ansible通过跳板机不同端口访问不同主机的时候两台机器只有一个执行成功，并且ansible_ssh_port的优先级好像更高。由于这种方法不能管理全部机器，所以通过ssh代理的方法来实现。<br>ssh配置文件 ~/.ssh/config</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/11/23/ansible+ssh代理/#more">阅读全文</a>
+          </p>
+        
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/23/ansible+ssh代理/" data-id="cj40uprmy000beeriw71f700v" class="article-share-link" data-share="baidu" data-title="ansible+ssh代理">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/23/ansible+ssh代理/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/04/统计每天流量/" class="archive-article-date">
-  <time datetime="2015-11-04T09:21:53.000Z" itemprop="datePublished">11-04</time>
+    <article id="post-统计每天流量" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/04/统计每天流量/" class="article-date">
+  <time datetime="2015-11-04T09:21:53.000Z" itemprop="datePublished">2015-11-04</time>
 </a>
-<!-- <a href="/2015/11/04/统计每天流量/" class="archive-article-date">
-  <time datetime="2015-11-04T09:21:53.000Z" itemprop="datePublished">11月 4</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ops/">Ops</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/04/统计每天流量/">统计每天流量</a>
+      <a class="article-title" href="/2015/11/04/统计每天流量/">统计每天流量</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>通过/proc/net/dev或者ifconfig查看网卡的所有流量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/cat /proc/net/dev |grep eth5|awk <span class="string">'&#123; print $1,$9&#125;'</span>|awk -F<span class="string">' |:'</span> <span class="string">'&#123; print $2,$3&#125;'</span> &gt; ~/script/netIO/tmp/`date +%Y-%m-%d`.tmp</div></pre></td></tr></table></figure>
+<p>通过此命令加入crontab来生成临时文件<br>把下面脚本加入crontab来计算每天的流量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">DirPath=/root/script/netIO</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 5 </div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 6 </div><div class="line"></div><div class="line">R1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">R0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">T1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line">T0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line"></div><div class="line">R=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$R1</span>-<span class="variable">$R0</span>)/1024/1024"</span>|bc`</div><div class="line">T=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$T1</span>-<span class="variable">$T0</span>)/1024/1024"</span>|bc`</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt ] || touch <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"从`date --date='1 days ago' +%Y-%m-%d`凌晨开始24小时流量统计："</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Incoming: "</span><span class="variable">$R</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Outgoing: "</span><span class="variable">$T</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div></pre></td></tr></table></figure></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/04/统计每天流量/" data-id="cj40upro90022eeri16318kaw" class="article-share-link" data-share="baidu" data-title="统计每天流量">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/04/统计每天流量/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/流量/">流量</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/04/PM2简介/" class="archive-article-date">
-  <time datetime="2015-11-04T02:22:17.000Z" itemprop="datePublished">11-04</time>
+    <article id="post-PM2简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/04/PM2简介/" class="article-date">
+  <time datetime="2015-11-04T02:22:17.000Z" itemprop="datePublished">2015-11-04</time>
 </a>
-<!-- <a href="/2015/11/04/PM2简介/" class="archive-article-date">
-  <time datetime="2015-11-04T02:22:17.000Z" itemprop="datePublished">11月 4</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Ops/">Ops</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/04/PM2简介/">PM2简介</a>
+      <a class="article-title" href="/2015/11/04/PM2简介/">PM2简介</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>安装<br>npm install -g pm2</p>
+<p>用法<br>$ npm install pm2 -g     # 命令行安装 pm2<br>$ pm2 start app.js -i 4 #后台运行pm2，启动4个app.js </p>
+<pre><code># 也可以把&apos;max&apos; 参数传递给 start
+# 正确的进程数目依赖于Cpu的核心数目
+</code></pre><p>$ pm2 start app.js –name my-api # 命名进程<br>$ pm2 list               # 显示所有进程状态<br>$ pm2 monit              # 监视所有进程<br>$ pm2 logs               #  显示所有进程日志<br>$ pm2 stop all           # 停止所有进程<br>$ pm2 restart all        # 重启所有进程<br>$ pm2 reload all         # 0秒停机重载进程 (用于 NETWORKED 进程)<br>$ pm2 stop 0             # 停止指定的进程<br>$ pm2 restart 0          # 重启指定的进程<br>$ pm2 startup            # 产生 init 脚本 保持进程活着<br>$ pm2 web                # 运行健壮的 computer API endpoint (<a href="http://localhost:9615" target="_blank" rel="external">http://localhost:9615</a>)<br>$ pm2 delete 0           # 杀死指定的进程<br>$ pm2 delete all         # 杀死全部进程</p>
+<p>运行进程的不同方式：<br>$ pm2 start app.js -i max  # 根据有效CPU数目启动最大进程数目<br>$ pm2 start app.js -i 3      # 启动3个进程<br>$ pm2 start app.js -x        #用fork模式启动 app.js 而不是使用 cluster<br>$ pm2 start app.js -x – -a 23   # 用fork模式启动 app.js 并且传递参数 (-a 23)<br>$ pm2 start app.js –name serverone  # 启动一个进程并把它命名为 serverone<br>$ pm2 stop serverone       # 停止 serverone 进程<br>$ pm2 start app.json        # 启动进程, 在 app.json里设置选项<br>$ pm2 start app.js -i max – -a 23                   #在–之后给 app.js 传递参数<br>$ pm2 start app.js -i max -e err.log -o out.log  # 启动 并 生成一个配置文件<br>你也可以执行用其他语言编写的app  ( fork 模式):<br>$ pm2 start my-bash-script.sh    -x –interpreter bash<br>$ pm2 start my-python-script.py -x –interpreter python</p>
+<p>0秒停机重载:<br>这项功能允许你重新载入代码而不用失去请求连接。<br>注意：<br>仅能用于web应用<br>运行于Node 0.11.x版本<br>运行于 cluster 模式（默认模式）<br>$ pm2 reload all</p>
+<p>CoffeeScript:<br>$ pm2 start my_app.coffee  #这就是全部</p>
+<p>PM2准备好为产品级服务了吗？<br>只需在你的服务器上测试<br>$ git clone <a href="https://github.com/Unitech/pm2.git" target="_blank" rel="external">https://github.com/Unitech/pm2.git</a><br>$ cd pm2<br>$ npm install  # 或者 npm install –dev ，如果devDependencies 没有安装<br>$ npm test</p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/04/PM2简介/" data-id="cj40uprmt0006eerijy0w61w1" class="article-share-link" data-share="baidu" data-title="PM2简介">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/04/PM2简介/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PM2/">PM2</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 </section>

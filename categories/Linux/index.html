@@ -78,247 +78,585 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/31/tengine安装脚本/" class="archive-article-date">
-  <time datetime="2015-12-31T02:22:17.000Z" itemprop="datePublished">12-31</time>
+    <article id="post-tengine安装脚本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/31/tengine安装脚本/" class="article-date">
+  <time datetime="2015-12-31T02:22:17.000Z" itemprop="datePublished">2015-12-31</time>
 </a>
-<!-- <a href="/2015/12/31/tengine安装脚本/" class="archive-article-date">
-  <time datetime="2015-12-31T02:22:17.000Z" itemprop="datePublished">12月 31</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/31/tengine安装脚本/">tengine安装脚本</a>
+      <a class="article-title" href="/2015/12/31/tengine安装脚本/">tengine安装脚本</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WORKPATH=<span class="string">'tengine-2.1.2'</span></div><div class="line">BASEPATH=<span class="string">'tengine'</span></div><div class="line">EPELSOURCE=<span class="string">'http://mirrors.ustc.edu.cn/centos/6.7/extras/x86_64/Packages/epel-release-6-8.noarch.rpm'</span></div><div class="line"></div><div class="line">[ `yum repolist |grep epel` ] || rpm -Uvh <span class="variable">$&#123;EPELSOURCE&#125;</span></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;BASEPATH&#125;</span> ] || mkdir <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;BASEPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;BASEPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">yum install -y pcre pcre-devel openssl openssl-devel jemalloc-devel</div><div class="line">[ <span class="_">-f</span> <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz ] || wget http://tengine.taobao.org/download/<span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-f</span> ngx_cache_purge-2.1.tar.gz ] || wget http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;WORKPATH&#125;</span> ] || tar xf <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-d</span> ngx_cache_purge-2.1 ] || tar xf ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;WORKPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;WORKPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;WORKPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">./configure --prefix=/etc/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-jemalloc --with-http_concat_module --add-module=../ngx_cache_purge-2.1</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/31/tengine安装脚本/" data-id="cj40uprnk0013eeriq7r4fn02" class="article-share-link" data-share="baidu" data-title="tengine安装脚本">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/31/tengine安装脚本/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/28/监控网站URL脚本/" class="archive-article-date">
-  <time datetime="2015-12-28T02:22:17.000Z" itemprop="datePublished">12-28</time>
+    <article id="post-监控网站URL脚本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/28/监控网站URL脚本/" class="article-date">
+  <time datetime="2015-12-28T02:22:17.000Z" itemprop="datePublished">2015-12-28</time>
 </a>
-<!-- <a href="/2015/12/28/监控网站URL脚本/" class="archive-article-date">
-  <time datetime="2015-12-28T02:22:17.000Z" itemprop="datePublished">12月 28</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/28/监控网站URL脚本/">监控网站URL脚本</a>
+      <a class="article-title" href="/2015/12/28/监控网站URL脚本/">监控网站URL脚本</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先上脚本</p>
+<p>虽然后来没怎么用<br>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/28/监控网站URL脚本/#more">阅读全文</a>
+          </p>
+        
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/28/监控网站URL脚本/" data-id="cj40upro6001weeri1amwsf4h" class="article-share-link" data-share="baidu" data-title="监控网站URL脚本">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/28/监控网站URL脚本/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/25/shell备忘/" class="archive-article-date">
-  <time datetime="2015-12-25T02:22:17.000Z" itemprop="datePublished">12-25</time>
+    <article id="post-shell备忘" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/25/shell备忘/" class="article-date">
+  <time datetime="2015-12-25T02:22:17.000Z" itemprop="datePublished">2015-12-25</time>
 </a>
-<!-- <a href="/2015/12/25/shell备忘/" class="archive-article-date">
-  <time datetime="2015-12-25T02:22:17.000Z" itemprop="datePublished">12月 25</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/25/shell备忘/">shell备忘</a>
+      <a class="article-title" href="/2015/12/25/shell备忘/">shell备忘</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="清空文件"><a href="#清空文件" class="headerlink" title="清空文件"></a>清空文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/null &gt; file</div><div class="line"><span class="built_in">echo</span> &gt; file</div><div class="line">:&gt; file</div><div class="line">&gt; file</div></pre></td></tr></table></figure>
+<h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">是否是root用户</div><div class="line">[ <span class="variable">$UID</span> <span class="_">-eq</span> 0 ] || &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Pls change root."</span> &gt;2&amp;</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_NOROOT</span>;  <span class="comment">#设置E_NROOT退出值</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/25/shell备忘/#more">阅读全文</a>
+          </p>
+        
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/25/shell备忘/" data-id="cj40uprnf000veerinw1e9m09" class="article-share-link" data-share="baidu" data-title="shell备忘">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/25/shell备忘/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/24/自动生成ansible增量发布配置文件脚本/" class="archive-article-date">
-  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">12-24</time>
+    <article id="post-自动生成ansible增量发布配置文件脚本" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/24/自动生成ansible增量发布配置文件脚本/" class="article-date">
+  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">2015-12-24</time>
 </a>
-<!-- <a href="/2015/12/24/自动生成ansible增量发布配置文件脚本/" class="archive-article-date">
-  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">12月 24</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/24/自动生成ansible增量发布配置文件脚本/">自动生成ansible增量发布配置文件脚本</a>
+      <a class="article-title" href="/2015/12/24/自动生成ansible增量发布配置文件脚本/">自动生成ansible增量发布配置文件脚本</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">datetag=`date +%Y%m%d`</div><div class="line">pathfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/files/<span class="variable">$&#123;datetag&#125;</span>/path.txt"</span></div><div class="line">mainfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/tasks/main.yml"</span></div><div class="line">backpath=/opt/<span class="variable">$&#123;datetag&#125;</span></div><div class="line">opts=<span class="variable">$1</span></div><div class="line">resuser=root</div><div class="line">wwwuser=i8xiaoshi</div><div class="line">E_ERR_ARG=60</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="title">helpinfo</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Usage: `basename <span class="variable">$0</span>`  &lt;res|www&gt; &lt;push|back|restore&gt;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">pubconf</span></span>() &#123;</div><div class="line">    sed -i <span class="string">'s/^[^#]/#&amp;/'</span> <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"- name: <span class="variable">$&#123;datetag&#125;</span> increment update"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">	<span class="built_in">echo</span> <span class="string">"  shell: '[ -d <span class="variable">$&#123;backpath&#125;</span> ] || mkdir <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line">    <span class="keyword">while</span> <span class="built_in">read</span> line</div><div class="line">    <span class="keyword">do</span></div><div class="line">	file=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">"[^/]*$"</span>`</div><div class="line">	filepath=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">".*/"</span>`</div><div class="line">        respath=/web/res/online/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        wwwpath=/opt/web/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        destpath=<span class="variable">$&#123;opts&#125;</span>path</div><div class="line">        fileowner=<span class="variable">$&#123;opts&#125;</span>user</div><div class="line">        <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"push"</span> ];<span class="keyword">then</span></div><div class="line">	     <span class="built_in">echo</span> <span class="string">"  copy: 'src=<span class="variable">$&#123;datetag&#125;</span>/<span class="variable">$&#123;file&#125;</span> dest=<span class="variable">$&#123;!destpath&#125;</span> owner=<span class="variable">$&#123;!fileowner&#125;</span> group=<span class="variable">$&#123;!fileowner&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;!destpath&#125;</span><span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;backpath&#125;</span>/<span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;!destpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">    <span class="keyword">done</span> &lt; <span class="variable">$&#123;pathfile&#125;</span></div><div class="line">    <span class="comment">#更新 windows下编辑后的文档行尾换行符去掉 </span></div><div class="line">是按着ctrl 然后按v + m打出来</div><div class="line">    sed -i <span class="string">'s/</span></div><div class="line">//g' <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="_">-ne</span> 2 ];<span class="keyword">then</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"res"</span> -o <span class="variable">$1</span> == <span class="string">"www"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$2</span> == <span class="string">"push"</span> -o <span class="variable">$2</span> == <span class="string">"back"</span> -o <span class="variable">$2</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">	pubconf <span class="variable">$2</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        helpinfo</div><div class="line">        <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">path.txt文件一行一个发布文件路径+文件名，路径是相对于环境的路径</div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/" data-id="cj40uprod0028eerirpoddbg1" class="article-share-link" data-share="baidu" data-title="自动生成ansible增量发布配置文件脚本">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/24/shell嵌套引用变量/" class="archive-article-date">
-  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">12-24</time>
+    <article id="post-shell嵌套引用变量" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/24/shell嵌套引用变量/" class="article-date">
+  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">2015-12-24</time>
 </a>
-<!-- <a href="/2015/12/24/shell嵌套引用变量/" class="archive-article-date">
-  <time datetime="2015-12-24T02:22:17.000Z" itemprop="datePublished">12月 24</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/24/shell嵌套引用变量/">shell嵌套引用变量</a>
+      <a class="article-title" href="/2015/12/24/shell嵌套引用变量/">shell嵌套引用变量</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>shell中想要嵌套引用变量，下面这样是不行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;$&#123;xyz&#125;</span>abc&#125;"</span></div></pre></td></tr></table></figure></p>
+<p>可以用这种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line">show=<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;!show&#125;</span>"</span> <span class="comment">#显示真正想要的true_value</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;show&#125;</span>"</span>  <span class="comment">#将显示myabc</span></div></pre></td></tr></table></figure></p>
+<p>后来在abs上看到原来是间接引用，还有一种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line"><span class="built_in">eval</span> show=\$<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="variable">$show</span></div></pre></td></tr></table></figure></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/24/shell嵌套引用变量/" data-id="cj40uprng000zeerin0cehsih" class="article-share-link" data-share="baidu" data-title="shell嵌套引用变量">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/24/shell嵌套引用变量/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/12/02/centos连接vpn/" class="archive-article-date">
-  <time datetime="2015-12-02T08:35:27.000Z" itemprop="datePublished">12-02</time>
+    <article id="post-centos连接vpn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/02/centos连接vpn/" class="article-date">
+  <time datetime="2015-12-02T08:35:27.000Z" itemprop="datePublished">2015-12-02</time>
 </a>
-<!-- <a href="/2015/12/02/centos连接vpn/" class="archive-article-date">
-  <time datetime="2015-12-02T08:35:27.000Z" itemprop="datePublished">12月 2</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/12/02/centos连接vpn/">centos连接vpn</a>
+      <a class="article-title" href="/2015/12/02/centos连接vpn/">centos连接vpn</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="安装ppp-pptp-pptp-setup"><a href="#安装ppp-pptp-pptp-setup" class="headerlink" title="安装ppp pptp pptp-setup"></a>安装ppp pptp pptp-setup</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install ppp pptp pptp-setup</div></pre></td></tr></table></figure>
+<h4 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> pptpsetup --create <span class="built_in">test</span> --server ip地址 --username <span class="built_in">test</span> --password <span class="built_in">test</span> --start</div><div class="line"></div><div class="line">如果报以下错误：</div><div class="line">FATAL: Module ppp_mppe not found.</div><div class="line">/usr/sbin/pptpsetup: couldn<span class="string">'t find MPPE support in kernel.</div><div class="line">解决方法：</div><div class="line"># modprobe ppp_mppe</div><div class="line">桌面环境下连接不上，可能需要</div><div class="line">#modprobe ip_gre</span></div></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/02/centos连接vpn/#more">阅读全文</a>
+          </p>
+        
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/12/02/centos连接vpn/" data-id="cj40uprn4000eeerizvhdpj4y" class="article-share-link" data-share="baidu" data-title="centos连接vpn">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/12/02/centos连接vpn/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" class="archive-article-date">
-  <time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished">11-19</time>
+    <article id="post-阿里云VPS搭建keepalived主备同时都有VIP" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" class="article-date">
+  <time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished">2015-11-19</time>
 </a>
-<!-- <a href="/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" class="archive-article-date">
-  <time datetime="2015-11-18T16:00:00.000Z" itemprop="datePublished">11月 19</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/">阿里云VPS搭建keepalived主备同时都有VIP</a>
+      <a class="article-title" href="/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/">阿里云VPS搭建keepalived主备同时都有VIP</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>日志<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Configuration is using : 7642 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Configuration is using : 67675 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering BACKUP STATE</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP sockpool: [ifindex(2), proto(112), unicast(0), fd(10,11)]</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_mantaince_down) succeeded</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div><div class="line">Nov 17 18:06:46 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) failed</div><div class="line">Nov 17 18:06:49 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Transition to MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) setting protocol VIPs.</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Sending gratuitous ARPs on eth0 <span class="keyword">for</span> 192.168.93.100</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Netlink reflector reports IP 192.168.93.100 added</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div></pre></td></tr></table></figure></p>
+<p>出现这问题的场景是在阿里VPS云服务器网络环境中，因为路由交换层禁用了ARP的广播限制，造成KEEPALIVE主备协议无法通过广播的方式进行通信，造成主备两台服务器都强占HAVIP地址，出现同时两台服务器都有VIP地址的情况出现，必须通过配置来指定IP的两台服务器间进行通讯（阿里说明文档中解释只能支持两台使用同一个HAVIP地址），基于以下方法可以的情况下，多备方式用同样的方式也应该可行 ，有需要的兄弟可以测试下多IP备的方式（正常情况需要主备一对主备就够了）。<br>在网卡配置后面需要加上以下配置：</p>
+<pre><code>priority 100  ##主服务100 备服务90只要小于100就可以
+unicast_src_ip  192.168.1.21##（本地IP地址）
+unicast_peer {
+              192.168.1.22##（对端IP地址）此地址一定不能忘记
+                   }
+</code></pre>
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" data-id="cj40uproh002geerir6w4o1lo" class="article-share-link" data-share="baidu" data-title="阿里云VPS搭建keepalived主备同时都有VIP">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/阿里云/">阿里云</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/09/scp拷贝失败/" class="archive-article-date">
-  <time datetime="2015-11-09T03:59:07.000Z" itemprop="datePublished">11-09</time>
+    <article id="post-scp拷贝失败" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/09/scp拷贝失败/" class="article-date">
+  <time datetime="2015-11-09T03:59:07.000Z" itemprop="datePublished">2015-11-09</time>
 </a>
-<!-- <a href="/2015/11/09/scp拷贝失败/" class="archive-article-date">
-  <time datetime="2015-11-09T03:59:07.000Z" itemprop="datePublished">11月 9</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/09/scp拷贝失败/">scp拷贝失败</a>
+      <a class="article-title" href="/2015/11/09/scp拷贝失败/">scp拷贝失败</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考：<a href="http://www.tuicool.com/articles/AjM7ju">http://www.tuicool.com/articles/AjM7ju</a></p>
+<p>失败原因，直接复制上面文章的<br>scp使用SSH连接，在两台服务器 之间通过一些特特殊的协议消息控制源端与宿端的数据传输。在实际数据传输前，源端需要先向宿端传输协议文本，协议文本传输结束 后，再向宿端传递字符’\0′来表示真正文件传 输的开始。当文件接收完成后，宿端会给源端发送一个’\0′表示文件传输结 束。然后而ssh login远程服 务器时，会source ~/.bashrc和/etc/bashrc文 件，所以当在 ~/.bashrc或/etc/bashrc执 行过程中产生了任何内容输出时，scp会把这些echo回来的东西认作协 议包进行解析，遇到’\0′则会当成表示传输 失败的错误信息，然后exit 1。</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/11/09/scp拷贝失败/#more">阅读全文</a>
+          </p>
+        
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/09/scp拷贝失败/" data-id="cj40uprna000meeriu7dydgdz" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/09/scp拷贝失败/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scp/">scp</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/11/03/小型局域网内部自用域名dnsmasq配置/" class="archive-article-date">
-  <time datetime="2015-11-03T09:06:27.000Z" itemprop="datePublished">11-03</time>
+    <article id="post-小型局域网内部自用域名dnsmasq配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/03/小型局域网内部自用域名dnsmasq配置/" class="article-date">
+  <time datetime="2015-11-03T09:06:27.000Z" itemprop="datePublished">2015-11-03</time>
 </a>
-<!-- <a href="/2015/11/03/小型局域网内部自用域名dnsmasq配置/" class="archive-article-date">
-  <time datetime="2015-11-03T09:06:27.000Z" itemprop="datePublished">11月 3</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/03/小型局域网内部自用域名dnsmasq配置/">小型局域网内部自用域名dnsmasq配置</a>
+      <a class="article-title" href="/2015/11/03/小型局域网内部自用域名dnsmasq配置/">小型局域网内部自用域名dnsmasq配置</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>新公司的内部测试环境有十几个域名做内部地址的解析用，原打算使用BIND来做。<br>装上去BIND之后去配置zone文件时就醉了，文件有点多，一个一个写太累了，写个脚本又不想写。请教了帅帅之后使用了dnsmasq</p>
+<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum install -y dnsmasq</span></div></pre></td></tr></table></figure>
+<h3 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">修改监听地址，127只监听本地，本机IP来监听所有地址</div><div class="line">listen-address=192.168.1.5,127.0.0.1</div><div class="line">设置上游DNS服务器</div><div class="line">resolv-file=/etc/resolv.conf</div><div class="line"> </div><div class="line"><span class="comment">#国内指定DNS</span></div><div class="line">server=/cn/114.114.114.114</div><div class="line">server=/taobao.com/114.114.114.114</div><div class="line">server=/taobaocdn.com/114.114.114.114</div><div class="line"><span class="comment">#国外指定DNS</span></div><div class="line">server=/google.com/223.5.5.5</div><div class="line"></div><div class="line">屏蔽广告</div><div class="line">address=/ad.youku.com/127.0.0.1</div><div class="line">address=/ad.iqiyi.com/127.0.0.1</div><div class="line"></div><div class="line">设置本地与解析的域名</div><div class="line">address=/bh4cxj.com/192.168.1.11</div><div class="line">泛解析</div><div class="line">address=/.bh4cxj.xyz/192.168.1.33</div></pre></td></tr></table></figure>
+<h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service dnsmasq start</div><div class="line">chkconfig dnsmasq on</div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/" data-id="cj40uprnx001meerinpb9s3tl" class="article-share-link" data-share="baidu" data-title="小型局域网内部自用域名dnsmasq配置">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/26/树莓派安装kali-2-0-1/" class="archive-article-date">
-  <time datetime="2015-10-26T13:31:58.000Z" itemprop="datePublished">10-26</time>
+    <article id="post-树莓派安装kali-2-0-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/26/树莓派安装kali-2-0-1/" class="article-date">
+  <time datetime="2015-10-26T13:31:58.000Z" itemprop="datePublished">2015-10-26</time>
 </a>
-<!-- <a href="/2015/10/26/树莓派安装kali-2-0-1/" class="archive-article-date">
-  <time datetime="2015-10-26T13:31:58.000Z" itemprop="datePublished">10月 26</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/26/树莓派安装kali-2-0-1/">树莓派安装kali 2.0.1</a>
+      <a class="article-title" href="/2015/10/26/树莓派安装kali-2-0-1/">树莓派安装kali 2.0.1</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <h3 id="1-安装到SD卡"><a href="#1-安装到SD卡" class="headerlink" title="1.安装到SD卡"></a>1.安装到SD卡</h3><p>首先从Kali官网下载树莓派1代的镜像。检查SHA1Sum之后解压kali-2.0.1-rpi.img.xz,通过Win32DiskImager安装系统到microSD卡中</p>
+<h3 id="2-ssh登陆"><a href="#2-ssh登陆" class="headerlink" title="2.ssh登陆"></a>2.ssh登陆</h3><p>安装好之后，将SD卡插在树莓派上，接上网线、电源启动树莓派，然后从路由器查看树莓派的IP，或者通过nmap查找到。通过ssh连接树莓派，Kali 2.0.1的默认密码是toor。</p>
+<h3 id="3-修改网络配置"><a href="#3-修改网络配置" class="headerlink" title="3.修改网络配置"></a>3.修改网络配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/network/interfaces</span></div><div class="line"><span class="comment">#内容修改为下面这样，以方便树莓派在不同的网络中ssh连接</span></div><div class="line">auto lo</div><div class="line">iface lo inet loopback</div><div class="line"></div><div class="line">auto eth0</div><div class="line">iface eth0 inet dhcp</div><div class="line"></div><div class="line">auto eth0:0</div><div class="line">iface eth0:0 inet static</div><div class="line">address 192.168.137.10</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.137.0</div><div class="line">broadcast 192.168.137.255</div><div class="line">gateway 192.168.137.1</div><div class="line"></div><div class="line">auto eth0:1</div><div class="line">iface eth0:1 inet static</div><div class="line">address 192.168.1.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.1.0</div><div class="line">broadcast 192.168.1.255</div><div class="line">gateway 192.168.1.1</div><div class="line"></div><div class="line">auto eth0:2</div><div class="line">iface eth0:2 inet static</div><div class="line">address 192.168.0.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.0.0</div><div class="line">broadcast 192.168.0.255</div><div class="line">gateway 192.168.0.1</div><div class="line"></div><div class="line"><span class="comment">#重启网络服务</span></div><div class="line"><span class="comment">#/etc/init.d/networking restart</span></div></pre></td></tr></table></figure>
+<h3 id="4-使用所有空间"><a href="#4-使用所有空间" class="headerlink" title="4.使用所有空间"></a>4.使用所有空间</h3><p>我用的是16G的SD卡，安装系统之后，df查看了下分区，发现只有7G左右的空间被使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># fdisk -l</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/part1.png" alt="查看分区使用"><br>发现只有一部分磁盘被使用，把未使用的空间分区格式化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># fdisk /dev/mmcblk0</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/part2.png" alt="新建主分区"></p>
+<p>查看现有分区的文件系统<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># parted /dev/mmcblk0</span></div><div class="line">然后输入<span class="built_in">print</span> list</div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/format1.png" alt="查看分区文件系统"></p>
+<p>使新创建的分区在系统中立即生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#partprobe</span></div></pre></td></tr></table></figure></p>
+<p>格式化新分区<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># mke2fs -t ext4 /dev/mmcblk0p3</span></div></pre></td></tr></table></figure></p>
+<p>为新分区创建挂载点，/home目录为空，可以挂载在这里<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/fstab</span></div><div class="line"><span class="comment">#添加一行</span></div><div class="line">/dev/mmcblk0p3 /home ext4 defaults 1 2</div><div class="line"></div><div class="line"><span class="comment">#挂载</span></div><div class="line"><span class="comment">#mount -a</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/mount.png" alt="挂载完成"><br>到此就完成了挂载未使用的SD卡空间</p>
+<h3 id="5-设置ngrok开机启动"><a href="#5-设置ngrok开机启动" class="headerlink" title="5.设置ngrok开机启动"></a>5.设置ngrok开机启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/rc.local</span></div><div class="line"><span class="comment">#在exit前添加一行</span></div><div class="line">/root/script/ngrok/ngrok -config /root/script/ngrok/ngrok.cfg start ssh</div></pre></td></tr></table></figure>
+<h3 id="6-更改源"><a href="#6-更改源" class="headerlink" title="6.更改源"></a>6.更改源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/apt/sources.list</span></div><div class="line"><span class="comment">#注释掉原来的源，添加阿里源</span></div><div class="line">deb http://mirrors.aliyun.com/kali kali main non-free contrib</div><div class="line">deb-src http://mirrors.aliyun.com/kali kali main non-free contrib</div><div class="line">deb http://mirrors.aliyun.com/kali-security kali/updates main contrib non-free</div><div class="line"></div><div class="line"><span class="comment">#启用更新源</span></div><div class="line"><span class="comment">#apt-get update</span></div></pre></td></tr></table></figure>
+<h3 id="7-安装VNC"><a href="#7-安装VNC" class="headerlink" title="7.安装VNC"></a>7.安装VNC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apt-get intstall tightvncserver</span></div><div class="line"></div><div class="line"><span class="comment">#启动vncserver</span></div><div class="line"><span class="comment">#vncserver :1</span></div><div class="line"><span class="comment">#设置密码后对5901端口转发</span></div></pre></td></tr></table></figure>
+<p>使用vnc感觉速度特别慢，所以尝试使用xrdp</p>
+<h3 id="8-安装xrdp"><a href="#8-安装xrdp" class="headerlink" title="8.安装xrdp"></a>8.安装xrdp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apt-get install xrdp</span></div><div class="line"><span class="comment">#修改端口</span></div><div class="line"><span class="comment">#vi /etc/xrdp/xrdp.ini</span></div><div class="line"><span class="comment">#重启服务</span></div><div class="line"><span class="comment">#xrdp -kill</span></div><div class="line"><span class="comment">#xrdp</span></div><div class="line"><span class="comment">#使用ngrok转发,在Windows下使用mstsc，访问xxx.com:port</span></div></pre></td></tr></table></figure>
+<h3 id="9-设置开机不启动桌面"><a href="#9-设置开机不启动桌面" class="headerlink" title="9.设置开机不启动桌面"></a>9.设置开机不启动桌面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/X11/default-display-manager</span></div><div class="line"><span class="comment">#里面内容为：</span></div><div class="line">/usr/sbin/lightdm</div><div class="line"><span class="comment">#改为false,重启</span></div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/" data-id="cj40upro2001teerirwf5ndlx" class="article-share-link" data-share="baidu" data-title="树莓派安装kali 2.0.1">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kali/">Kali</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 

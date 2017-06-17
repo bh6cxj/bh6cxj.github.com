@@ -78,63 +78,123 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/09/28/Git笔记-二/" class="archive-article-date">
-  <time datetime="2015-09-28T06:34:27.000Z" itemprop="datePublished">09-28</time>
+    <article id="post-Git笔记-二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/28/Git笔记-二/" class="article-date">
+  <time datetime="2015-09-28T06:34:27.000Z" itemprop="datePublished">2015-09-28</time>
 </a>
-<!-- <a href="/2015/09/28/Git笔记-二/" class="archive-article-date">
-  <time datetime="2015-09-28T06:34:27.000Z" itemprop="datePublished">9月 28</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/09/28/Git笔记-二/">Git笔记(二)</a>
+      <a class="article-title" href="/2015/09/28/Git笔记-二/">Git笔记(二)</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <h2 id="1-查看提交日志"><a href="#1-查看提交日志" class="headerlink" title="1.查看提交日志."></a>1.查看提交日志.</h2><h3 id="git-log命令从最近到最远的提交日志。git-log-–pretty-oneline简化显示"><a href="#git-log命令从最近到最远的提交日志。git-log-–pretty-oneline简化显示" class="headerlink" title="git log命令从最近到最远的提交日志。git log –pretty=oneline简化显示"></a>git log命令从最近到最远的提交日志。git log –pretty=oneline简化显示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p><img src="/img/git/git2/log.png" alt="git log"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span> --pretty=oneline</div></pre></td></tr></table></figure></p>
+<p><img src="/img/git/git2/log pretty.png" alt="git log pretty"></p>
+<h2 id="2-版本退回"><a href="#2-版本退回" class="headerlink" title="2.版本退回"></a>2.版本退回</h2><h3 id="HEAD-表示当前版本，-HEAD-表示上一个版本，HEAD-表示上上一个版本……HEAD-100表示往上100个版本。"><a href="#HEAD-表示当前版本，-HEAD-表示上一个版本，HEAD-表示上上一个版本……HEAD-100表示往上100个版本。" class="headerlink" title="HEAD 表示当前版本， HEAD^ 表示上一个版本，HEAD^^表示上上一个版本……HEAD~100表示往上100个版本。"></a>HEAD 表示当前版本， HEAD^ 表示上一个版本，HEAD^^表示上上一个版本……HEAD~100表示往上100个版本。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 退回上一个版本</span></div><div class="line">$ git reset --hard HEAD^</div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/09/28/Git笔记-二/" data-id="cj40uprmm0004eeri86asn52g" class="article-share-link" data-share="baidu" data-title="Git笔记(二)">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/09/28/Git笔记-二/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/09/28/Git笔记/" class="archive-article-date">
-  <time datetime="2015-09-28T02:17:52.000Z" itemprop="datePublished">09-28</time>
+    <article id="post-Git笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/28/Git笔记/" class="article-date">
+  <time datetime="2015-09-28T02:17:52.000Z" itemprop="datePublished">2015-09-28</time>
 </a>
-<!-- <a href="/2015/09/28/Git笔记/" class="archive-article-date">
-  <time datetime="2015-09-28T02:17:52.000Z" itemprop="datePublished">9月 28</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/09/28/Git笔记/">Git笔记</a>
+      <a class="article-title" href="/2015/09/28/Git笔记/">Git笔记</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <h2 id="1-创建git仓库"><a href="#1-创建git仓库" class="headerlink" title="1. 创建git仓库"></a>1. 创建git仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#创建本地文件夹</span></div><div class="line">$ mkdir mygit</div><div class="line">$ <span class="built_in">cd</span> mygit</div><div class="line"><span class="comment">#初始化</span></div><div class="line">$ git init</div></pre></td></tr></table></figure>
+<h2 id="2-设置全局库使用的邮箱和账户"><a href="#2-设置全局库使用的邮箱和账户" class="headerlink" title="2.设置全局库使用的邮箱和账户"></a>2.设置全局库使用的邮箱和账户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name <span class="string">"bh4cxj"</span></div><div class="line">$ git config --global user.name <span class="string">"bh4cxj@xxx.com"</span></div></pre></td></tr></table></figure>
+<h2 id="3-添加文件到仓库，实际就是把修改的文件添加到暂存区"><a href="#3-添加文件到仓库，实际就是把修改的文件添加到暂存区" class="headerlink" title="3.添加文件到仓库，实际就是把修改的文件添加到暂存区"></a>3.添加文件到仓库，实际就是把修改的文件添加到暂存区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add file.txt file1.txt ...</div></pre></td></tr></table></figure>
+<p><img src="/img/git/git1/add.jpg" alt="add"></p>
+<h2 id="4-查看仓库当前状态-获取被修改过的文件"><a href="#4-查看仓库当前状态-获取被修改过的文件" class="headerlink" title="4.查看仓库当前状态,获取被修改过的文件"></a>4.查看仓库当前状态,获取被修改过的文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git status</div></pre></td></tr></table></figure>
+<h2 id="5-对比查看文件的修改内容"><a href="#5-对比查看文件的修改内容" class="headerlink" title="5.对比查看文件的修改内容"></a>5.对比查看文件的修改内容</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff</div></pre></td></tr></table></figure>
+<h2 id="6-提交更改，实际就是把暂存区的所有内容提交到当前分支"><a href="#6-提交更改，实际就是把暂存区的所有内容提交到当前分支" class="headerlink" title="6.提交更改，实际就是把暂存区的所有内容提交到当前分支"></a>6.提交更改，实际就是把暂存区的所有内容提交到当前分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit -m <span class="string">"本次提交的说明"</span></div></pre></td></tr></table></figure>
+<p><img src="/img/git/git1/commit.jpg" alt="commit"></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/09/28/Git笔记/" data-id="cj40uprmp0005eerijvgetagq" class="article-share-link" data-share="baidu" data-title="Git笔记">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/09/28/Git笔记/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 </section>

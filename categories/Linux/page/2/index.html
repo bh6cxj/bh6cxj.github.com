@@ -78,109 +78,230 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/23/自建ngrok服务器/" class="archive-article-date">
-  <time datetime="2015-10-23T01:57:26.000Z" itemprop="datePublished">10-23</time>
+    <article id="post-自建ngrok服务器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/23/自建ngrok服务器/" class="article-date">
+  <time datetime="2015-10-23T01:57:26.000Z" itemprop="datePublished">2015-10-23</time>
 </a>
-<!-- <a href="/2015/10/23/自建ngrok服务器/" class="archive-article-date">
-  <time datetime="2015-10-23T01:57:26.000Z" itemprop="datePublished">10月 23</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/23/自建ngrok服务器/">自建ngrok服务器</a>
+      <a class="article-title" href="/2015/10/23/自建ngrok服务器/">自建ngrok服务器</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <h2 id="1-安装GO环境"><a href="#1-安装GO环境" class="headerlink" title="1.安装GO环境"></a>1.安装GO环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum install golang</span></div><div class="line"></div><div class="line"><span class="comment">##编译安装</span></div><div class="line"><span class="comment">#wget https://storage.googleapis.com/golang/go1.4.1.linux-386.tar.gz</span></div><div class="line"><span class="comment">#tar xf -C /usr/local/src go1.4.1.linux-386.tar.gz</span></div><div class="line"><span class="comment">#mkdir $HOME/go</span></div><div class="line"><span class="comment">#echo 'export GOROOT=/usr/local/src/go' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#echo 'export GOPATH=$HOME/go' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#source $HOME/.bashrc</span></div><div class="line"></div><div class="line"><span class="comment">##安装go get工具</span></div><div class="line"><span class="comment">#yum install mercurial bzr subversion</span></div></pre></td></tr></table></figure>
+<h2 id="2-安装ngrok"><a href="#2-安装ngrok" class="headerlink" title="2.安装ngrok"></a>2.安装ngrok</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src</span></div><div class="line"><span class="comment">#git clone https://github.com/inconshreveable/ngrok.git</span></div><div class="line"><span class="comment">#export GOPATH=/usr/local/src/ngrok</span></div><div class="line"><span class="comment">#export NGROK_DOMAIN='sksc.xyz'</span></div></pre></td></tr></table></figure>
+<h2 id="3-生成自签名SSL证书并编译"><a href="#3-生成自签名SSL证书并编译" class="headerlink" title="3.生成自签名SSL证书并编译"></a>3.生成自签名SSL证书并编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd ngrok</span></div><div class="line"><span class="comment">#openssl genrsa -out ngrok.key 2048</span></div><div class="line"><span class="comment">#openssl req -x509 -new -nodes -key ngrok.key -subj "/CN=$NGROK_DOMAIN" -days 5000 -out ngrok.pem</span></div><div class="line"><span class="comment">#openssl genrsa -out ngrokd.key 2048</span></div><div class="line"><span class="comment">#openssl req -new -key ngrokd.key -subj "/CN=$NGROK_DOMAIN" -out ngrokd.csr</span></div><div class="line"><span class="comment">#openssl x509 -req -in ngrokd.csr -CA ngrok.pem -CAkey ngrok.key -CAcreateserial -out ngrokd.crt -days 5000</span></div><div class="line"><span class="comment">#cp ngrok.pem assets/client/tls/ngrokroot.crt</span></div><div class="line"><span class="comment">#cp ngrokd.crt assets/server/tls/snakeoil.crt</span></div><div class="line"><span class="comment">#cp ngrokd.key assets/server/tls/snakeoil.key</span></div><div class="line"><span class="comment">#GOOS=Linux GOARCH=386</span></div><div class="line"><span class="comment">#make clean</span></div><div class="line"></div><div class="line"><span class="comment">##此时CentOS安装不成功，先升级git,默认是1.7.1</span></div><div class="line"><span class="comment">###1.导入证书</span></div><div class="line"><span class="comment"># rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt </span></div><div class="line"><span class="comment">###2.安装RPMForge源</span></div><div class="line"><span class="comment">#rpm -i http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm </span></div><div class="line"><span class="comment">###3.升级git</span></div><div class="line"><span class="comment">#yum --enablerepo=rpmforge-extras install git</span></div><div class="line"></div><div class="line"><span class="comment">##此时接着编译ngrok</span></div><div class="line"><span class="comment">#make release-server release-client</span></div></pre></td></tr></table></figure>
+<h2 id="4-后台启动"><a href="#4-后台启动" class="headerlink" title="4.后台启动"></a>4.后台启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#nohup bin/ngrokd -domain="$NGROK_DOMAIN" -httpAddr=":50000" -httpsAddr=":50001" &amp;</span></div><div class="line"><span class="comment">## 客户端安装好后http总是不能成功，3389可以,后来排查发现，$NGROK_DOMAIN变量的值为空，因为bash中途退出过，所以不用变量</span></div><div class="line"><span class="comment">#nohup bin/ngrokd -domain="sksc.xyz" -httpAddr=":50000" -httpsAddr=":50001" &amp;</span></div></pre></td></tr></table></figure>
+<h2 id="5-交叉编译Windows客户端-go1-5-1编译老不成功，换成1-4-1的可以了"><a href="#5-交叉编译Windows客户端-go1-5-1编译老不成功，换成1-4-1的可以了" class="headerlink" title="5.交叉编译Windows客户端,go1.5.1编译老不成功，换成1.4.1的可以了"></a>5.交叉编译Windows客户端,go1.5.1编译老不成功，换成1.4.1的可以了</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src/go/src</span></div><div class="line"><span class="comment">#GOOS=windows GOARCH=amd64 CGO_ENABLED=0 ./make.bash</span></div><div class="line"><span class="comment">#cd /usr/local/src/ngrok</span></div><div class="line"><span class="comment">#GOOS=windows GOARCH=amd64 make release-server release-client</span></div></pre></td></tr></table></figure>
+<h2 id="6-为树莓派编译客户端和服务端"><a href="#6-为树莓派编译客户端和服务端" class="headerlink" title="6.为树莓派编译客户端和服务端"></a>6.为树莓派编译客户端和服务端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src/go/src</span></div><div class="line"><span class="comment">#GOOS=linux GOARCH=arm CGO_ENABLED=0 ./make.bash</span></div><div class="line"><span class="comment">#cd /usr/local/src/ngrok</span></div><div class="line"><span class="comment">#GOOS=linux GOARCH=arm make release-server release-client</span></div></pre></td></tr></table></figure>
+<h5 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h5><p><img src="/img/ngrok/cmparch.png" alt="交叉编译可选平台"></p>
+<h2 id="7-在内网运行客户端"><a href="#7-在内网运行客户端" class="headerlink" title="7.在内网运行客户端"></a>7.在内网运行客户端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## ngrok.cfg的一个示例</span></div><div class="line">server_addr: <span class="string">"sksc.xyz:4443"</span></div><div class="line">trust_host_root_certs: <span class="literal">false</span></div><div class="line">tunnels:</div><div class="line">  http:</div><div class="line">    subdomain: <span class="string">"web"</span></div><div class="line">    proto:</div><div class="line">      http: <span class="string">"80"</span></div><div class="line"> </div><div class="line">  ssh:</div><div class="line">    remote_port: 2222</div><div class="line">    proto:</div><div class="line">      tcp: <span class="string">"22"</span></div><div class="line"></div><div class="line"><span class="comment">## 在Windows平台运行客户端</span></div><div class="line">ngrok.exe -config ngrok.cfg start http ssh</div><div class="line"></div><div class="line"><span class="comment">## 在树莓派运行客户端，在/etc/rc.local 文件exit前添加下面一句使其开机执行</span></div><div class="line">/home/pi/script/ngrok/ngrok -config /home/pi/script/ngrok/.ngrok start ssh 2&gt;&amp;1 /home/pi/script/ngrok/<span class="built_in">log</span></div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/10/23/自建ngrok服务器/" data-id="cj40uproe002beeriw29g4sz6" class="article-share-link" data-share="baidu" data-title="自建ngrok服务器">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/10/23/自建ngrok服务器/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网穿透/">内网穿透</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/08/sed使用总结（更新中-）/" class="archive-article-date">
-  <time datetime="2015-10-08T06:26:24.000Z" itemprop="datePublished">10-08</time>
+    <article id="post-sed使用总结（更新中-）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/08/sed使用总结（更新中-）/" class="article-date">
+  <time datetime="2015-10-08T06:26:24.000Z" itemprop="datePublished">2015-10-08</time>
 </a>
-<!-- <a href="/2015/10/08/sed使用总结（更新中-）/" class="archive-article-date">
-  <time datetime="2015-10-08T06:26:24.000Z" itemprop="datePublished">10月 8</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/08/sed使用总结（更新中-）/">sed使用总结（更新中...）</a>
+      <a class="article-title" href="/2015/10/08/sed使用总结（更新中-）/">sed使用总结（更新中...）</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 删除前几行</span></div><div class="line">$ sed -i <span class="string">'1,5d'</span> 1.txt</div><div class="line"><span class="comment"># 删除指定行到最后一行</span></div><div class="line">$ sed -i <span class="string">'10,$d'</span> 1.txt</div><div class="line"></div><div class="line">删除匹配行之外的行</div><div class="line"><span class="comment">#lscpu | sed '/CPU/!d'</span></div><div class="line"></div><div class="line"></div><div class="line">&#123;&#125;将一个地址嵌套在另一个地址中，或者在相同地址上应用多个命令</div><div class="line"><span class="comment">#lscpu | sed -n '/CPU/&#123;/MHz/d;p&#125;'</span></div><div class="line"></div><div class="line"><span class="comment"># 只打印匹配行</span></div><div class="line">$ sed -n <span class="string">'/gitcafe/p'</span> _config.yml</div><div class="line"><span class="comment"># 多条件匹配</span></div><div class="line">$ sed -n <span class="string">'/gitcafe/&#123;/page/p&#125;'</span> _config.yml</div><div class="line"><span class="comment"># 多行修改</span></div><div class="line">$ sed -i <span class="string">'/bh4cxj/,/master/ s/^/#&amp;/'</span> _config.yml <span class="comment">##添加注释</span></div><div class="line">$ sed -i <span class="string">'/bh4cxj/,/master/ s/^#//'</span> _config.yml</div><div class="line"></div><div class="line"><span class="comment"># sed中使用变量，使用双引号，查找包含resVe字符行中14位日期数字替换成当前日期</span></div><div class="line"><span class="comment"># grep -r递归查找子目录，-l仅显示查找到的文件名(--files-with-matches)</span></div><div class="line"><span class="variable">$Version</span>=`date +%Y%m%d%H%M%S`;sed -i <span class="string">"/resVe/ s/[0-9]\&#123;14\&#125;/<span class="variable">$Version</span>/"</span> `grep -rl resVe 32_config/`</div><div class="line"></div><div class="line"><span class="comment"># vim中交换两个字符串,把需要替换的两个字符串定义组，然后交换</span></div><div class="line">S<span class="comment">#\(/release_config/32_config/\)\(.*\)\(/web/\)#\3\2\1#</span></div><div class="line"></div><div class="line"><span class="comment"># ou=it;ob=a;oc=b；od=e  同时把it和a替换为xxx, sed不加引号无法替换，不知道原因</span></div><div class="line"><span class="comment">## 加引号是把他传递给sed而不只是由shell来解释</span></div><div class="line"><span class="comment">#echo "ou=it;ob=a;oc=b;od=e" |sed 's/it\|a/xxx/g'</span></div><div class="line"></div><div class="line"><span class="comment"># 追加(a),插入(i),更改(c),列表(l,显示特殊字符),打印(p),替换(y,对应位置字符替换,不存在单词概念,都是字符),打印行号(=)</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/p'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/a sdf'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/a sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/i sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/c sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/l'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/l'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed -n <span class="string">'/ou/='</span></div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/10/08/sed使用总结（更新中-）/" data-id="cj40uprne000seeridca7ys4p" class="article-share-link" data-share="baidu" data-title="sed使用总结（更新中...）">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/10/08/sed使用总结（更新中-）/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sed/">sed</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/09/29/VIM总结出的一张图/" class="archive-article-date">
-  <time datetime="2015-09-29T13:14:40.000Z" itemprop="datePublished">09-29</time>
+    <article id="post-VIM总结出的一张图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/29/VIM总结出的一张图/" class="article-date">
+  <time datetime="2015-09-29T13:14:40.000Z" itemprop="datePublished">2015-09-29</time>
 </a>
-<!-- <a href="/2015/09/29/VIM总结出的一张图/" class="archive-article-date">
-  <time datetime="2015-09-29T13:14:40.000Z" itemprop="datePublished">9月 29</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/09/29/VIM总结出的一张图/">VIM总结出的一张图</a>
+      <a class="article-title" href="/2015/09/29/VIM总结出的一张图/">VIM总结出的一张图</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p><img src="/img/linux/vim/vim.png" alt="很强大"></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/09/29/VIM总结出的一张图/" data-id="cj40uprmw0009eerifsx65jp6" class="article-share-link" data-share="baidu" data-title="VIM总结出的一张图">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/09/29/VIM总结出的一张图/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/09/27/CentOS中查看图片信息/" class="archive-article-date">
-  <time datetime="2015-09-27T11:10:56.000Z" itemprop="datePublished">09-27</time>
+    <article id="post-CentOS中查看图片信息" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/27/CentOS中查看图片信息/" class="article-date">
+  <time datetime="2015-09-27T11:10:56.000Z" itemprop="datePublished">2015-09-27</time>
 </a>
-<!-- <a href="/2015/09/27/CentOS中查看图片信息/" class="archive-article-date">
-  <time datetime="2015-09-27T11:10:56.000Z" itemprop="datePublished">9月 27</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/09/27/CentOS中查看图片信息/">CentOS中查看图片信息</a>
+      <a class="article-title" href="/2015/09/27/CentOS中查看图片信息/">CentOS中查看图片信息</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <p>需要使用命令mediainfo<br>安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># yum install mediainfo -y</span></div></pre></td></tr></table></figure></p>
+<p>查看图片信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># mediainfo banner.jpg</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/mediainfo.png" alt="mediainfo"></p>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/09/27/CentOS中查看图片信息/" data-id="cj40uprma0000eerih4hijhcy" class="article-share-link" data-share="baidu" data-title="CentOS中查看图片信息">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/09/27/CentOS中查看图片信息/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 

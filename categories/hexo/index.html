@@ -78,40 +78,59 @@
     <div class="outer">
       <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/10/25/向github和gitcafe同时部署hexo/" class="archive-article-date">
-  <time datetime="2015-10-25T06:20:03.000Z" itemprop="datePublished">10-25</time>
+    <article id="post-向github和gitcafe同时部署hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/25/向github和gitcafe同时部署hexo/" class="article-date">
+  <time datetime="2015-10-25T06:20:03.000Z" itemprop="datePublished">2015-10-25</time>
 </a>
-<!-- <a href="/2015/10/25/向github和gitcafe同时部署hexo/" class="archive-article-date">
-  <time datetime="2015-10-25T06:20:03.000Z" itemprop="datePublished">10月 25</time>
-</a> -->
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/10/25/向github和gitcafe同时部署hexo/">向github和gitcafe同时部署hexo</a>
+      <a class="article-title" href="/2015/10/25/向github和gitcafe同时部署hexo/">向github和gitcafe同时部署hexo</a>
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+         
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">#编译</span></div><div class="line">hexo g</div><div class="line"></div><div class="line"><span class="comment">#向gitcafe推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#注释gitcafe,取消github注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^/#&amp;/'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^#//'</span> _config.yml</div><div class="line"></div><div class="line"><span class="comment">#启用一个设定自身环境变量的ssh代理进程</span></div><div class="line"><span class="built_in">eval</span> `ssh-agent`</div><div class="line"><span class="comment">#向该进程添加ssh私钥</span></div><div class="line">ssh-add ~/.ssh/bh6cxj</div><div class="line"></div><div class="line"><span class="comment">#向github推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#提交代码后，清空缓存</span></div><div class="line">ssh-agent -k</div><div class="line"><span class="comment">#还原注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^#//'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^/#&amp;/'</span> _config.yml</div></pre></td></tr></table></figure>
+
+      
+      
+
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/" data-id="cj40uprnq001ceeri3epqitse" class="article-share-link" data-share="baidu" data-title="向github和gitcafe同时部署hexo">分享到</a>
+      
+
+      
+        <a href="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/部署/">部署</a></li></ul>
+
+    </footer>
   </div>
+  
 </article>
 
-  
-  
-    </div></section>
+
+
   
 
 </section>
