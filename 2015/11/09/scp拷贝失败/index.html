@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="水面下的冰山">
 <meta property="og:description" content="参考：http://www.tuicool.com/articles/AjM7ju
 失败原因，直接复制上面文章的scp使用SSH连接，在两台服务器 之间通过一些特特殊的协议消息控制源端与宿端的数据传输。在实际数据传输前，源端需要先向宿端传输协议文本，协议文本传输结束 后，再向宿端传递字符’\0′来表示真正文件传 输的开始。当文件接收完成后，宿端会给源端发送一个’\0′表示文件传输结 束。然后而ss">
-<meta property="og:updated_time" content="2017-06-17T01:50:06.600Z">
+<meta property="og:updated_time" content="2017-06-17T04:14:35.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scp拷贝失败">
 <meta name="twitter:description" content="参考：http://www.tuicool.com/articles/AjM7ju
@@ -110,6 +110,7 @@
          
         <p>参考：<a href="http://www.tuicool.com/articles/AjM7ju" target="_blank" rel="external">http://www.tuicool.com/articles/AjM7ju</a></p>
 <p>失败原因，直接复制上面文章的<br>scp使用SSH连接，在两台服务器 之间通过一些特特殊的协议消息控制源端与宿端的数据传输。在实际数据传输前，源端需要先向宿端传输协议文本，协议文本传输结束 后，再向宿端传递字符’\0′来表示真正文件传 输的开始。当文件接收完成后，宿端会给源端发送一个’\0′表示文件传输结 束。然后而ssh login远程服 务器时，会source ~/.bashrc和/etc/bashrc文 件，所以当在 ~/.bashrc或/etc/bashrc执 行过程中产生了任何内容输出时，scp会把这些echo回来的东西认作协 议包进行解析，遇到’\0′则会当成表示传输 失败的错误信息，然后exit 1。</p>
+<a id="more"></a>
 <p>所以，一般对于有标准输出的语句最好是放到.bash_profile中。 以免引起不必要的错误。</p>
 <p>scp拷贝失败，原因是远端一台机器 ~/.bashrc中有一行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm use stable</div></pre></td></tr></table></figure></p>
 <p>这一行执行成功后产生输出，干扰了scp<br>修改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm use stable &gt; /dev/null 2&gt;&amp;1</div></pre></td></tr></table></figure></p>
@@ -130,7 +131,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/09/scp拷贝失败/" data-id="cj40ril6v000nqrriu2zusird" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/09/scp拷贝失败/" data-id="cj40ru1r7000m4grijh6ta0mz" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">分享到</a>
       
 
       

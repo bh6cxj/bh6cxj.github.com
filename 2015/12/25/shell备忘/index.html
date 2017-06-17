@@ -7,21 +7,18 @@
   <title>shell备忘 | 水面下的冰山</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="清空文件1234cat /dev/null &amp;gt; fileecho &amp;gt; file:&amp;gt; file&amp;gt; file
-判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;
-特殊符号123456789101">
+判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell备忘">
 <meta property="og:url" content="http://say520.xyz/2015/12/25/shell备忘/index.html">
 <meta property="og:site_name" content="水面下的冰山">
 <meta property="og:description" content="清空文件1234cat /dev/null &amp;gt; fileecho &amp;gt; file:&amp;gt; file&amp;gt; file
-判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;
-特殊符号123456789101">
-<meta property="og:updated_time" content="2017-06-17T01:50:06.601Z">
+判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;">
+<meta property="og:updated_time" content="2017-06-17T04:15:29.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell备忘">
 <meta name="twitter:description" content="清空文件1234cat /dev/null &amp;gt; fileecho &amp;gt; file:&amp;gt; file&amp;gt; file
-判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;
-特殊符号123456789101">
+判断12345是否是root用户[ $UID -eq 0 ] || &amp;#123;    echo &quot;Pls change root.&quot; &amp;gt;2&amp;amp;    exit $E_NOROOT;  #设置E_NROOT退出值&amp;#125;">
   
     <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
   
@@ -118,6 +115,7 @@
          
         <h4 id="清空文件"><a href="#清空文件" class="headerlink" title="清空文件"></a>清空文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/null &gt; file</div><div class="line"><span class="built_in">echo</span> &gt; file</div><div class="line">:&gt; file</div><div class="line">&gt; file</div></pre></td></tr></table></figure>
 <h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">是否是root用户</div><div class="line">[ <span class="variable">$UID</span> <span class="_">-eq</span> 0 ] || &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Pls change root."</span> &gt;2&amp;</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_NOROOT</span>;  <span class="comment">#设置E_NROOT退出值</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h4 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">?   ((var0 = var1 &lt;98?9:23))</div><div class="line"><span class="comment">#如果var1小于98,var0等于9，反之等于23</span></div><div class="line"></div><div class="line">&#123;&#125; </div><div class="line">cat &#123;file1,file2,file3&#125; &gt; combine_file</div><div class="line"><span class="comment">#把3个文件连接起来重定向到新文件</span></div><div class="line">cp file3.&#123;txt,backup&#125;</div><div class="line"><span class="comment">#拷贝file3.txt到file3.backup中</span></div><div class="line"></div><div class="line"><span class="comment">#&#123;&#125;相当于定义一个匿名函数</span></div><div class="line">a=123</div><div class="line">&#123;a=321&#125;</div><div class="line"><span class="built_in">echo</span> <span class="variable">$a</span>   <span class="comment">#a=321</span></div></pre></td></tr></table></figure>
 <h4 id="数组引用"><a href="#数组引用" class="headerlink" title="数组引用"></a>数组引用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">WEB_URLS=(<span class="string">"www.baidu.com"</span> <span class="string">"www.google.com"</span> <span class="string">"www.youtube.com"</span>)</div><div class="line"><span class="keyword">for</span> myurl <span class="keyword">in</span> <span class="variable">$&#123;WEB_URLS[*]&#125;</span></div><div class="line"><span class="keyword">do</span></div><div class="line">    ...</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 <h4 id="shell参数解析"><a href="#shell参数解析" class="headerlink" title="shell参数解析"></a>shell参数解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="keyword">while</span> :</div><div class="line"><span class="keyword">do</span></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line">-h) <span class="built_in">echo</span> <span class="string">"Usage"</span>; <span class="built_in">shift</span> 1;;</div><div class="line">-p) ar1=<span class="variable">$2</span></div><div class="line">    ar2=<span class="variable">$3</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;ar1&#125;</span> <span class="variable">$ar2</span></div><div class="line">    <span class="built_in">shift</span> 3;;</div><div class="line"><span class="string">""</span>) <span class="built_in">break</span>;;</div><div class="line">*) <span class="built_in">echo</span> <span class="string">"usage"</span>; <span class="built_in">shift</span> 1;<span class="built_in">exit</span>;;</div><div class="line"><span class="keyword">esac</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
@@ -136,7 +134,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/25/shell备忘/" data-id="cj40ril70000uqrri4civu8n3" class="article-share-link" data-share="baidu" data-title="shell备忘">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/25/shell备忘/" data-id="cj40ru1re000u4grixdqz47q9" class="article-share-link" data-share="baidu" data-title="shell备忘">分享到</a>
       
 
       
