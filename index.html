@@ -111,14 +111,15 @@
 <p>分析原因应该是ShowIpAddress(pid)引用了pid为None，所以做改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> True:</div><div class="line">    data = Check_for_Broadband()</div><div class="line">    <span class="keyword">if</span> data == None:</div><div class="line">        pid, res = DialBroadband()</div><div class="line">        ShowIpAddress(pid)</div><div class="line">    time.sleep(5)</div></pre></td></tr></table></figure></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2016/02/22/python实现vpn自动重连/" data-id="cj40mlqes000mwmri9xodyxxc" class="article-share-link" data-share="baidu" data-title="python实现vpn自动重连">分享到</a>
+        <a data-url="http://say520.xyz/2016/02/22/python实现vpn自动重连/" data-id="cj40ob81x000ignris105mcha" class="article-share-link" data-share="baidu" data-title="python实现vpn自动重连">Share</a>
       
 
       
-        <a href="http://say520.xyz/2016/02/22/python实现vpn自动重连/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2016/02/22/python实现vpn自动重连/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -163,14 +164,15 @@
         <p>重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WORKPATH=<span class="string">'tengine-2.1.2'</span></div><div class="line">BASEPATH=<span class="string">'tengine'</span></div><div class="line">EPELSOURCE=<span class="string">'http://mirrors.ustc.edu.cn/centos/6.7/extras/x86_64/Packages/epel-release-6-8.noarch.rpm'</span></div><div class="line"></div><div class="line">[ `yum repolist |grep epel` ] || rpm -Uvh <span class="variable">$&#123;EPELSOURCE&#125;</span></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;BASEPATH&#125;</span> ] || mkdir <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;BASEPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;BASEPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">yum install -y pcre pcre-devel openssl openssl-devel jemalloc-devel</div><div class="line">[ <span class="_">-f</span> <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz ] || wget http://tengine.taobao.org/download/<span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-f</span> ngx_cache_purge-2.1.tar.gz ] || wget http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;WORKPATH&#125;</span> ] || tar xf <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-d</span> ngx_cache_purge-2.1 ] || tar xf ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;WORKPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;WORKPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;WORKPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">./configure --prefix=/etc/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-jemalloc --with-http_concat_module --add-module=../ngx_cache_purge-2.1</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/31/tengine安装脚本/" data-id="cj40mlqf30012wmrin7j4lixy" class="article-share-link" data-share="baidu" data-title="tengine安装脚本">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/31/tengine安装脚本/" data-id="cj40ob82e0013gnrin0elp4sr" class="article-share-link" data-share="baidu" data-title="tengine安装脚本">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/31/tengine安装脚本/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/31/tengine安装脚本/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -216,14 +218,15 @@
 <p>原本没有想到用数组，用变量在写，后来写着要用到变量间接引用。由于需要间接引用的变量太多，比较痛苦，本打算用Python后来想到数组，一想还挺好用，就直接上了。</p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/28/监控网站URL脚本/" data-id="cj40mlqfl001twmri3xmy5xtx" class="article-share-link" data-share="baidu" data-title="监控网站URL脚本">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/28/监控网站URL脚本/" data-id="cj40ob831001tgnriqtjw1uog" class="article-share-link" data-share="baidu" data-title="监控网站URL脚本">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/28/监控网站URL脚本/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/28/监控网站URL脚本/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -272,14 +275,15 @@
 <h4 id="shell参数解析"><a href="#shell参数解析" class="headerlink" title="shell参数解析"></a>shell参数解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="keyword">while</span> :</div><div class="line"><span class="keyword">do</span></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line">-h) <span class="built_in">echo</span> <span class="string">"Usage"</span>; <span class="built_in">shift</span> 1;;</div><div class="line">-p) ar1=<span class="variable">$2</span></div><div class="line">    ar2=<span class="variable">$3</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;ar1&#125;</span> <span class="variable">$ar2</span></div><div class="line">    <span class="built_in">shift</span> 3;;</div><div class="line"><span class="string">""</span>) <span class="built_in">break</span>;;</div><div class="line">*) <span class="built_in">echo</span> <span class="string">"usage"</span>; <span class="built_in">shift</span> 1;<span class="built_in">exit</span>;;</div><div class="line"><span class="keyword">esac</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/25/shell备忘/" data-id="cj40mlqex000uwmriq0cmgxj6" class="article-share-link" data-share="baidu" data-title="shell备忘">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/25/shell备忘/" data-id="cj40ob824000tgnri1xkyvdzu" class="article-share-link" data-share="baidu" data-title="shell备忘">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/25/shell备忘/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/25/shell备忘/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -324,14 +328,15 @@
         <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">datetag=`date +%Y%m%d`</div><div class="line">pathfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/files/<span class="variable">$&#123;datetag&#125;</span>/path.txt"</span></div><div class="line">mainfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/tasks/main.yml"</span></div><div class="line">backpath=/opt/<span class="variable">$&#123;datetag&#125;</span></div><div class="line">opts=<span class="variable">$1</span></div><div class="line">resuser=root</div><div class="line">wwwuser=i8xiaoshi</div><div class="line">E_ERR_ARG=60</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="title">helpinfo</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Usage: `basename <span class="variable">$0</span>`  &lt;res|www&gt; &lt;push|back|restore&gt;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">pubconf</span></span>() &#123;</div><div class="line">    sed -i <span class="string">'s/^[^#]/#&amp;/'</span> <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"- name: <span class="variable">$&#123;datetag&#125;</span> increment update"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">	<span class="built_in">echo</span> <span class="string">"  shell: '[ -d <span class="variable">$&#123;backpath&#125;</span> ] || mkdir <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line">    <span class="keyword">while</span> <span class="built_in">read</span> line</div><div class="line">    <span class="keyword">do</span></div><div class="line">	file=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">"[^/]*$"</span>`</div><div class="line">	filepath=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">".*/"</span>`</div><div class="line">        respath=/web/res/online/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        wwwpath=/opt/web/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        destpath=<span class="variable">$&#123;opts&#125;</span>path</div><div class="line">        fileowner=<span class="variable">$&#123;opts&#125;</span>user</div><div class="line">        <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"push"</span> ];<span class="keyword">then</span></div><div class="line">	     <span class="built_in">echo</span> <span class="string">"  copy: 'src=<span class="variable">$&#123;datetag&#125;</span>/<span class="variable">$&#123;file&#125;</span> dest=<span class="variable">$&#123;!destpath&#125;</span> owner=<span class="variable">$&#123;!fileowner&#125;</span> group=<span class="variable">$&#123;!fileowner&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;!destpath&#125;</span><span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;backpath&#125;</span>/<span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;!destpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">    <span class="keyword">done</span> &lt; <span class="variable">$&#123;pathfile&#125;</span></div><div class="line">    <span class="comment">#更新 windows下编辑后的文档行尾换行符去掉 </span></div><div class="line">是按着ctrl 然后按v + m打出来</div><div class="line">    sed -i <span class="string">'s/</span></div><div class="line">//g' <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="_">-ne</span> 2 ];<span class="keyword">then</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"res"</span> -o <span class="variable">$1</span> == <span class="string">"www"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$2</span> == <span class="string">"push"</span> -o <span class="variable">$2</span> == <span class="string">"back"</span> -o <span class="variable">$2</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">	pubconf <span class="variable">$2</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        helpinfo</div><div class="line">        <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">path.txt文件一行一个发布文件路径+文件名，路径是相对于环境的路径</div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/" data-id="cj40mlqfv0024wmri0scl49s2" class="article-share-link" data-share="baidu" data-title="自动生成ansible增量发布配置文件脚本">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/" data-id="cj40ob8370025gnri35nzkmjz" class="article-share-link" data-share="baidu" data-title="自动生成ansible增量发布配置文件脚本">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -378,14 +383,15 @@
 <p>后来在abs上看到原来是间接引用，还有一种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line"><span class="built_in">eval</span> show=\$<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="variable">$show</span></div></pre></td></tr></table></figure></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/24/shell嵌套引用变量/" data-id="cj40mlqey000ywmribg3gj77s" class="article-share-link" data-share="baidu" data-title="shell嵌套引用变量">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/24/shell嵌套引用变量/" data-id="cj40ob8290010gnrineed3wpn" class="article-share-link" data-share="baidu" data-title="shell嵌套引用变量">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/24/shell嵌套引用变量/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/24/shell嵌套引用变量/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -434,14 +440,15 @@
 <h4 id="断开连接只需要重启网络"><a href="#断开连接只需要重启网络" class="headerlink" title="断开连接只需要重启网络"></a>断开连接只需要重启网络</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/network restart</div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/12/02/centos连接vpn/" data-id="cj40mlqem000ewmriiy8yy3pl" class="article-share-link" data-share="baidu" data-title="centos连接vpn">分享到</a>
+        <a data-url="http://say520.xyz/2015/12/02/centos连接vpn/" data-id="cj40ob81l0009gnri1uhjvwn5" class="article-share-link" data-share="baidu" data-title="centos连接vpn">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/12/02/centos连接vpn/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/12/02/centos连接vpn/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -496,14 +503,15 @@
 <p>注意：shell模块中cp命令是复制指定目录到目标目录下，\cp复制指定目录下文件到目标目录下<br>copy模块中src路径不加最后的/会复制整个目录到目标目录下，加了最后的/会复制指定目录下文件到目标目录下</p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/23/ansible+ssh代理/" data-id="cj40mlqeh000bwmritx7yr0ml" class="article-share-link" data-share="baidu" data-title="ansible+ssh代理">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/23/ansible+ssh代理/" data-id="cj40ob81t000fgnri0an5zkeu" class="article-share-link" data-share="baidu" data-title="ansible+ssh代理">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/23/ansible+ssh代理/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/23/ansible+ssh代理/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -554,14 +562,15 @@ unicast_peer {
                    }
 </code></pre>
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" data-id="cj40mlqfz002bwmri2rvx6hbl" class="article-share-link" data-share="baidu" data-title="阿里云VPS搭建keepalived主备同时都有VIP">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" data-id="cj40ob83c002cgnrimbeek35m" class="article-share-link" data-share="baidu" data-title="阿里云VPS搭建keepalived主备同时都有VIP">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -612,14 +621,15 @@ unicast_peer {
 <p>含义是：如果是非交互（未登录）就退出程序，不执行下面的初始化</p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/09/scp拷贝失败/" data-id="cj40mlqet000owmrida9oe547" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/09/scp拷贝失败/" data-id="cj40ob820000ngnrihdwq4urz" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/09/scp拷贝失败/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/09/scp拷贝失败/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -636,7 +646,7 @@ unicast_peer {
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 </section>
       
@@ -644,7 +654,7 @@ unicast_peer {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/freebsd/">freebsd</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li></ul>
     </div>
@@ -653,7 +663,7 @@ unicast_peer {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px;">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px;">keepalived</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阿里云/" style="font-size: 10px;">阿里云</a>
     </div>
@@ -662,16 +672,18 @@ unicast_peer {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016年 02月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015年 12月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">2015年 11月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">2015年 10月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015年 09月</a><span class="archive-list-count">8</span></li></ul>
+#<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
+
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">近期文章</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -702,7 +714,7 @@ unicast_peer {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <div class="widget">
       <ul>
         
@@ -719,16 +731,25 @@ unicast_peer {
       
     </div>
     <footer id="footer">
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 bh4cxj<br>
+      &copy; 2017 bh4cxj | 
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    <span id="busuanzi_container_site_uv">
+      <span id="busuanzi_value_site_uv"></span>人
+    </span>
+    <br>
       Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
       .
       Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
     </div>
   </div>
 </footer>
+
   </div>
   <nav id="mobile-nav">
   
@@ -749,7 +770,7 @@ unicast_peer {
 </nav>
   <!-- totop start -->
 <div id="totop">
-<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+<a title="totop"><img src="/img/scrollup.png"/></a>
 </div>
 
 <!-- totop end -->

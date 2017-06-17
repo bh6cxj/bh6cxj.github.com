@@ -114,14 +114,15 @@
 <p>VIM<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令模式</div><div class="line">:.,+5s/^/<span class="comment">#&amp;/</span></div></pre></td></tr></table></figure></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/07/命令/" data-id="cj40mlqfa001bwmrib5c860z0" class="article-share-link" data-share="baidu" data-title="命令">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/07/命令/" data-id="cj40ob82p001bgnrioz9izszp" class="article-share-link" data-share="baidu" data-title="命令">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/07/命令/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/07/命令/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -168,14 +169,15 @@
 <p>通过此命令加入crontab来生成临时文件<br>把下面脚本加入crontab来计算每天的流量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">DirPath=/root/script/netIO</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 5 </div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 6 </div><div class="line"></div><div class="line">R1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">R0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">T1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line">T0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line"></div><div class="line">R=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$R1</span>-<span class="variable">$R0</span>)/1024/1024"</span>|bc`</div><div class="line">T=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$T1</span>-<span class="variable">$T0</span>)/1024/1024"</span>|bc`</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt ] || touch <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"从`date --date='1 days ago' +%Y-%m-%d`凌晨开始24小时流量统计："</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Incoming: "</span><span class="variable">$R</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Outgoing: "</span><span class="variable">$T</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div></pre></td></tr></table></figure></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/04/统计每天流量/" data-id="cj40mlqfp001zwmrixs4qxv5s" class="article-share-link" data-share="baidu" data-title="统计每天流量">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/04/统计每天流量/" data-id="cj40ob834001ygnri41zrg0f6" class="article-share-link" data-share="baidu" data-title="统计每天流量">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/04/统计每天流量/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/04/统计每天流量/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -228,14 +230,15 @@
 <p>PM2准备好为产品级服务了吗？<br>只需在你的服务器上测试<br>$ git clone <a href="https://github.com/Unitech/pm2.git" target="_blank" rel="external">https://github.com/Unitech/pm2.git</a><br>$ cd pm2<br>$ npm install  # 或者 npm install –dev ，如果devDependencies 没有安装<br>$ npm test</p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/04/PM2简介/" data-id="cj40mlqec0006wmri3cebny03" class="article-share-link" data-share="baidu" data-title="PM2简介">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/04/PM2简介/" data-id="cj40ob81i0006gnri4lacbcgo" class="article-share-link" data-share="baidu" data-title="PM2简介">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/04/PM2简介/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/04/PM2简介/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -283,14 +286,15 @@
 <h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service dnsmasq start</div><div class="line">chkconfig dnsmasq on</div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/" data-id="cj40mlqfe001hwmri8wr4gyno" class="article-share-link" data-share="baidu" data-title="小型局域网内部自用域名dnsmasq配置">分享到</a>
+        <a data-url="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/" data-id="cj40ob82u001ignri1ayo7a29" class="article-share-link" data-share="baidu" data-title="小型局域网内部自用域名dnsmasq配置">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -352,14 +356,15 @@
 <h3 id="9-设置开机不启动桌面"><a href="#9-设置开机不启动桌面" class="headerlink" title="9.设置开机不启动桌面"></a>9.设置开机不启动桌面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/X11/default-display-manager</span></div><div class="line"><span class="comment">#里面内容为：</span></div><div class="line">/usr/sbin/lightdm</div><div class="line"><span class="comment">#改为false,重启</span></div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/" data-id="cj40mlqfj001owmri7s4y7k51" class="article-share-link" data-share="baidu" data-title="树莓派安装kali 2.0.1">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/" data-id="cj40ob82z001pgnri8ibthlv5" class="article-share-link" data-share="baidu" data-title="树莓派安装kali 2.0.1">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/26/树莓派安装kali-2-0-1/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -404,14 +409,15 @@
         <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">#编译</span></div><div class="line">hexo g</div><div class="line"></div><div class="line"><span class="comment">#向gitcafe推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#注释gitcafe,取消github注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^/#&amp;/'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^#//'</span> _config.yml</div><div class="line"></div><div class="line"><span class="comment">#启用一个设定自身环境变量的ssh代理进程</span></div><div class="line"><span class="built_in">eval</span> `ssh-agent`</div><div class="line"><span class="comment">#向该进程添加ssh私钥</span></div><div class="line">ssh-add ~/.ssh/bh6cxj</div><div class="line"></div><div class="line"><span class="comment">#向github推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#提交代码后，清空缓存</span></div><div class="line">ssh-agent -k</div><div class="line"><span class="comment">#还原注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^#//'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^/#&amp;/'</span> _config.yml</div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/" data-id="cj40mlqf80019wmri2rehn6xr" class="article-share-link" data-share="baidu" data-title="向github和gitcafe同时部署hexo">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/" data-id="cj40ob82m0019gnria5d8ydqj" class="article-share-link" data-share="baidu" data-title="向github和gitcafe同时部署hexo">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/25/向github和gitcafe同时部署hexo/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -456,14 +462,15 @@
         <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/ports/www/node/</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /usr/ports/www/node-devel/</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /usr/ports/www/npm</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/24/FreeBSD上安装hexo/" data-id="cj40mlqdw0001wmriz7l6n04y" class="article-share-link" data-share="baidu" data-title="FreeBSD中安装hexo">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/24/FreeBSD上安装hexo/" data-id="cj40ob81o000bgnriiqklpdjc" class="article-share-link" data-share="baidu" data-title="FreeBSD中安装hexo">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/24/FreeBSD上安装hexo/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/24/FreeBSD上安装hexo/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -515,14 +522,15 @@
 <h2 id="7-在内网运行客户端"><a href="#7-在内网运行客户端" class="headerlink" title="7.在内网运行客户端"></a>7.在内网运行客户端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## ngrok.cfg的一个示例</span></div><div class="line">server_addr: <span class="string">"sksc.xyz:4443"</span></div><div class="line">trust_host_root_certs: <span class="literal">false</span></div><div class="line">tunnels:</div><div class="line">  http:</div><div class="line">    subdomain: <span class="string">"web"</span></div><div class="line">    proto:</div><div class="line">      http: <span class="string">"80"</span></div><div class="line"> </div><div class="line">  ssh:</div><div class="line">    remote_port: 2222</div><div class="line">    proto:</div><div class="line">      tcp: <span class="string">"22"</span></div><div class="line"></div><div class="line"><span class="comment">## 在Windows平台运行客户端</span></div><div class="line">ngrok.exe -config ngrok.cfg start http ssh</div><div class="line"></div><div class="line"><span class="comment">## 在树莓派运行客户端，在/etc/rc.local 文件exit前添加下面一句使其开机执行</span></div><div class="line">/home/pi/script/ngrok/ngrok -config /home/pi/script/ngrok/.ngrok start ssh 2&gt;&amp;1 /home/pi/script/ngrok/<span class="built_in">log</span></div></pre></td></tr></table></figure>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/23/自建ngrok服务器/" data-id="cj40mlqfx0028wmrihjkub5n9" class="article-share-link" data-share="baidu" data-title="自建ngrok服务器">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/23/自建ngrok服务器/" data-id="cj40ob83a0029gnri7cyj03xt" class="article-share-link" data-share="baidu" data-title="自建ngrok服务器">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/23/自建ngrok服务器/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/23/自建ngrok服务器/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -564,14 +572,15 @@
 <p>这次问题发生原因还不清楚，一开始也莫名其妙，总结一下思路：<br>1.本地网络畅通，网关ping的通，手动自动设置都可以<br>2.DNS解析，hosts文件<br>3.ARP映射<br>4.驱动问题，尝试重新安装</p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/14/网络连接正常，上不了网/" data-id="cj40mlqfs0022wmriuqzsidya" class="article-share-link" data-share="baidu" data-title="网络连接正常，上不了网">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/14/网络连接正常，上不了网/" data-id="cj40ob8360022gnrijt5wisom" class="article-share-link" data-share="baidu" data-title="网络连接正常，上不了网">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/14/网络连接正常，上不了网/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/14/网络连接正常，上不了网/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -616,14 +625,15 @@
         <h3 id="2015国庆节宣桥野外架台"><a href="#2015国庆节宣桥野外架台" class="headerlink" title="2015国庆节宣桥野外架台"></a>2015国庆节宣桥野外架台</h3><p><img src="/img/photo/国庆宣桥/1.jpg" alt="1"><br><img src="/img/photo/国庆宣桥/2.jpg" alt="1"><br><img src="/img/photo/国庆宣桥/3.jpg" alt="1"></p>
 
       
+      
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://say520.xyz/2015/10/10/国庆节宣桥架台/" data-id="cj40mlqfd001fwmriduiw76hm" class="article-share-link" data-share="baidu" data-title="国庆节宣桥架台">分享到</a>
+        <a data-url="http://say520.xyz/2015/10/10/国庆节宣桥架台/" data-id="cj40ob82s001fgnriaca0ljwt" class="article-share-link" data-share="baidu" data-title="国庆节宣桥架台">Share</a>
       
 
       
-        <a href="http://say520.xyz/2015/10/10/国庆节宣桥架台/#ds-thread" class="article-comment-link">评论</a>
+        <a href="http://say520.xyz/2015/10/10/国庆节宣桥架台/#ds-thread" class="article-comment-link">Comments</a>
       
 
       
@@ -640,7 +650,7 @@
 
 
   <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 </section>
       
@@ -648,7 +658,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/freebsd/">freebsd</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li></ul>
     </div>
@@ -657,7 +667,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px;">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px;">keepalived</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阿里云/" style="font-size: 10px;">阿里云</a>
     </div>
@@ -666,16 +676,18 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016年 02月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015年 12月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">2015年 11月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">2015年 10月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015年 09月</a><span class="archive-list-count">8</span></li></ul>
+#<ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
+
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">近期文章</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -706,7 +718,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <div class="widget">
       <ul>
         
@@ -723,16 +735,25 @@
       
     </div>
     <footer id="footer">
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 bh4cxj<br>
+      &copy; 2017 bh4cxj | 
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    <span id="busuanzi_container_site_uv">
+      <span id="busuanzi_value_site_uv"></span>人
+    </span>
+    <br>
       Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
       .
       Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
     </div>
   </div>
 </footer>
+
   </div>
   <nav id="mobile-nav">
   
@@ -753,7 +774,7 @@
 </nav>
   <!-- totop start -->
 <div id="totop">
-<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+<a title="totop"><img src="/img/scrollup.png"/></a>
 </div>
 
 <!-- totop end -->
