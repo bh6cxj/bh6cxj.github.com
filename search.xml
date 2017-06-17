@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[python实现vpn自动重连]]></title>
+      <url>/2016/02/22/python%E5%AE%9E%E7%8E%B0vpn%E8%87%AA%E5%8A%A8%E9%87%8D%E8%BF%9E/</url>
+      <content type="html"><![CDATA[<p>一台windows机器需要保持连接vpn做跳板，但是长时间连接是总是会断开。所以参考网上的代码改了下。<br><a id="more"></a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding:cp936 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> win32ras</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">Connect</span><span class="params">(dialname,account,passwd)</span>:</span></div><div class="line">    dial_params = (dialname, <span class="string">''</span>, <span class="string">''</span>, account, passwd, <span class="string">''</span>)</div><div class="line">    <span class="keyword">return</span> win32ras.Dial(<span class="keyword">None</span>, <span class="keyword">None</span>, dial_params, <span class="keyword">None</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">DialBroadband</span><span class="params">()</span>:</span></div><div class="line">    dialname = <span class="string">'VPN name'</span></div><div class="line">    account = <span class="string">'username'</span></div><div class="line">    passwd = <span class="string">'password'</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        handle, result = Connect(dialname, account, passwd)</div><div class="line">        <span class="keyword">if</span> result == <span class="number">0</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">"Connection success!"</span></div><div class="line">            <span class="keyword">return</span> handle, result</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">"Connection failed, wait for 5 seconds and try again..."</span></div><div class="line">            time.sleep(<span class="number">5</span>)</div><div class="line">            DialBroadband()</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"Can't finish this connection, please check out."</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">Check_for_Broadband</span><span class="params">()</span>:</span></div><div class="line">    connections = []</div><div class="line">    connections = win32ras.EnumConnections()</div><div class="line">    <span class="keyword">if</span>(len(connections) == <span class="number">0</span>):</div><div class="line">        <span class="keyword">print</span> <span class="string">"The system is not running any broadband connection."</span></div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"The system is running %d broadband connection."</span> % len(connections)</div><div class="line">        <span class="keyword">return</span> connections</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShowIpAddress</span><span class="params">(handle)</span>:</span></div><div class="line">    <span class="keyword">print</span> win32ras.GetConnectStatus(handle)</div><div class="line">    data = os.popen(<span class="string">"ipconfig"</span>,<span class="string">"r"</span>).readlines()</div><div class="line">    have_ppp = <span class="number">0</span></div><div class="line">    ip_str = <span class="keyword">None</span></div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> data:</div><div class="line">        <span class="keyword">if</span> line.find(<span class="string">"PPP adapter"</span>) &gt;= <span class="number">0</span>:</div><div class="line">            have_ppp = <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> have_ppp <span class="keyword">and</span> line.strip().startswith(<span class="string">"IPv4 Address"</span>):</div><div class="line">            ip_str = line.split(<span class="string">":"</span>)[<span class="number">1</span>].strip()</div><div class="line">            have_ppp = <span class="number">0</span></div><div class="line">            <span class="keyword">print</span> ip_str</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    data = Check_for_Broadband()</div><div class="line">    <span class="keyword">if</span> data != <span class="keyword">None</span>:</div><div class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> data:</div><div class="line">            ShowIpAddress(p[<span class="number">0</span>])</div><div class="line">            time.sleep(<span class="number">3</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        os.system(<span class="string">"route delete 0.0.0.0 mask 255.255.255.0 10.8.0.1"</span>)</div><div class="line">        os.system(<span class="string">"route delete 192.168.93.0 mask 255.255.255.0 10.8.0.1"</span>)</div><div class="line">        pid, res = DialBroadband()</div><div class="line">        os.system(<span class="string">"route add 192.168.93.0 mask 255.255.255.0 10.8.0.1"</span>)</div><div class="line">        ShowIpAddress(pid)</div><div class="line">        time.sleep(<span class="number">3</span>)</div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        data = Check_for_Broadband()</div><div class="line">        <span class="keyword">if</span> data == <span class="keyword">None</span>:</div><div class="line">            pid, res = DialBroadband()</div><div class="line">            ShowIpAddress(pid)</div><div class="line">        time.sleep(<span class="number">5</span>)</div><div class="line">    <span class="keyword">return</span> <span class="string">'finish connection'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p>不过在while循环中调用DialBroadband()，手动断开自动重连测试的时候会报错<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TypeError: <span class="string">'NoneType'</span> object <span class="keyword">is</span> <span class="keyword">not</span> iterable</div></pre></td></tr></table></figure></p>
+<p>分析原因应该是ShowIpAddress(pid)引用了pid为None，所以做改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> True:</div><div class="line">    data = Check_for_Broadband()</div><div class="line">    <span class="keyword">if</span> data == None:</div><div class="line">        pid, res = DialBroadband()</div><div class="line">        ShowIpAddress(pid)</div><div class="line">    time.sleep(5)</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> PYTHON </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VPN </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> windows </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tengine安装脚本]]></title>
+      <url>/2015/12/31/tengine%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/</url>
+      <content type="html"><![CDATA[<p>重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WORKPATH=<span class="string">'tengine-2.1.2'</span></div><div class="line">BASEPATH=<span class="string">'tengine'</span></div><div class="line">EPELSOURCE=<span class="string">'http://mirrors.ustc.edu.cn/centos/6.7/extras/x86_64/Packages/epel-release-6-8.noarch.rpm'</span></div><div class="line"></div><div class="line">[ `yum repolist |grep epel` ] || rpm -Uvh <span class="variable">$&#123;EPELSOURCE&#125;</span></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;BASEPATH&#125;</span> ] || mkdir <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;BASEPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;BASEPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">yum install -y pcre pcre-devel openssl openssl-devel jemalloc-devel</div><div class="line">[ <span class="_">-f</span> <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz ] || wget http://tengine.taobao.org/download/<span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-f</span> ngx_cache_purge-2.1.tar.gz ] || wget http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;WORKPATH&#125;</span> ] || tar xf <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-d</span> ngx_cache_purge-2.1 ] || tar xf ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;WORKPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;WORKPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;WORKPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">./configure --prefix=/etc/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-jemalloc --with-http_concat_module --add-module=../ngx_cache_purge-2.1</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> shell </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[监控网站URL脚本]]></title>
+      <url>/2015/12/28/%E7%9B%91%E6%8E%A7%E7%BD%91%E7%AB%99URL%E8%84%9A%E6%9C%AC/</url>
+      <content type="html"><![CDATA[<p>先上脚本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WEB_URL=(<span class="string">"pre.xxxxxxxxx.com"</span> <span class="string">"www.xxxxxxxxx.com"</span> <span class="string">"api.xxxx.com/test"</span> <span class="string">"bbs.xxxxxxxxx.com"</span>)</div><div class="line">COUNT=5  <span class="comment">#监测循环次数</span></div><div class="line"><span class="built_in">let</span> LEN=<span class="variable">$&#123;#WEB_URL[@]&#125;</span>-1</div><div class="line"><span class="comment">#初始化数组</span></div><div class="line"><span class="keyword">for</span>((i=0;i&lt;=<span class="variable">$LEN</span>;i++))</div><div class="line"><span class="keyword">do</span></div><div class="line">    SMS_STATUS[i]=0</div><div class="line">    SMS_DATE[i]=0</div><div class="line">    SMS_RESET_DATE[i]=0</div><div class="line">    INTER_TIMEi[i]=0</div><div class="line">    error_code[i]=0</div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line"><span class="comment">#monitor web service</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span> </div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="keyword">for</span>((j=0;j&lt;=<span class="variable">$LEN</span>;j++))</div><div class="line">    <span class="keyword">do</span></div><div class="line">        myurl=<span class="variable">$&#123;WEB_URL[j]&#125;</span></div><div class="line">        WEB_COUNT=0</div><div class="line">        <span class="keyword">for</span>((k=1;k&lt;=<span class="variable">$COUNT</span>;k++))</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="comment">#取得URL头部返回代码</span></div><div class="line">            http_code=`curl -Is <span class="variable">$myurl</span> | grep HTTP | awk <span class="string">'&#123;print $2&#125;'</span>`</div><div class="line">            [ <span class="variable">$&#123;http_code&#125;</span> <span class="_">-eq</span> 200 ] || &#123;</div><div class="line">                <span class="built_in">let</span> WEB_COUNT+=1</div><div class="line">                error_code[j]=<span class="variable">$http_code</span></div><div class="line">            &#125;</div><div class="line">            sleep 1s</div><div class="line">        <span class="keyword">done</span></div><div class="line">        <span class="comment">#正常访问日志</span></div><div class="line">        [ <span class="variable">$WEB_COUNT</span> <span class="_">-eq</span> 5 ] || <span class="built_in">echo</span> <span class="string">"<span class="variable">$myurl</span> is ok at <span class="variable">$(date)</span>."</span> &gt;&gt; /var/<span class="built_in">log</span>/checkweb.log</div><div class="line">        <span class="comment">#异常短信通知</span></div><div class="line">        [ <span class="variable">$WEB_COUNT</span> <span class="_">-eq</span> 5 ] &amp;&amp; [ <span class="variable">$&#123;SMS_STATUS[j]&#125;</span> <span class="_">-eq</span> 0 ] &amp;&amp; &#123;</div><div class="line">            <span class="built_in">echo</span> <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span>  &gt;&gt; /var/<span class="built_in">log</span>/checkweb_error.log</div><div class="line">            /script/sendsms.sh 13xxxxxxxxx <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span></div><div class="line">            /script/sendsms.sh 15xxxxxxxxx <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span></div><div class="line">            <span class="comment">#发送一次短信之后，改变状态，后面一小时后重置状态，防止狂发短信</span></div><div class="line">            SMS_STATUS[j]=1</div><div class="line">            SMS_DATE[j]=`date +%s`</div><div class="line">        &#125;</div><div class="line">        <span class="comment">#一小时后重置短信状态</span></div><div class="line">        [ <span class="variable">$&#123;SMS_STATUS[j]&#125;</span> <span class="_">-eq</span> 1 ] &amp;&amp; &#123;</div><div class="line">            SMS_RESET_DATE[j]=`date +%s`</div><div class="line">            <span class="built_in">let</span> INTER_TIME[j]=<span class="variable">$&#123;SMS_RESET_DATE[j]&#125;</span>-<span class="variable">$&#123;SMS_DATE[j]&#125;</span></div><div class="line">            [ <span class="variable">$&#123;INTER_TIME[j]&#125;</span> -ge 3600 ] &amp;&amp; &#123;</div><div class="line">                SMS_STATUS[j]=0</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">done</span></div><div class="line">    <span class="comment">#5分钟后重新检测</span></div><div class="line">    sleep 5m</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
+<p>原本没有想到用数组，用变量在写，后来写着要用到变量间接引用。由于需要间接引用的变量太多，比较痛苦，本打算用Python后来想到数组，一想还挺好用，就直接上了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> shell </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[shell备忘]]></title>
+      <url>/2015/12/25/shell%E5%A4%87%E5%BF%98/</url>
+      <content type="html"><![CDATA[<h4 id="清空文件"><a href="#清空文件" class="headerlink" title="清空文件"></a>清空文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/null &gt; file</div><div class="line"><span class="built_in">echo</span> &gt; file</div><div class="line">:&gt; file</div><div class="line">&gt; file</div></pre></td></tr></table></figure>
+<h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">是否是root用户</div><div class="line">[ <span class="variable">$UID</span> <span class="_">-eq</span> 0 ] || &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Pls change root."</span> &gt;2&amp;</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_NOROOT</span>;  <span class="comment">#设置E_NROOT退出值</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">?   ((var0 = var1 &lt;98?9:23))</div><div class="line"><span class="comment">#如果var1小于98,var0等于9，反之等于23</span></div><div class="line"></div><div class="line">&#123;&#125; </div><div class="line">cat &#123;file1,file2,file3&#125; &gt; combine_file</div><div class="line"><span class="comment">#把3个文件连接起来重定向到新文件</span></div><div class="line">cp file3.&#123;txt,backup&#125;</div><div class="line"><span class="comment">#拷贝file3.txt到file3.backup中</span></div><div class="line"></div><div class="line"><span class="comment">#&#123;&#125;相当于定义一个匿名函数</span></div><div class="line">a=123</div><div class="line">&#123;a=321&#125;</div><div class="line"><span class="built_in">echo</span> <span class="variable">$a</span>   <span class="comment">#a=321</span></div></pre></td></tr></table></figure>
+<h4 id="数组引用"><a href="#数组引用" class="headerlink" title="数组引用"></a>数组引用</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">WEB_URLS=(<span class="string">"www.baidu.com"</span> <span class="string">"www.google.com"</span> <span class="string">"www.youtube.com"</span>)</div><div class="line"><span class="keyword">for</span> myurl <span class="keyword">in</span> <span class="variable">$&#123;WEB_URLS[*]&#125;</span></div><div class="line"><span class="keyword">do</span></div><div class="line">    ...</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h4 id="shell参数解析"><a href="#shell参数解析" class="headerlink" title="shell参数解析"></a>shell参数解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="keyword">while</span> :</div><div class="line"><span class="keyword">do</span></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line">-h) <span class="built_in">echo</span> <span class="string">"Usage"</span>; <span class="built_in">shift</span> 1;;</div><div class="line">-p) ar1=<span class="variable">$2</span></div><div class="line">    ar2=<span class="variable">$3</span></div><div class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;ar1&#125;</span> <span class="variable">$ar2</span></div><div class="line">    <span class="built_in">shift</span> 3;;</div><div class="line"><span class="string">""</span>) <span class="built_in">break</span>;;</div><div class="line">*) <span class="built_in">echo</span> <span class="string">"usage"</span>; <span class="built_in">shift</span> 1;<span class="built_in">exit</span>;;</div><div class="line"><span class="keyword">esac</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> shell </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[自动生成ansible增量发布配置文件脚本]]></title>
+      <url>/2015/12/24/%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90ansible%E5%A2%9E%E9%87%8F%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%84%9A%E6%9C%AC/</url>
+      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">datetag=`date +%Y%m%d`</div><div class="line">pathfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/files/<span class="variable">$&#123;datetag&#125;</span>/path.txt"</span></div><div class="line">mainfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/tasks/main.yml"</span></div><div class="line">backpath=/opt/<span class="variable">$&#123;datetag&#125;</span></div><div class="line">opts=<span class="variable">$1</span></div><div class="line">resuser=root</div><div class="line">wwwuser=i8xiaoshi</div><div class="line">E_ERR_ARG=60</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="title">helpinfo</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Usage: `basename <span class="variable">$0</span>`  &lt;res|www&gt; &lt;push|back|restore&gt;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">pubconf</span></span>() &#123;</div><div class="line">    sed -i <span class="string">'s/^[^#]/#&amp;/'</span> <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"- name: <span class="variable">$&#123;datetag&#125;</span> increment update"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">	<span class="built_in">echo</span> <span class="string">"  shell: '[ -d <span class="variable">$&#123;backpath&#125;</span> ] || mkdir <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line">    <span class="keyword">while</span> <span class="built_in">read</span> line</div><div class="line">    <span class="keyword">do</span></div><div class="line">	file=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">"[^/]*$"</span>`</div><div class="line">	filepath=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">".*/"</span>`</div><div class="line">        respath=/web/res/online/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        wwwpath=/opt/web/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        destpath=<span class="variable">$&#123;opts&#125;</span>path</div><div class="line">        fileowner=<span class="variable">$&#123;opts&#125;</span>user</div><div class="line">        <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"push"</span> ];<span class="keyword">then</span></div><div class="line">	     <span class="built_in">echo</span> <span class="string">"  copy: 'src=<span class="variable">$&#123;datetag&#125;</span>/<span class="variable">$&#123;file&#125;</span> dest=<span class="variable">$&#123;!destpath&#125;</span> owner=<span class="variable">$&#123;!fileowner&#125;</span> group=<span class="variable">$&#123;!fileowner&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;!destpath&#125;</span><span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;backpath&#125;</span>/<span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;!destpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">    <span class="keyword">done</span> &lt; <span class="variable">$&#123;pathfile&#125;</span></div><div class="line">    <span class="comment">#更新 windows下编辑后的文档行尾换行符去掉 </span></div><div class="line">是按着ctrl 然后按v + m打出来</div><div class="line">    sed -i <span class="string">'s/</span></div><div class="line">//g' <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="_">-ne</span> 2 ];<span class="keyword">then</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"res"</span> -o <span class="variable">$1</span> == <span class="string">"www"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$2</span> == <span class="string">"push"</span> -o <span class="variable">$2</span> == <span class="string">"back"</span> -o <span class="variable">$2</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">	pubconf <span class="variable">$2</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        helpinfo</div><div class="line">        <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">path.txt文件一行一个发布文件路径+文件名，路径是相对于环境的路径</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> ansible </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[shell嵌套引用变量]]></title>
+      <url>/2015/12/24/shell%E5%B5%8C%E5%A5%97%E5%BC%95%E7%94%A8%E5%8F%98%E9%87%8F/</url>
+      <content type="html"><![CDATA[<p>shell中想要嵌套引用变量，下面这样是不行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;$&#123;xyz&#125;</span>abc&#125;"</span></div></pre></td></tr></table></figure></p>
+<p>可以用这种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line">show=<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;!show&#125;</span>"</span> <span class="comment">#显示真正想要的true_value</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;show&#125;</span>"</span>  <span class="comment">#将显示myabc</span></div></pre></td></tr></table></figure></p>
+<p>后来在abs上看到原来是间接引用，还有一种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line"><span class="built_in">eval</span> show=\$<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="variable">$show</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> shell </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[centos连接vpn]]></title>
+      <url>/2015/12/02/centos%E8%BF%9E%E6%8E%A5vpn/</url>
+      <content type="html"><![CDATA[<h4 id="安装ppp-pptp-pptp-setup"><a href="#安装ppp-pptp-pptp-setup" class="headerlink" title="安装ppp pptp pptp-setup"></a>安装ppp pptp pptp-setup</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install ppp pptp pptp-setup</div></pre></td></tr></table></figure>
+<h4 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> pptpsetup --create <span class="built_in">test</span> --server ip地址 --username <span class="built_in">test</span> --password <span class="built_in">test</span> --start</div><div class="line"></div><div class="line">如果报以下错误：</div><div class="line">FATAL: Module ppp_mppe not found.</div><div class="line">/usr/sbin/pptpsetup: couldn<span class="string">'t find MPPE support in kernel.</span></div><div class="line">解决方法：</div><div class="line"># modprobe ppp_mppe</div><div class="line">桌面环境下连接不上，可能需要</div><div class="line">#modprobe ip_gre</div></pre></td></tr></table></figure>
+<h4 id="连接VPN连接"><a href="#连接VPN连接" class="headerlink" title="连接VPN连接"></a>连接VPN连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[root@localhost peers]<span class="comment"># pppd call test  //这里的test是上面创建vpn连接</span></div><div class="line">如果报以下错误：</div><div class="line"></div><div class="line">Using interface ppp0</div><div class="line">Connect: ppp0 &lt;--&gt; /dev/pts/3</div><div class="line">CHAP authentication succeeded</div><div class="line">LCP terminated by peer (MPPE required but peer refused)</div><div class="line">Modem hangup</div><div class="line">解决方法：</div><div class="line"></div><div class="line"><span class="comment"># vim /etc/ppp/peers/test  //test是上面创建的连接</span></div><div class="line"></div><div class="line">文件尾部，加上以下内容</div><div class="line"></div><div class="line">require-mppe-128</div><div class="line">成功后会多出一个虚拟网口ppp0</div><div class="line"></div><div class="line">[root@localhost peers]<span class="comment"># route -n</span></div><div class="line">Kernel IP routing table</div><div class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</div><div class="line">192.124.132.142 192.168.10.1    255.255.255.255 UGH   0      0        0 eth0</div><div class="line">192.168.8.1     0.0.0.0         255.255.255.255 UH    0      0        0 ppp0</div><div class="line">192.168.10.0    0.0.0.0         255.255.255.0   U     1      0        0 eth0</div><div class="line">192.0.0.0         192.168.10.1    0.0.0.0         UG    0      0        0 eth0</div></pre></td></tr></table></figure>
+<h4 id="添加默认路由"><a href="#添加默认路由" class="headerlink" title="添加默认路由"></a>添加默认路由</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">删除原来默认路由</div><div class="line">route del -net 0.0.0.0</div><div class="line"><span class="comment">#route add -net 0.0.0.0 dev ppp0</span></div><div class="line">如果本地网络号和vpn网段相同的话，并且需要访问vpn网段，还需要添加对应网段的路由</div><div class="line"><span class="comment">#route add -net 192.168.5.0/24 gw 192.168.8.1 dev ppp0</span></div></pre></td></tr></table></figure>
+<h4 id="断开连接只需要重启网络"><a href="#断开连接只需要重启网络" class="headerlink" title="断开连接只需要重启网络"></a>断开连接只需要重启网络</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/network restart</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> VPN </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ansible+ssh代理]]></title>
+      <url>/2015/11/23/ansible+ssh%E4%BB%A3%E7%90%86/</url>
+      <content type="html"><![CDATA[<p>直接用跳板机iptables做端口DNAT,ansible通过跳板机不同端口访问不同主机的时候两台机器只有一个执行成功，并且ansible_ssh_port的优先级好像更高。由于这种方法不能管理全部机器，所以通过ssh代理的方法来实现。<br>ssh配置文件 ~/.ssh/config</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Host jumper</div><div class="line">    User xxx</div><div class="line">    HostName 121.43.xxx.xxx</div><div class="line">    Port 9521</div><div class="line">    IdentityFile ~/.ssh/id_rsa</div><div class="line">    PasswordAuthentication no</div><div class="line"></div><div class="line">Host realserver_1</div><div class="line">    hostname 192.168.1.3</div><div class="line">    ProxyCommand ssh jumper -W %h:%p</div><div class="line">    User root</div><div class="line">    Port 8888</div><div class="line">    IdentityFile ~/.ssh/jumper</div><div class="line"></div><div class="line">Host realserver_2</div><div class="line">    hostname 192.168.1.7</div><div class="line">    ProxyCommand ssh jumper -W %h:%p</div><div class="line">    User root</div><div class="line">    Port 22</div><div class="line">    IdentityFile ~/.ssh/jumper</div></pre></td></tr></table></figure>
+<p>直接在命令行访问各主机<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh jumper</div><div class="line">ssh realserver_1</div><div class="line">ssh realserver_2</div></pre></td></tr></table></figure></p>
+<p>ansible hosts配置文件/etc/ansible/hosts<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[realserver]</div><div class="line">realserver_1</div><div class="line">realserver_2</div></pre></td></tr></table></figure></p>
+<h4 id="使用roles模块化ansible"><a href="#使用roles模块化ansible" class="headerlink" title="使用roles模块化ansible"></a>使用roles模块化ansible</h4><p>1.创建site.yml文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vim site.yml</span></div><div class="line">---</div><div class="line"><span class="comment">#file: site.yml</span></div><div class="line">- include: test.yml</div></pre></td></tr></table></figure></p>
+<p>2.创建角色文件,test.yml<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vim test.yml</span></div><div class="line">---</div><div class="line"><span class="comment">#file: test.yml</span></div><div class="line">- name: just <span class="keyword">for</span> <span class="built_in">test</span></div><div class="line">  hosts: realserver</div><div class="line">  roles:</div><div class="line">    - <span class="built_in">test</span></div></pre></td></tr></table></figure></p>
+<p>3.创建roles/角色,目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#mkdir -pv roles/test</span></div></pre></td></tr></table></figure></p>
+<p>4.在角色中创建tasks目录和main.yml文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#mkdir roles/test/tasks</span></div><div class="line"><span class="comment">#vim main.yml</span></div><div class="line">---</div><div class="line"><span class="comment">#file tasks/main.yml</span></div><div class="line">- name: <span class="built_in">test</span> publish</div><div class="line">  copy: src=foo.conf dest=/home/xxx/  owner=<span class="built_in">test</span> group=<span class="built_in">test</span></div></pre></td></tr></table></figure></p>
+<p>5.创建files目录和被拷贝的文件foo.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#mkdir rolses/test/files</span></div><div class="line"><span class="comment"># echo "just test publish" &gt; foo.conf</span></div></pre></td></tr></table></figure></p>
+<p>6.执行,下面两条都可以<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ansible-playbook site.yml --limit <span class="built_in">test</span></div><div class="line">ansible-playbook test.yml</div></pre></td></tr></table></figure></p>
+<p>注意：shell模块中cp命令是复制指定目录到目标目录下，\cp复制指定目录下文件到目标目录下<br>copy模块中src路径不加最后的/会复制整个目录到目标目录下，加了最后的/会复制指定目录下文件到目标目录下</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Ops </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> ansible </tag>
+            
+            <tag> ssh </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[阿里云VPS搭建keepalived主备同时都有VIP]]></title>
+      <url>/2015/11/19/%E9%98%BF%E9%87%8C%E4%BA%91VPS%E6%90%AD%E5%BB%BAkeepalived%E4%B8%BB%E5%A4%87%E5%90%8C%E6%97%B6%E9%83%BD%E6%9C%89VIP/</url>
+      <content type="html"><![CDATA[<p>日志<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Configuration is using : 7642 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Configuration is using : 67675 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering BACKUP STATE</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP sockpool: [ifindex(2), proto(112), unicast(0), fd(10,11)]</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_mantaince_down) succeeded</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div><div class="line">Nov 17 18:06:46 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) failed</div><div class="line">Nov 17 18:06:49 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Transition to MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) setting protocol VIPs.</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Sending gratuitous ARPs on eth0 <span class="keyword">for</span> 192.168.93.100</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Netlink reflector reports IP 192.168.93.100 added</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div></pre></td></tr></table></figure></p>
+<p>出现这问题的场景是在阿里VPS云服务器网络环境中，因为路由交换层禁用了ARP的广播限制，造成KEEPALIVE主备协议无法通过广播的方式进行通信，造成主备两台服务器都强占HAVIP地址，出现同时两台服务器都有VIP地址的情况出现，必须通过配置来指定IP的两台服务器间进行通讯（阿里说明文档中解释只能支持两台使用同一个HAVIP地址），基于以下方法可以的情况下，多备方式用同样的方式也应该可行 ，有需要的兄弟可以测试下多IP备的方式（正常情况需要主备一对主备就够了）。<br>在网卡配置后面需要加上以下配置：</p>
+<pre><code>priority 100  ##主服务100 备服务90只要小于100就可以
+unicast_src_ip  192.168.1.21##（本地IP地址）
+unicast_peer {
+              192.168.1.22##（对端IP地址）此地址一定不能忘记
+                   }
+</code></pre>]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 阿里云 </tag>
+            
+            <tag> keepalived </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[scp拷贝失败]]></title>
+      <url>/2015/11/09/scp%E6%8B%B7%E8%B4%9D%E5%A4%B1%E8%B4%A5/</url>
+      <content type="html"><![CDATA[<p>参考：<a href="http://www.tuicool.com/articles/AjM7ju" target="_blank" rel="external">http://www.tuicool.com/articles/AjM7ju</a></p>
+<p>失败原因，直接复制上面文章的<br>scp使用SSH连接，在两台服务器 之间通过一些特特殊的协议消息控制源端与宿端的数据传输。在实际数据传输前，源端需要先向宿端传输协议文本，协议文本传输结束 后，再向宿端传递字符’\0′来表示真正文件传 输的开始。当文件接收完成后，宿端会给源端发送一个’\0′表示文件传输结 束。然后而ssh login远程服 务器时，会source ~/.bashrc和/etc/bashrc文 件，所以当在 ~/.bashrc或/etc/bashrc执 行过程中产生了任何内容输出时，scp会把这些echo回来的东西认作协 议包进行解析，遇到’\0′则会当成表示传输 失败的错误信息，然后exit 1。</p>
+<p>所以，一般对于有标准输出的语句最好是放到.bash_profile中。 以免引起不必要的错误。</p>
+<p>scp拷贝失败，原因是远端一台机器 ~/.bashrc中有一行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm use stable</div></pre></td></tr></table></figure></p>
+<p>这一行执行成功后产生输出，干扰了scp<br>修改为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm use stable &gt; /dev/null 2&gt;&amp;1</div></pre></td></tr></table></figure></p>
+<p>或者在远端~/.bashrc前面添加下面代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$PS1</span>"</span> ]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">return</span>;</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure></p>
+<p>含义是：如果是非交互（未登录）就退出程序，不执行下面的初始化</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> scp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[命令]]></title>
+      <url>/2015/11/07/%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<h2 id="显示cpu信息"><a href="#显示cpu信息" class="headerlink" title="显示cpu信息"></a>显示cpu信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$lscpu</span></div><div class="line"><span class="variable">$cat</span> /proc/cpuinfo</div></pre></td></tr></table></figure>
+<h2 id="cat使用"><a href="#cat使用" class="headerlink" title="cat使用"></a>cat使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">显示行号</div><div class="line"><span class="comment">#cat -n file1</span></div><div class="line"></div><div class="line">忽略空白行显示行号</div><div class="line"><span class="comment">#cat -b file</span></div><div class="line"></div><div class="line">缩减多余空白行，保持段落的原来模样</div><div class="line"><span class="comment">#cat -s file</span></div><div class="line"></div><div class="line">在每一行结尾添加一个$符</div><div class="line"><span class="comment">#cat -e file</span></div></pre></td></tr></table></figure>
+<h2 id="trap命令"><a href="#trap命令" class="headerlink" title="trap命令"></a>trap命令</h2><p>trap是一个shell内建命令，它用来在脚本中指定信号如何处理<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#trap -l查看信号</span></div><div class="line"><span class="comment">#kill -l查看信号</span></div><div class="line"></div><div class="line">使用格式</div><div class="line"></div><div class="line">1.trap <span class="string">"commands"</span> signal-list</div><div class="line">当脚本收到signal-list清单内列出的信号时，<span class="built_in">trap</span>命令执行双引号中的命令。</div><div class="line"><span class="comment">#trap "kill -9 $BG_PID" INT</span></div><div class="line"></div><div class="line">2.trap signal-list</div><div class="line"><span class="built_in">trap</span>不指定任何命令，接受信号的默认操作，默认操作是结束进程的运行。</div><div class="line"></div><div class="line">3.trap <span class="string">" "</span> signal-list</div><div class="line"><span class="built_in">trap</span>命令指定一个空命令串，允许忽视信号。</div><div class="line">※ 请记住，脚本程序通常是以从上到下的顺序解释执行的，所以必须在你想保护的那部分代码以前指定<span class="built_in">trap</span>命令。</div></pre></td></tr></table></figure></p>
+<p>tar命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">查看tar包内文件</div><div class="line">tar -tvf file.tar</div><div class="line">查看tar.gz包内文件</div><div class="line">tar -ztvf file.tar.gz</div></pre></td></tr></table></figure></p>
+<p>scp命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scp不是标准输出，没有办法重定向输出日志,通过下面命令获取日志</div><div class="line">script <span class="_">-a</span> /tmp/scp.log -q -c <span class="string">"scp -r /data/weblogic/autodeploy/App/back 10.0.3.66:/home/weblogic/App"</span></div><div class="line"></div><div class="line">scp -q选项不显示传输进度条，不能跟上面命令结合使用</div><div class="line"></div><div class="line">执行远端机器上命令</div><div class="line">ssh -t -p <span class="variable">$port</span> <span class="variable">$user</span>@<span class="variable">$ip</span>  <span class="string">'cmd'</span></div></pre></td></tr></table></figure></p>
+<p>VIM<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">命令模式</div><div class="line">:.,+5s/^/<span class="comment">#&amp;/</span></div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 命令 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 命令 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[统计每天流量]]></title>
+      <url>/2015/11/04/%E7%BB%9F%E8%AE%A1%E6%AF%8F%E5%A4%A9%E6%B5%81%E9%87%8F/</url>
+      <content type="html"><![CDATA[<p>通过/proc/net/dev或者ifconfig查看网卡的所有流量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/bin/cat /proc/net/dev |grep eth5|awk <span class="string">'&#123; print $1,$9&#125;'</span>|awk -F<span class="string">' |:'</span> <span class="string">'&#123; print $2,$3&#125;'</span> &gt; ~/script/netIO/tmp/`date +%Y-%m-%d`.tmp</div></pre></td></tr></table></figure>
+<p>通过此命令加入crontab来生成临时文件<br>把下面脚本加入crontab来计算每天的流量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">DirPath=/root/script/netIO</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 5 </div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/tmp/`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d`.tmp ] || <span class="built_in">exit</span> 6 </div><div class="line"></div><div class="line">R1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">R0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $1&#125;'</span>`</div><div class="line">T1=`cat <span class="variable">$DirPath</span>/tmp/\`date +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line">T0=`cat <span class="variable">$DirPath</span>/tmp/\`date --date=<span class="string">'1 days ago'</span> +%Y-%m-%d\`.tmp|awk <span class="string">'&#123; print $2&#125;'</span>`</div><div class="line"></div><div class="line">R=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$R1</span>-<span class="variable">$R0</span>)/1024/1024"</span>|bc`</div><div class="line">T=`<span class="built_in">echo</span> <span class="string">"scale=3;(<span class="variable">$T1</span>-<span class="variable">$T0</span>)/1024/1024"</span>|bc`</div><div class="line">[ <span class="_">-f</span> <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt ] || touch <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"从`date --date='1 days ago' +%Y-%m-%d`凌晨开始24小时流量统计："</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Incoming: "</span><span class="variable">$R</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div><div class="line"><span class="built_in">echo</span> <span class="string">"Outgoing: "</span><span class="variable">$T</span><span class="string">"M"</span> &gt;&gt; <span class="variable">$DirPath</span>/`date +%Y-%m-%d`.txt</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Ops </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 流量 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[PM2简介]]></title>
+      <url>/2015/11/04/PM2%E7%AE%80%E4%BB%8B/</url>
+      <content type="html"><![CDATA[<p>安装<br>npm install -g pm2</p>
+<p>用法<br>$ npm install pm2 -g     # 命令行安装 pm2<br>$ pm2 start app.js -i 4 #后台运行pm2，启动4个app.js </p>
+<pre><code># 也可以把&apos;max&apos; 参数传递给 start
+# 正确的进程数目依赖于Cpu的核心数目
+</code></pre><p>$ pm2 start app.js –name my-api # 命名进程<br>$ pm2 list               # 显示所有进程状态<br>$ pm2 monit              # 监视所有进程<br>$ pm2 logs               #  显示所有进程日志<br>$ pm2 stop all           # 停止所有进程<br>$ pm2 restart all        # 重启所有进程<br>$ pm2 reload all         # 0秒停机重载进程 (用于 NETWORKED 进程)<br>$ pm2 stop 0             # 停止指定的进程<br>$ pm2 restart 0          # 重启指定的进程<br>$ pm2 startup            # 产生 init 脚本 保持进程活着<br>$ pm2 web                # 运行健壮的 computer API endpoint (<a href="http://localhost:9615" target="_blank" rel="external">http://localhost:9615</a>)<br>$ pm2 delete 0           # 杀死指定的进程<br>$ pm2 delete all         # 杀死全部进程</p>
+<p>运行进程的不同方式：<br>$ pm2 start app.js -i max  # 根据有效CPU数目启动最大进程数目<br>$ pm2 start app.js -i 3      # 启动3个进程<br>$ pm2 start app.js -x        #用fork模式启动 app.js 而不是使用 cluster<br>$ pm2 start app.js -x – -a 23   # 用fork模式启动 app.js 并且传递参数 (-a 23)<br>$ pm2 start app.js –name serverone  # 启动一个进程并把它命名为 serverone<br>$ pm2 stop serverone       # 停止 serverone 进程<br>$ pm2 start app.json        # 启动进程, 在 app.json里设置选项<br>$ pm2 start app.js -i max – -a 23                   #在–之后给 app.js 传递参数<br>$ pm2 start app.js -i max -e err.log -o out.log  # 启动 并 生成一个配置文件<br>你也可以执行用其他语言编写的app  ( fork 模式):<br>$ pm2 start my-bash-script.sh    -x –interpreter bash<br>$ pm2 start my-python-script.py -x –interpreter python</p>
+<p>0秒停机重载:<br>这项功能允许你重新载入代码而不用失去请求连接。<br>注意：<br>仅能用于web应用<br>运行于Node 0.11.x版本<br>运行于 cluster 模式（默认模式）<br>$ pm2 reload all</p>
+<p>CoffeeScript:<br>$ pm2 start my_app.coffee  #这就是全部</p>
+<p>PM2准备好为产品级服务了吗？<br>只需在你的服务器上测试<br>$ git clone <a href="https://github.com/Unitech/pm2.git" target="_blank" rel="external">https://github.com/Unitech/pm2.git</a><br>$ cd pm2<br>$ npm install  # 或者 npm install –dev ，如果devDependencies 没有安装<br>$ npm test</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Ops </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Node.js </tag>
+            
+            <tag> PM2 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[小型局域网内部自用域名dnsmasq配置]]></title>
+      <url>/2015/11/03/%E5%B0%8F%E5%9E%8B%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E9%83%A8%E8%87%AA%E7%94%A8%E5%9F%9F%E5%90%8Ddnsmasq%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>新公司的内部测试环境有十几个域名做内部地址的解析用，原打算使用BIND来做。<br>装上去BIND之后去配置zone文件时就醉了，文件有点多，一个一个写太累了，写个脚本又不想写。请教了帅帅之后使用了dnsmasq</p>
+<h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum install -y dnsmasq</span></div></pre></td></tr></table></figure>
+<h3 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">修改监听地址，127只监听本地，本机IP来监听所有地址</div><div class="line">listen-address=192.168.1.5,127.0.0.1</div><div class="line">设置上游DNS服务器</div><div class="line">resolv-file=/etc/resolv.conf</div><div class="line"> </div><div class="line"><span class="comment">#国内指定DNS</span></div><div class="line">server=/cn/114.114.114.114</div><div class="line">server=/taobao.com/114.114.114.114</div><div class="line">server=/taobaocdn.com/114.114.114.114</div><div class="line"><span class="comment">#国外指定DNS</span></div><div class="line">server=/google.com/223.5.5.5</div><div class="line"></div><div class="line">屏蔽广告</div><div class="line">address=/ad.youku.com/127.0.0.1</div><div class="line">address=/ad.iqiyi.com/127.0.0.1</div><div class="line"></div><div class="line">设置本地与解析的域名</div><div class="line">address=/bh4cxj.com/192.168.1.11</div><div class="line">泛解析</div><div class="line">address=/.bh4cxj.xyz/192.168.1.33</div></pre></td></tr></table></figure>
+<h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service dnsmasq start</div><div class="line">chkconfig dnsmasq on</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DNS </tag>
+            
+            <tag> 内网 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[树莓派安装kali 2.0.1]]></title>
+      <url>/2015/10/26/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85kali-2-0-1/</url>
+      <content type="html"><![CDATA[<h3 id="1-安装到SD卡"><a href="#1-安装到SD卡" class="headerlink" title="1.安装到SD卡"></a>1.安装到SD卡</h3><p>首先从Kali官网下载树莓派1代的镜像。检查SHA1Sum之后解压kali-2.0.1-rpi.img.xz,通过Win32DiskImager安装系统到microSD卡中</p>
+<h3 id="2-ssh登陆"><a href="#2-ssh登陆" class="headerlink" title="2.ssh登陆"></a>2.ssh登陆</h3><p>安装好之后，将SD卡插在树莓派上，接上网线、电源启动树莓派，然后从路由器查看树莓派的IP，或者通过nmap查找到。通过ssh连接树莓派，Kali 2.0.1的默认密码是toor。</p>
+<h3 id="3-修改网络配置"><a href="#3-修改网络配置" class="headerlink" title="3.修改网络配置"></a>3.修改网络配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/network/interfaces</span></div><div class="line"><span class="comment">#内容修改为下面这样，以方便树莓派在不同的网络中ssh连接</span></div><div class="line">auto lo</div><div class="line">iface lo inet loopback</div><div class="line"></div><div class="line">auto eth0</div><div class="line">iface eth0 inet dhcp</div><div class="line"></div><div class="line">auto eth0:0</div><div class="line">iface eth0:0 inet static</div><div class="line">address 192.168.137.10</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.137.0</div><div class="line">broadcast 192.168.137.255</div><div class="line">gateway 192.168.137.1</div><div class="line"></div><div class="line">auto eth0:1</div><div class="line">iface eth0:1 inet static</div><div class="line">address 192.168.1.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.1.0</div><div class="line">broadcast 192.168.1.255</div><div class="line">gateway 192.168.1.1</div><div class="line"></div><div class="line">auto eth0:2</div><div class="line">iface eth0:2 inet static</div><div class="line">address 192.168.0.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.0.0</div><div class="line">broadcast 192.168.0.255</div><div class="line">gateway 192.168.0.1</div><div class="line"></div><div class="line"><span class="comment">#重启网络服务</span></div><div class="line"><span class="comment">#/etc/init.d/networking restart</span></div></pre></td></tr></table></figure>
+<h3 id="4-使用所有空间"><a href="#4-使用所有空间" class="headerlink" title="4.使用所有空间"></a>4.使用所有空间</h3><p>我用的是16G的SD卡，安装系统之后，df查看了下分区，发现只有7G左右的空间被使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># fdisk -l</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/part1.png" alt="查看分区使用"><br>发现只有一部分磁盘被使用，把未使用的空间分区格式化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># fdisk /dev/mmcblk0</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/part2.png" alt="新建主分区"></p>
+<p>查看现有分区的文件系统<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># parted /dev/mmcblk0</span></div><div class="line">然后输入<span class="built_in">print</span> list</div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/format1.png" alt="查看分区文件系统"></p>
+<p>使新创建的分区在系统中立即生效<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#partprobe</span></div></pre></td></tr></table></figure></p>
+<p>格式化新分区<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># mke2fs -t ext4 /dev/mmcblk0p3</span></div></pre></td></tr></table></figure></p>
+<p>为新分区创建挂载点，/home目录为空，可以挂载在这里<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/fstab</span></div><div class="line"><span class="comment">#添加一行</span></div><div class="line">/dev/mmcblk0p3 /home ext4 defaults 1 2</div><div class="line"></div><div class="line"><span class="comment">#挂载</span></div><div class="line"><span class="comment">#mount -a</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/PI/InKali/mount.png" alt="挂载完成"><br>到此就完成了挂载未使用的SD卡空间</p>
+<h3 id="5-设置ngrok开机启动"><a href="#5-设置ngrok开机启动" class="headerlink" title="5.设置ngrok开机启动"></a>5.设置ngrok开机启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/rc.local</span></div><div class="line"><span class="comment">#在exit前添加一行</span></div><div class="line">/root/script/ngrok/ngrok -config /root/script/ngrok/ngrok.cfg start ssh</div></pre></td></tr></table></figure>
+<h3 id="6-更改源"><a href="#6-更改源" class="headerlink" title="6.更改源"></a>6.更改源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/apt/sources.list</span></div><div class="line"><span class="comment">#注释掉原来的源，添加阿里源</span></div><div class="line">deb http://mirrors.aliyun.com/kali kali main non-free contrib</div><div class="line">deb-src http://mirrors.aliyun.com/kali kali main non-free contrib</div><div class="line">deb http://mirrors.aliyun.com/kali-security kali/updates main contrib non-free</div><div class="line"></div><div class="line"><span class="comment">#启用更新源</span></div><div class="line"><span class="comment">#apt-get update</span></div></pre></td></tr></table></figure>
+<h3 id="7-安装VNC"><a href="#7-安装VNC" class="headerlink" title="7.安装VNC"></a>7.安装VNC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apt-get intstall tightvncserver</span></div><div class="line"></div><div class="line"><span class="comment">#启动vncserver</span></div><div class="line"><span class="comment">#vncserver :1</span></div><div class="line"><span class="comment">#设置密码后对5901端口转发</span></div></pre></td></tr></table></figure>
+<p>使用vnc感觉速度特别慢，所以尝试使用xrdp</p>
+<h3 id="8-安装xrdp"><a href="#8-安装xrdp" class="headerlink" title="8.安装xrdp"></a>8.安装xrdp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#apt-get install xrdp</span></div><div class="line"><span class="comment">#修改端口</span></div><div class="line"><span class="comment">#vi /etc/xrdp/xrdp.ini</span></div><div class="line"><span class="comment">#重启服务</span></div><div class="line"><span class="comment">#xrdp -kill</span></div><div class="line"><span class="comment">#xrdp</span></div><div class="line"><span class="comment">#使用ngrok转发,在Windows下使用mstsc，访问xxx.com:port</span></div></pre></td></tr></table></figure>
+<h3 id="9-设置开机不启动桌面"><a href="#9-设置开机不启动桌面" class="headerlink" title="9.设置开机不启动桌面"></a>9.设置开机不启动桌面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/X11/default-display-manager</span></div><div class="line"><span class="comment">#里面内容为：</span></div><div class="line">/usr/sbin/lightdm</div><div class="line"><span class="comment">#改为false,重启</span></div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Kali </tag>
+            
+            <tag> 树莓派 </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[向github和gitcafe同时部署hexo]]></title>
+      <url>/2015/10/25/%E5%90%91github%E5%92%8Cgitcafe%E5%90%8C%E6%97%B6%E9%83%A8%E7%BD%B2hexo/</url>
+      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">#编译</span></div><div class="line">hexo g</div><div class="line"></div><div class="line"><span class="comment">#向gitcafe推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#注释gitcafe,取消github注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^/#&amp;/'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^#//'</span> _config.yml</div><div class="line"></div><div class="line"><span class="comment">#启用一个设定自身环境变量的ssh代理进程</span></div><div class="line"><span class="built_in">eval</span> `ssh-agent`</div><div class="line"><span class="comment">#向该进程添加ssh私钥</span></div><div class="line">ssh-add ~/.ssh/bh6cxj</div><div class="line"></div><div class="line"><span class="comment">#向github推送</span></div><div class="line">hexo d</div><div class="line"></div><div class="line"><span class="comment">#提交代码后，清空缓存</span></div><div class="line">ssh-agent -k</div><div class="line"><span class="comment">#还原注释</span></div><div class="line">sed -i <span class="string">'/gitcafe/ s/^#//'</span> _config.yml</div><div class="line">sed -i <span class="string">'/bh6cxj/,/master/ s/^/#&amp;/'</span> _config.yml</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> hexo </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> 部署 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[FreeBSD中安装hexo]]></title>
+      <url>/2015/10/24/FreeBSD%E4%B8%8A%E5%AE%89%E8%A3%85hexo/</url>
+      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/ports/www/node/</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /usr/ports/www/node-devel/</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /usr/ports/www/npm</div><div class="line">make BATCH=yes install clean</div><div class="line"></div><div class="line">npm install -g hexo</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> freebsd </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> freebsd </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[自建ngrok服务器]]></title>
+      <url>/2015/10/23/%E8%87%AA%E5%BB%BAngrok%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+      <content type="html"><![CDATA[<h2 id="1-安装GO环境"><a href="#1-安装GO环境" class="headerlink" title="1.安装GO环境"></a>1.安装GO环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum install golang</span></div><div class="line"></div><div class="line"><span class="comment">##编译安装</span></div><div class="line"><span class="comment">#wget https://storage.googleapis.com/golang/go1.4.1.linux-386.tar.gz</span></div><div class="line"><span class="comment">#tar xf -C /usr/local/src go1.4.1.linux-386.tar.gz</span></div><div class="line"><span class="comment">#mkdir $HOME/go</span></div><div class="line"><span class="comment">#echo 'export GOROOT=/usr/local/src/go' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#echo 'export GOPATH=$HOME/go' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' &gt;&gt; ~/.bashrc</span></div><div class="line"><span class="comment">#source $HOME/.bashrc</span></div><div class="line"></div><div class="line"><span class="comment">##安装go get工具</span></div><div class="line"><span class="comment">#yum install mercurial bzr subversion</span></div></pre></td></tr></table></figure>
+<h2 id="2-安装ngrok"><a href="#2-安装ngrok" class="headerlink" title="2.安装ngrok"></a>2.安装ngrok</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src</span></div><div class="line"><span class="comment">#git clone https://github.com/inconshreveable/ngrok.git</span></div><div class="line"><span class="comment">#export GOPATH=/usr/local/src/ngrok</span></div><div class="line"><span class="comment">#export NGROK_DOMAIN='sksc.xyz'</span></div></pre></td></tr></table></figure>
+<h2 id="3-生成自签名SSL证书并编译"><a href="#3-生成自签名SSL证书并编译" class="headerlink" title="3.生成自签名SSL证书并编译"></a>3.生成自签名SSL证书并编译</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd ngrok</span></div><div class="line"><span class="comment">#openssl genrsa -out ngrok.key 2048</span></div><div class="line"><span class="comment">#openssl req -x509 -new -nodes -key ngrok.key -subj "/CN=$NGROK_DOMAIN" -days 5000 -out ngrok.pem</span></div><div class="line"><span class="comment">#openssl genrsa -out ngrokd.key 2048</span></div><div class="line"><span class="comment">#openssl req -new -key ngrokd.key -subj "/CN=$NGROK_DOMAIN" -out ngrokd.csr</span></div><div class="line"><span class="comment">#openssl x509 -req -in ngrokd.csr -CA ngrok.pem -CAkey ngrok.key -CAcreateserial -out ngrokd.crt -days 5000</span></div><div class="line"><span class="comment">#cp ngrok.pem assets/client/tls/ngrokroot.crt</span></div><div class="line"><span class="comment">#cp ngrokd.crt assets/server/tls/snakeoil.crt</span></div><div class="line"><span class="comment">#cp ngrokd.key assets/server/tls/snakeoil.key</span></div><div class="line"><span class="comment">#GOOS=Linux GOARCH=386</span></div><div class="line"><span class="comment">#make clean</span></div><div class="line"></div><div class="line"><span class="comment">##此时CentOS安装不成功，先升级git,默认是1.7.1</span></div><div class="line"><span class="comment">###1.导入证书</span></div><div class="line"><span class="comment"># rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt </span></div><div class="line"><span class="comment">###2.安装RPMForge源</span></div><div class="line"><span class="comment">#rpm -i http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm </span></div><div class="line"><span class="comment">###3.升级git</span></div><div class="line"><span class="comment">#yum --enablerepo=rpmforge-extras install git</span></div><div class="line"></div><div class="line"><span class="comment">##此时接着编译ngrok</span></div><div class="line"><span class="comment">#make release-server release-client</span></div></pre></td></tr></table></figure>
+<h2 id="4-后台启动"><a href="#4-后台启动" class="headerlink" title="4.后台启动"></a>4.后台启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#nohup bin/ngrokd -domain="$NGROK_DOMAIN" -httpAddr=":50000" -httpsAddr=":50001" &amp;</span></div><div class="line"><span class="comment">## 客户端安装好后http总是不能成功，3389可以,后来排查发现，$NGROK_DOMAIN变量的值为空，因为bash中途退出过，所以不用变量</span></div><div class="line"><span class="comment">#nohup bin/ngrokd -domain="sksc.xyz" -httpAddr=":50000" -httpsAddr=":50001" &amp;</span></div></pre></td></tr></table></figure>
+<h2 id="5-交叉编译Windows客户端-go1-5-1编译老不成功，换成1-4-1的可以了"><a href="#5-交叉编译Windows客户端-go1-5-1编译老不成功，换成1-4-1的可以了" class="headerlink" title="5.交叉编译Windows客户端,go1.5.1编译老不成功，换成1.4.1的可以了"></a>5.交叉编译Windows客户端,go1.5.1编译老不成功，换成1.4.1的可以了</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src/go/src</span></div><div class="line"><span class="comment">#GOOS=windows GOARCH=amd64 CGO_ENABLED=0 ./make.bash</span></div><div class="line"><span class="comment">#cd /usr/local/src/ngrok</span></div><div class="line"><span class="comment">#GOOS=windows GOARCH=amd64 make release-server release-client</span></div></pre></td></tr></table></figure>
+<h2 id="6-为树莓派编译客户端和服务端"><a href="#6-为树莓派编译客户端和服务端" class="headerlink" title="6.为树莓派编译客户端和服务端"></a>6.为树莓派编译客户端和服务端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#cd /usr/local/src/go/src</span></div><div class="line"><span class="comment">#GOOS=linux GOARCH=arm CGO_ENABLED=0 ./make.bash</span></div><div class="line"><span class="comment">#cd /usr/local/src/ngrok</span></div><div class="line"><span class="comment">#GOOS=linux GOARCH=arm make release-server release-client</span></div></pre></td></tr></table></figure>
+<h5 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h5><p><img src="/img/ngrok/cmparch.png" alt="交叉编译可选平台"></p>
+<h2 id="7-在内网运行客户端"><a href="#7-在内网运行客户端" class="headerlink" title="7.在内网运行客户端"></a>7.在内网运行客户端</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">## ngrok.cfg的一个示例</span></div><div class="line">server_addr: <span class="string">"sksc.xyz:4443"</span></div><div class="line">trust_host_root_certs: <span class="literal">false</span></div><div class="line">tunnels:</div><div class="line">  http:</div><div class="line">    subdomain: <span class="string">"web"</span></div><div class="line">    proto:</div><div class="line">      http: <span class="string">"80"</span></div><div class="line"> </div><div class="line">  ssh:</div><div class="line">    remote_port: 2222</div><div class="line">    proto:</div><div class="line">      tcp: <span class="string">"22"</span></div><div class="line"></div><div class="line"><span class="comment">## 在Windows平台运行客户端</span></div><div class="line">ngrok.exe -config ngrok.cfg start http ssh</div><div class="line"></div><div class="line"><span class="comment">## 在树莓派运行客户端，在/etc/rc.local 文件exit前添加下面一句使其开机执行</span></div><div class="line">/home/pi/script/ngrok/ngrok -config /home/pi/script/ngrok/.ngrok start ssh 2&gt;&amp;1 /home/pi/script/ngrok/<span class="built_in">log</span></div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 内网穿透 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[网络连接正常，上不了网]]></title>
+      <url>/2015/10/14/%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E6%AD%A3%E5%B8%B8%EF%BC%8C%E4%B8%8A%E4%B8%8D%E4%BA%86%E7%BD%91/</url>
+      <content type="html"><![CDATA[<p>昨天办公室网络不稳定，最后我的电脑上不了网了，网络连接一切正常。IP、DNS、MAC地址冲突都排查了，本地网络可以互通，DNS可以解析，最后就是是不能连上网络。但是无线连接可以使用，最后怀疑到驱动上了，或者系统bug，bug这条先不考虑。<br>今天到办公室的时候和昨天一样的情况，还是上不了网，重新想了想，可能是ARP的问题。<br>就arp -a了下，果然运气不错，发现网关的mac竟然是99-99-99-99-99-99。<br>不知道为什么变成这样了，arp中毒？<br>不过查到原因了就知道怎么解决了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">arp <span class="_">-d</span> 192.168.1.1 </div><div class="line">arp <span class="_">-s</span> 192.168.1.1 xx-xx-xx-xx-xx-xx</div><div class="line"></div><div class="line">最后在启动项中添加一条，可以在开机之后清空ARP缓存，或者写一个脚本固定10分钟清空一次</div><div class="line">reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /ve /t REG_SZ /d <span class="string">"C:\Windows\System\cmd.exe /c arp -d"</span></div></pre></td></tr></table></figure></p>
+<p>这次问题发生原因还不清楚，一开始也莫名其妙，总结一下思路：<br>1.本地网络畅通，网关ping的通，手动自动设置都可以<br>2.DNS解析，hosts文件<br>3.ARP映射<br>4.驱动问题，尝试重新安装</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 网络 </tag>
+            
+            <tag> ARP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[国庆节宣桥架台]]></title>
+      <url>/2015/10/10/%E5%9B%BD%E5%BA%86%E8%8A%82%E5%AE%A3%E6%A1%A5%E6%9E%B6%E5%8F%B0/</url>
+      <content type="html"><![CDATA[<h3 id="2015国庆节宣桥野外架台"><a href="#2015国庆节宣桥野外架台" class="headerlink" title="2015国庆节宣桥野外架台"></a>2015国庆节宣桥野外架台</h3><p><img src="/img/photo/国庆宣桥/1.jpg" alt="1"><br><img src="/img/photo/国庆宣桥/2.jpg" alt="1"><br><img src="/img/photo/国庆宣桥/3.jpg" alt="1"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 活动 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 架台 </tag>
+            
+            <tag> 野外 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[sed使用总结（更新中...）]]></title>
+      <url>/2015/10/08/sed%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD-%EF%BC%89/</url>
+      <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 删除前几行</span></div><div class="line">$ sed -i <span class="string">'1,5d'</span> 1.txt</div><div class="line"><span class="comment"># 删除指定行到最后一行</span></div><div class="line">$ sed -i <span class="string">'10,$d'</span> 1.txt</div><div class="line"></div><div class="line">删除匹配行之外的行</div><div class="line"><span class="comment">#lscpu | sed '/CPU/!d'</span></div><div class="line"></div><div class="line"></div><div class="line">&#123;&#125;将一个地址嵌套在另一个地址中，或者在相同地址上应用多个命令</div><div class="line"><span class="comment">#lscpu | sed -n '/CPU/&#123;/MHz/d;p&#125;'</span></div><div class="line"></div><div class="line"><span class="comment"># 只打印匹配行</span></div><div class="line">$ sed -n <span class="string">'/gitcafe/p'</span> _config.yml</div><div class="line"><span class="comment"># 多条件匹配</span></div><div class="line">$ sed -n <span class="string">'/gitcafe/&#123;/page/p&#125;'</span> _config.yml</div><div class="line"><span class="comment"># 多行修改</span></div><div class="line">$ sed -i <span class="string">'/bh4cxj/,/master/ s/^/#&amp;/'</span> _config.yml <span class="comment">##添加注释</span></div><div class="line">$ sed -i <span class="string">'/bh4cxj/,/master/ s/^#//'</span> _config.yml</div><div class="line"></div><div class="line"><span class="comment"># sed中使用变量，使用双引号，查找包含resVe字符行中14位日期数字替换成当前日期</span></div><div class="line"><span class="comment"># grep -r递归查找子目录，-l仅显示查找到的文件名(--files-with-matches)</span></div><div class="line"><span class="variable">$Version</span>=`date +%Y%m%d%H%M%S`;sed -i <span class="string">"/resVe/ s/[0-9]\&#123;14\&#125;/<span class="variable">$Version</span>/"</span> `grep -rl resVe 32_config/`</div><div class="line"></div><div class="line"><span class="comment"># vim中交换两个字符串,把需要替换的两个字符串定义组，然后交换</span></div><div class="line">S<span class="comment">#\(/release_config/32_config/\)\(.*\)\(/web/\)#\3\2\1#</span></div><div class="line"></div><div class="line"><span class="comment"># ou=it;ob=a;oc=b；od=e  同时把it和a替换为xxx, sed不加引号无法替换，不知道原因</span></div><div class="line"><span class="comment">## 加引号是把他传递给sed而不只是由shell来解释</span></div><div class="line"><span class="comment">#echo "ou=it;ob=a;oc=b;od=e" |sed 's/it\|a/xxx/g'</span></div><div class="line"></div><div class="line"><span class="comment"># 追加(a),插入(i),更改(c),列表(l,显示特殊字符),打印(p),替换(y,对应位置字符替换,不存在单词概念,都是字符),打印行号(=)</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/p'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/a sdf'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/a sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/i sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/c sss'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/l'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed <span class="string">'/ou/l'</span></div><div class="line"> <span class="built_in">echo</span> <span class="string">"ou=it;ob=a;oc=b;od=e"</span> |sed -n <span class="string">'/ou/='</span></div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> sed </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[有多少人建立个人站点只是为了好玩]]></title>
+      <url>/2015/09/30/%E6%9C%89%E5%A4%9A%E5%B0%91%E4%BA%BA%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9%E5%8F%AA%E6%98%AF%E4%B8%BA%E4%BA%86%E5%A5%BD%E7%8E%A9/</url>
+      <content type="html"><![CDATA[<p><a href="http://www.linux2me.com/2015/02/11/%E6%9C%89%E5%A4%9A%E5%B0%91%E4%BA%BA%E5%BB%BA%E7%AB%8B%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9%E5%8F%AA%E6%98%AF%E4%B8%BA%E4%BA%86%E5%A5%BD%E7%8E%A9.html" target="_blank" rel="external">有多少人建立个人站点只是为了好玩</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 偷一下 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 思考 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[VIM总结出的一张图]]></title>
+      <url>/2015/09/29/VIM%E6%80%BB%E7%BB%93%E5%87%BA%E7%9A%84%E4%B8%80%E5%BC%A0%E5%9B%BE/</url>
+      <content type="html"><![CDATA[<p><img src="/img/linux/vim/vim.png" alt="很强大"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> vim </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[创业公司的这些问题…其实是常态]]></title>
+      <url>/2015/09/29/%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%E2%80%A6%E5%85%B6%E5%AE%9E%E6%98%AF%E5%B8%B8%E6%80%81/</url>
+      <content type="html"><![CDATA[<p>这篇文章解决了最近困扰的问题<br><a href="http://dbanotes.net/startup/norm.html" target="_blank" rel="external">创业公司的这些问题…其实是常态</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 偷一下 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 创业 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Git笔记(二)]]></title>
+      <url>/2015/09/28/Git%E7%AC%94%E8%AE%B0-%E4%BA%8C/</url>
+      <content type="html"><![CDATA[<h2 id="1-查看提交日志"><a href="#1-查看提交日志" class="headerlink" title="1.查看提交日志."></a>1.查看提交日志.</h2><h3 id="git-log命令从最近到最远的提交日志。git-log-–pretty-oneline简化显示"><a href="#git-log命令从最近到最远的提交日志。git-log-–pretty-oneline简化显示" class="headerlink" title="git log命令从最近到最远的提交日志。git log –pretty=oneline简化显示"></a>git log命令从最近到最远的提交日志。git log –pretty=oneline简化显示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span></div></pre></td></tr></table></figure>
+<p><img src="/img/git/git2/log.png" alt="git log"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span> --pretty=oneline</div></pre></td></tr></table></figure></p>
+<p><img src="/img/git/git2/log pretty.png" alt="git log pretty"></p>
+<h2 id="2-版本退回"><a href="#2-版本退回" class="headerlink" title="2.版本退回"></a>2.版本退回</h2><h3 id="HEAD-表示当前版本，-HEAD-表示上一个版本，HEAD-表示上上一个版本……HEAD-100表示往上100个版本。"><a href="#HEAD-表示当前版本，-HEAD-表示上一个版本，HEAD-表示上上一个版本……HEAD-100表示往上100个版本。" class="headerlink" title="HEAD 表示当前版本， HEAD^ 表示上一个版本，HEAD^^表示上上一个版本……HEAD~100表示往上100个版本。"></a>HEAD 表示当前版本， HEAD^ 表示上一个版本，HEAD^^表示上上一个版本……HEAD~100表示往上100个版本。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 退回上一个版本</span></div><div class="line">$ git reset --hard HEAD^</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Git </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Git笔记]]></title>
+      <url>/2015/09/28/Git%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h2 id="1-创建git仓库"><a href="#1-创建git仓库" class="headerlink" title="1. 创建git仓库"></a>1. 创建git仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#创建本地文件夹</span></div><div class="line">$ mkdir mygit</div><div class="line">$ <span class="built_in">cd</span> mygit</div><div class="line"><span class="comment">#初始化</span></div><div class="line">$ git init</div></pre></td></tr></table></figure>
+<h2 id="2-设置全局库使用的邮箱和账户"><a href="#2-设置全局库使用的邮箱和账户" class="headerlink" title="2.设置全局库使用的邮箱和账户"></a>2.设置全局库使用的邮箱和账户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name <span class="string">"bh4cxj"</span></div><div class="line">$ git config --global user.name <span class="string">"bh4cxj@xxx.com"</span></div></pre></td></tr></table></figure>
+<h2 id="3-添加文件到仓库，实际就是把修改的文件添加到暂存区"><a href="#3-添加文件到仓库，实际就是把修改的文件添加到暂存区" class="headerlink" title="3.添加文件到仓库，实际就是把修改的文件添加到暂存区"></a>3.添加文件到仓库，实际就是把修改的文件添加到暂存区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add file.txt file1.txt ...</div></pre></td></tr></table></figure>
+<p><img src="/img/git/git1/add.jpg" alt="add"></p>
+<h2 id="4-查看仓库当前状态-获取被修改过的文件"><a href="#4-查看仓库当前状态-获取被修改过的文件" class="headerlink" title="4.查看仓库当前状态,获取被修改过的文件"></a>4.查看仓库当前状态,获取被修改过的文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git status</div></pre></td></tr></table></figure>
+<h2 id="5-对比查看文件的修改内容"><a href="#5-对比查看文件的修改内容" class="headerlink" title="5.对比查看文件的修改内容"></a>5.对比查看文件的修改内容</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff</div></pre></td></tr></table></figure>
+<h2 id="6-提交更改，实际就是把暂存区的所有内容提交到当前分支"><a href="#6-提交更改，实际就是把暂存区的所有内容提交到当前分支" class="headerlink" title="6.提交更改，实际就是把暂存区的所有内容提交到当前分支"></a>6.提交更改，实际就是把暂存区的所有内容提交到当前分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit -m <span class="string">"本次提交的说明"</span></div></pre></td></tr></table></figure>
+<p><img src="/img/git/git1/commit.jpg" alt="commit"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Git </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[第三期CW开班]]></title>
+      <url>/2015/09/27/%E7%AC%AC%E4%B8%89%E6%9C%9FCW%E5%BC%80%E7%8F%AD/</url>
+      <content type="html"><![CDATA[<h2 id="2015年9月5号上海市无线电运动协会第三期CW手键班开班"><a href="#2015年9月5号上海市无线电运动协会第三期CW手键班开班" class="headerlink" title="2015年9月5号上海市无线电运动协会第三期CW手键班开班"></a>2015年9月5号上海市无线电运动协会第三期CW手键班开班</h2><p><img src="/img/photo/手键班1课/1.jpg" alt="1"><br><img src="/img/photo/手键班1课/4.jpg" alt="4"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 活动 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CW </tag>
+            
+            <tag> 手键 </tag>
+            
+            <tag> 无线电 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[CentOS中查看图片信息]]></title>
+      <url>/2015/09/27/CentOS%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/</url>
+      <content type="html"><![CDATA[<p>需要使用命令mediainfo<br>安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># yum install mediainfo -y</span></div></pre></td></tr></table></figure></p>
+<p>查看图片信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># mediainfo banner.jpg</span></div></pre></td></tr></table></figure></p>
+<p><img src="/img/mediainfo.png" alt="mediainfo"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2015/09/01/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+    
+  
+</search>
