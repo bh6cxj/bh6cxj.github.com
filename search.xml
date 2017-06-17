@@ -80,6 +80,27 @@
     
     <entry>
       <title><![CDATA[shell备忘]]></title>
+      <url>/2015/12/25/test/</url>
+      <content type="html"><![CDATA[<iframe height="480" width="400" src="http://player.youku.com/embed/XMjQyMTAzMTIw" frameborder="0" allowfullscreen></iframe>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> DIY </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[shell备忘]]></title>
       <url>/2015/12/25/shell%E5%A4%87%E5%BF%98/</url>
       <content type="html"><![CDATA[<h4 id="清空文件"><a href="#清空文件" class="headerlink" title="清空文件"></a>清空文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/null &gt; file</div><div class="line"><span class="built_in">echo</span> &gt; file</div><div class="line">:&gt; file</div><div class="line">&gt; file</div></pre></td></tr></table></figure>
 <h4 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">是否是root用户</div><div class="line">[ <span class="variable">$UID</span> <span class="_">-eq</span> 0 ] || &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Pls change root."</span> &gt;2&amp;</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_NOROOT</span>;  <span class="comment">#设置E_NROOT退出值</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
