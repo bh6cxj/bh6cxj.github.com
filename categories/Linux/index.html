@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,16 +18,18 @@
     <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
   
+
 </head>
+
 <body>
-<div id="container">
-  <div id="wrap">
-    <header id="header">
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -51,7 +52,9 @@
         
           <a class="main-nav-link" href="/categories/活动">活动</a>
         
-          <a class="main-nav-link" href="/categories/DIY">DIY</a>
+          <a class="main-nav-link" href="/categories/电台">电台</a>
+        
+          <a class="main-nav-link" href="/categories/阅读">阅读</a>
         
           <a class="main-nav-link" href="/categories/随笔">随笔</a>
         
@@ -63,29 +66,13 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
-          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
-          <input type="submit" value="" class="search-form-submit">
-          <input name=tn type=hidden value="bds">
-          <input name=cl type=hidden value="3">
-          <input name=ct type=hidden value="2097152">
-          <input type="hidden" name="si" value="www.i-do.xyz">
-        </form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.i-do.xyz"></form>
       </div>
     </div>
   </div>
-  <script>
-    
-    var number_of_banners = 6;
-    var randnum = Math.floor(Math.random() * number_of_banners + 1);
-    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner" + randnum + ".jpg)";
-    
-</script>
-
 </header>
-
-    <div class="outer">
-      <section id="main">
+      <div class="outer">
+        <section id="main">
   
     <article id="post-tengine安装脚本" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -113,23 +100,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <p>重复编译安装tengine真的好烦，所以就有了这个脚本，结合ansible就更完美了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WORKPATH=<span class="string">'tengine-2.1.2'</span></div><div class="line">BASEPATH=<span class="string">'tengine'</span></div><div class="line">EPELSOURCE=<span class="string">'http://mirrors.ustc.edu.cn/centos/6.7/extras/x86_64/Packages/epel-release-6-8.noarch.rpm'</span></div><div class="line"></div><div class="line">[ `yum repolist |grep epel` ] || rpm -Uvh <span class="variable">$&#123;EPELSOURCE&#125;</span></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;BASEPATH&#125;</span> ] || mkdir <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;BASEPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;BASEPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;BASEPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">yum install -y pcre pcre-devel openssl openssl-devel jemalloc-devel</div><div class="line">[ <span class="_">-f</span> <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz ] || wget http://tengine.taobao.org/download/<span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-f</span> ngx_cache_purge-2.1.tar.gz ] || wget http://labs.frickle.com/files/ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line">[ <span class="_">-d</span> <span class="variable">$&#123;WORKPATH&#125;</span> ] || tar xf <span class="variable">$&#123;WORKPATH&#125;</span>.tar.gz</div><div class="line">[ <span class="_">-d</span> ngx_cache_purge-2.1 ] || tar xf ngx_cache_purge-2.1.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;WORKPATH&#125;</span></div><div class="line">[ `<span class="built_in">pwd</span> |grep -o [^/]*$` != <span class="variable">$&#123;WORKPATH&#125;</span> ] &amp;&amp; &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Can't change to <span class="variable">$&#123;WORKPATH&#125;</span>"</span> </div><div class="line">    <span class="built_in">exit</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">./configure --prefix=/etc/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-jemalloc --with-http_concat_module --add-module=../ngx_cache_purge-2.1</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="built_in">exit</span></div></pre></td></tr></table></figure></p>
 
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/31/tengine安装脚本/" data-id="cj411gwd500120lriwjkobq1p" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/31/tengine安装脚本/" data-id="cj411gwd500120lriwjkobq1p" class="article-share-link" data-share="baidu" data-title="tengine安装脚本">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/31/tengine安装脚本/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
@@ -175,18 +155,10 @@
           </p>
         
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/" data-id="cj411gwdq001t0lri3efeq60s" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/" data-id="cj411gwdq001t0lri3efeq60s" class="article-share-link" data-share="baidu" data-title="监控网站URL脚本">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
@@ -232,18 +204,10 @@
           </p>
         
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/25/shell备忘/" data-id="cj411gwcy000u0lrio4fuly73" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/25/shell备忘/" data-id="cj411gwcy000u0lrio4fuly73" class="article-share-link" data-share="baidu" data-title="shell备忘">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/25/shell备忘/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
@@ -281,23 +245,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">datetag=`date +%Y%m%d`</div><div class="line">pathfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/files/<span class="variable">$&#123;datetag&#125;</span>/path.txt"</span></div><div class="line">mainfile=<span class="string">"/root/ansible/roles/<span class="variable">$&#123;1&#125;</span>/tasks/main.yml"</span></div><div class="line">backpath=/opt/<span class="variable">$&#123;datetag&#125;</span></div><div class="line">opts=<span class="variable">$1</span></div><div class="line">resuser=root</div><div class="line">wwwuser=i8xiaoshi</div><div class="line">E_ERR_ARG=60</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="title">helpinfo</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"Usage: `basename <span class="variable">$0</span>`  &lt;res|www&gt; &lt;push|back|restore&gt;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">pubconf</span></span>() &#123;</div><div class="line">    sed -i <span class="string">'s/^[^#]/#&amp;/'</span> <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"- name: <span class="variable">$&#123;datetag&#125;</span> increment update"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">	<span class="built_in">echo</span> <span class="string">"  shell: '[ -d <span class="variable">$&#123;backpath&#125;</span> ] || mkdir <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line">    <span class="keyword">while</span> <span class="built_in">read</span> line</div><div class="line">    <span class="keyword">do</span></div><div class="line">	file=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">"[^/]*$"</span>`</div><div class="line">	filepath=`<span class="built_in">echo</span> <span class="variable">$&#123;line&#125;</span> | grep -o <span class="string">".*/"</span>`</div><div class="line">        respath=/web/res/online/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        wwwpath=/opt/web/<span class="variable">$&#123;filepath&#125;</span></div><div class="line">        destpath=<span class="variable">$&#123;opts&#125;</span>path</div><div class="line">        fileowner=<span class="variable">$&#123;opts&#125;</span>user</div><div class="line">        <span class="keyword">if</span> [ <span class="variable">$1</span> == <span class="string">"push"</span> ];<span class="keyword">then</span></div><div class="line">	     <span class="built_in">echo</span> <span class="string">"  copy: 'src=<span class="variable">$&#123;datetag&#125;</span>/<span class="variable">$&#123;file&#125;</span> dest=<span class="variable">$&#123;!destpath&#125;</span> owner=<span class="variable">$&#123;!fileowner&#125;</span> group=<span class="variable">$&#123;!fileowner&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"back"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;!destpath&#125;</span><span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;backpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">            <span class="built_in">echo</span> <span class="string">"  shell: 'cp -ar <span class="variable">$&#123;backpath&#125;</span>/<span class="variable">$&#123;file&#125;</span> <span class="variable">$&#123;!destpath&#125;</span>'"</span> &gt;&gt; <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">        <span class="keyword">fi</span></div><div class="line">    <span class="keyword">done</span> &lt; <span class="variable">$&#123;pathfile&#125;</span></div><div class="line">    <span class="comment">#更新 windows下编辑后的文档行尾换行符去掉 </span></div><div class="line">是按着ctrl 然后按v + m打出来</div><div class="line">    sed -i <span class="string">'s/</span></div><div class="line">//g' <span class="variable">$&#123;mainfile&#125;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="_">-ne</span> 2 ];<span class="keyword">then</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">elif</span> [ <span class="variable">$1</span> == <span class="string">"res"</span> -o <span class="variable">$1</span> == <span class="string">"www"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$2</span> == <span class="string">"push"</span> -o <span class="variable">$2</span> == <span class="string">"back"</span> -o <span class="variable">$2</span> == <span class="string">"restore"</span> ];<span class="keyword">then</span></div><div class="line">	pubconf <span class="variable">$2</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        helpinfo</div><div class="line">        <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    helpinfo</div><div class="line">    <span class="built_in">exit</span> <span class="variable">$E_ERR_ARG</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">path.txt文件一行一个发布文件路径+文件名，路径是相对于环境的路径</div></pre></td></tr></table></figure>
 
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/" data-id="cj411gwdz00240lriya3b39ic" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/" data-id="cj411gwdz00240lriya3b39ic" class="article-share-link" data-share="baidu" data-title="自动生成ansible增量发布配置文件脚本">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/24/自动生成ansible增量发布配置文件脚本/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ansible/">ansible</a></li></ul>
 
@@ -335,25 +292,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <p>shell中想要嵌套引用变量，下面这样是不行的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;$&#123;xyz&#125;</span>abc&#125;"</span></div></pre></td></tr></table></figure></p>
 <p>可以用这种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line">show=<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;!show&#125;</span>"</span> <span class="comment">#显示真正想要的true_value</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;show&#125;</span>"</span>  <span class="comment">#将显示myabc</span></div></pre></td></tr></table></figure></p>
 <p>后来在abs上看到原来是间接引用，还有一种方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">xyz=my</div><div class="line">myabc=true_value</div><div class="line"><span class="built_in">eval</span> show=\$<span class="variable">$&#123;xyz&#125;</span>abc</div><div class="line"><span class="built_in">echo</span> <span class="variable">$show</span></div></pre></td></tr></table></figure></p>
 
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/24/shell嵌套引用变量/" data-id="cj411gwd1000y0lrie65uvj74" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/24/shell嵌套引用变量/" data-id="cj411gwd1000y0lrie65uvj74" class="article-share-link" data-share="baidu" data-title="shell嵌套引用变量">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/24/shell嵌套引用变量/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
@@ -399,18 +349,10 @@
           </p>
         
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/02/centos连接vpn/" data-id="cj411gwcl000e0lrilmuycios" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/02/centos连接vpn/" data-id="cj411gwcl000e0lrilmuycios" class="article-share-link" data-share="baidu" data-title="centos连接vpn">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/02/centos连接vpn/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
 
@@ -448,8 +390,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <p>日志<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Opening file <span class="string">'/etc/keepalived/keepalived.conf'</span>.</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Configuration is using : 7642 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Configuration is using : 67675 Bytes</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering BACKUP STATE</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP sockpool: [ifindex(2), proto(112), unicast(0), fd(10,11)]</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Using LinkWatch kernel netlink reflector...</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_mantaince_down) succeeded</div><div class="line">Nov 17 18:06:45 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div><div class="line">Nov 17 18:06:46 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) failed</div><div class="line">Nov 17 18:06:49 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Transition to MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Entering MASTER STATE</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) setting protocol VIPs.</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Instance(VI_1) Sending gratuitous ARPs on eth0 <span class="keyword">for</span> 192.168.93.100</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_healthcheckers[31949]: Netlink reflector reports IP 192.168.93.100 added</div><div class="line">Nov 17 18:06:50 iZ232xwzyueZ Keepalived_vrrp[31950]: VRRP_Script(chk_haproxy) succeeded</div></pre></td></tr></table></figure></p>
 <p>出现这问题的场景是在阿里VPS云服务器网络环境中，因为路由交换层禁用了ARP的广播限制，造成KEEPALIVE主备协议无法通过广播的方式进行通信，造成主备两台服务器都强占HAVIP地址，出现同时两台服务器都有VIP地址的情况出现，必须通过配置来指定IP的两台服务器间进行通讯（阿里说明文档中解释只能支持两台使用同一个HAVIP地址），基于以下方法可以的情况下，多备方式用同样的方式也应该可行 ，有需要的兄弟可以测试下多IP备的方式（正常情况需要主备一对主备就够了）。<br>在网卡配置后面需要加上以下配置：</p>
 <pre><code>priority 100  ##主服务100 备服务90只要小于100就可以
@@ -459,18 +402,10 @@ unicast_peer {
                    }
 </code></pre>
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" data-id="cj411gwe2002b0lrik5211w1v" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/" data-id="cj411gwe2002b0lrik5211w1v" class="article-share-link" data-share="baidu" data-title="阿里云VPS搭建keepalived主备同时都有VIP">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/11/19/阿里云VPS搭建keepalived主备同时都有VIP/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/阿里云/">阿里云</a></li></ul>
 
@@ -516,18 +451,10 @@ unicast_peer {
           </p>
         
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/11/09/scp拷贝失败/" data-id="cj411gwct000o0lrig6o2k46w" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/11/09/scp拷贝失败/" data-id="cj411gwct000o0lrig6o2k46w" class="article-share-link" data-share="baidu" data-title="scp拷贝失败">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/11/09/scp拷贝失败/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scp/">scp</a></li></ul>
 
@@ -565,26 +492,19 @@ unicast_peer {
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <p>新公司的内部测试环境有十几个域名做内部地址的解析用，原打算使用BIND来做。<br>装上去BIND之后去配置zone文件时就醉了，文件有点多，一个一个写太累了，写个脚本又不想写。请教了帅帅之后使用了dnsmasq</p>
 <h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#yum install -y dnsmasq</span></div></pre></td></tr></table></figure>
 <h3 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">修改监听地址，127只监听本地，本机IP来监听所有地址</div><div class="line">listen-address=192.168.1.5,127.0.0.1</div><div class="line">设置上游DNS服务器</div><div class="line">resolv-file=/etc/resolv.conf</div><div class="line"> </div><div class="line"><span class="comment">#国内指定DNS</span></div><div class="line">server=/cn/114.114.114.114</div><div class="line">server=/taobao.com/114.114.114.114</div><div class="line">server=/taobaocdn.com/114.114.114.114</div><div class="line"><span class="comment">#国外指定DNS</span></div><div class="line">server=/google.com/223.5.5.5</div><div class="line"></div><div class="line">屏蔽广告</div><div class="line">address=/ad.youku.com/127.0.0.1</div><div class="line">address=/ad.iqiyi.com/127.0.0.1</div><div class="line"></div><div class="line">设置本地与解析的域名</div><div class="line">address=/bh4cxj.com/192.168.1.11</div><div class="line">泛解析</div><div class="line">address=/.bh4cxj.xyz/192.168.1.33</div></pre></td></tr></table></figure>
 <h3 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service dnsmasq start</div><div class="line">chkconfig dnsmasq on</div></pre></td></tr></table></figure>
 
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/" data-id="cj411gwdj001h0lri82044wjb" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/" data-id="cj411gwdj001h0lri82044wjb" class="article-share-link" data-share="baidu" data-title="小型局域网内部自用域名dnsmasq配置">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/11/03/小型局域网内部自用域名dnsmasq配置/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/内网/">内网</a></li></ul>
 
@@ -622,8 +542,9 @@ unicast_peer {
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <h3 id="1-安装到SD卡"><a href="#1-安装到SD卡" class="headerlink" title="1.安装到SD卡"></a>1.安装到SD卡</h3><p>首先从Kali官网下载树莓派1代的镜像。检查SHA1Sum之后解压kali-2.0.1-rpi.img.xz,通过Win32DiskImager安装系统到microSD卡中</p>
 <h3 id="2-ssh登陆"><a href="#2-ssh登陆" class="headerlink" title="2.ssh登陆"></a>2.ssh登陆</h3><p>安装好之后，将SD卡插在树莓派上，接上网线、电源启动树莓派，然后从路由器查看树莓派的IP，或者通过nmap查找到。通过ssh连接树莓派，Kali 2.0.1的默认密码是toor。</p>
 <h3 id="3-修改网络配置"><a href="#3-修改网络配置" class="headerlink" title="3.修改网络配置"></a>3.修改网络配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/network/interfaces</span></div><div class="line"><span class="comment">#内容修改为下面这样，以方便树莓派在不同的网络中ssh连接</span></div><div class="line">auto lo</div><div class="line">iface lo inet loopback</div><div class="line"></div><div class="line">auto eth0</div><div class="line">iface eth0 inet dhcp</div><div class="line"></div><div class="line">auto eth0:0</div><div class="line">iface eth0:0 inet static</div><div class="line">address 192.168.137.10</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.137.0</div><div class="line">broadcast 192.168.137.255</div><div class="line">gateway 192.168.137.1</div><div class="line"></div><div class="line">auto eth0:1</div><div class="line">iface eth0:1 inet static</div><div class="line">address 192.168.1.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.1.0</div><div class="line">broadcast 192.168.1.255</div><div class="line">gateway 192.168.1.1</div><div class="line"></div><div class="line">auto eth0:2</div><div class="line">iface eth0:2 inet static</div><div class="line">address 192.168.0.249</div><div class="line">netmask 255.255.255.0</div><div class="line">network 192.168.0.0</div><div class="line">broadcast 192.168.0.255</div><div class="line">gateway 192.168.0.1</div><div class="line"></div><div class="line"><span class="comment">#重启网络服务</span></div><div class="line"><span class="comment">#/etc/init.d/networking restart</span></div></pre></td></tr></table></figure>
@@ -644,18 +565,10 @@ unicast_peer {
 <h3 id="9-设置开机不启动桌面"><a href="#9-设置开机不启动桌面" class="headerlink" title="9.设置开机不启动桌面"></a>9.设置开机不启动桌面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vi /etc/X11/default-display-manager</span></div><div class="line"><span class="comment">#里面内容为：</span></div><div class="line">/usr/sbin/lightdm</div><div class="line"><span class="comment">#改为false,重启</span></div></pre></td></tr></table></figure>
 
       
-      
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/10/26/树莓派安装kali-2-0-1/" data-id="cj411gwdo001o0lri8km9nvn5" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/10/26/树莓派安装kali-2-0-1/" data-id="cj411gwdo001o0lri8km9nvn5" class="article-share-link" data-share="baidu" data-title="树莓派安装kali 2.0.1">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/10/26/树莓派安装kali-2-0-1/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kali/">Kali</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
 
@@ -667,18 +580,18 @@ unicast_peer {
 
 
   
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/Linux/page/2/">2</a><a class="extend next" rel="next" href="/categories/Linux/page/2/">下一页 &raquo;</a>
-  </nav>
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/categories/Linux/page/2/">2</a><a class="extend next" rel="next" href="/categories/Linux/page/2/">Next &raquo;</a>
+    </nav>
+  
 </section>
-      
-      <aside id="sidebar">
+        
+          <aside id="sidebar">
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/freebsd/">freebsd</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li></ul>
     </div>
@@ -687,28 +600,25 @@ unicast_peer {
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ARP/" style="font-size: 10px; color: #000">ARP</a> <a href="/tags/CW/" style="font-size: 10px; color: #000">CW</a> <a href="/tags/DNS/" style="font-size: 10px; color: #000">DNS</a> <a href="/tags/Kali/" style="font-size: 10px; color: #000">Kali</a> <a href="/tags/Linux/" style="font-size: 20px; color: #f00">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px; color: #000">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px; color: #000">PM2</a> <a href="/tags/Python/" style="font-size: 10px; color: #000">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px; color: #500">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px; color: #500">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px; color: #000">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px; color: #500">git</a> <a href="/tags/hexo/" style="font-size: 13.33px; color: #500">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px; color: #000">keepalived</a> <a href="/tags/linux/" style="font-size: 10px; color: #000">linux</a> <a href="/tags/scp/" style="font-size: 10px; color: #000">scp</a> <a href="/tags/sed/" style="font-size: 10px; color: #000">sed</a> <a href="/tags/shell/" style="font-size: 16.67px; color: #a00">shell</a> <a href="/tags/ssh/" style="font-size: 10px; color: #000">ssh</a> <a href="/tags/vim/" style="font-size: 10px; color: #000">vim</a> <a href="/tags/windows/" style="font-size: 10px; color: #000">windows</a> <a href="/tags/内网/" style="font-size: 10px; color: #000">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px; color: #000">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px; color: #000">创业</a> <a href="/tags/命令/" style="font-size: 10px; color: #000">命令</a> <a href="/tags/图片/" style="font-size: 10px; color: #000">图片</a> <a href="/tags/思考/" style="font-size: 10px; color: #000">思考</a> <a href="/tags/手键/" style="font-size: 10px; color: #000">手键</a> <a href="/tags/无线电/" style="font-size: 10px; color: #000">无线电</a> <a href="/tags/架台/" style="font-size: 10px; color: #000">架台</a> <a href="/tags/树莓派/" style="font-size: 10px; color: #000">树莓派</a> <a href="/tags/流量/" style="font-size: 10px; color: #000">流量</a> <a href="/tags/网络/" style="font-size: 10px; color: #000">网络</a> <a href="/tags/部署/" style="font-size: 10px; color: #000">部署</a> <a href="/tags/野外/" style="font-size: 10px; color: #000">野外</a> <a href="/tags/阿里云/" style="font-size: 10px; color: #000">阿里云</a>
+      <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px;">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px;">keepalived</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阿里云/" style="font-size: 10px;">阿里云</a>
     </div>
   </div>
-
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016年 02月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015年 12月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">2015年 11月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">2015年 10月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015年 09月</a><span class="archive-list-count">8</span></li></ul>
-<!-- <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul> -->
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
-
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">近期文章</h3>
+    <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
         
@@ -737,46 +647,23 @@ unicast_peer {
   </div>
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">友情链接</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="http://www.linuxea.com" target="_blank">老唐</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
 </aside>
-      
-    </div>
-    <footer id="footer">
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </div>
+      <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 BH4CXJ | 
-    <span id="busuanzi_container_site_pv">
-      本站总访问量<span id="busuanzi_value_site_pv"></span>次
-    </span>
-    <span id="busuanzi_container_site_uv">
-      <span id="busuanzi_value_site_uv"></span>人
-    </span>
-    <br>
-      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
-      .
-      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
   </div>
 </footer>
 
-  </div>
-  <nav id="mobile-nav">
+    </div>
+    <nav id="mobile-nav">
   
     <a href="/" class="mobile-nav-link">首页</a>
   
@@ -788,71 +675,24 @@ unicast_peer {
   
     <a href="/categories/活动" class="mobile-nav-link">活动</a>
   
-    <a href="/categories/DIY" class="mobile-nav-link">DIY</a>
+    <a href="/categories/电台" class="mobile-nav-link">电台</a>
+  
+    <a href="/categories/阅读" class="mobile-nav-link">阅读</a>
   
     <a href="/categories/随笔" class="mobile-nav-link">随笔</a>
   
 </nav>
-  <!-- totop start -->
-<div id="totop">
-<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-</div>
+    
 
-<!-- totop end -->
-
-<!-- 多说公共js代码 start -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"bh4cxj"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script>
-<!-- 多说公共js代码 end -->
-
-
-<!-- 百度分享 start -->
-
-<div id="article-share-box" class="article-share-box">
-  <div id="bdshare" class="bdsharebuttonbox article-share-links">
-    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
-    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
-    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
-    <a class="article-share-more" data-cmd="more" title="更多"></a>
-  </div>
-</div>
-<script>
-  function SetShareData(cmd, config) {
-    if (shareDataTitle && shareDataUrl) {
-      config.bdText = shareDataTitle;
-      config.bdUrl = shareDataUrl;
-    }
-    return config;
-  }
-  window._bd_share_config={
-    "common":{onBeforeClick: SetShareData},
-    "share":{"bdCustomStyle":"/css/bdshare.css"}
-  };
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-
-<!-- 百度分享 end -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-
 <script src="/js/script.js"></script>
 
-</div>
+  </div>
 </body>
 </html>
