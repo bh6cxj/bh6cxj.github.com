@@ -79,27 +79,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[test]]></title>
-      <url>/2015/12/25/test/</url>
-      <content type="html"><![CDATA[<iframe height="498" width="800" src="http://player.youku.com/embed/XMjQyMTAzMTIw" frameborder="0" 'allowfullscreen'=""></iframe>
-]]></content>
-      
-        <categories>
-            
-            <category> DIY </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DIY </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[shell备忘]]></title>
       <url>/2015/12/25/shell%E5%A4%87%E5%BF%98/</url>
       <content type="html"><![CDATA[<h4 id="清空文件"><a href="#清空文件" class="headerlink" title="清空文件"></a>清空文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /dev/null &gt; file</div><div class="line"><span class="built_in">echo</span> &gt; file</div><div class="line">:&gt; file</div><div class="line">&gt; file</div></pre></td></tr></table></figure>
