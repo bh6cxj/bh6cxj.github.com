@@ -1081,6 +1081,7 @@ a.article-title:hover {
 .article-statement {
   font-size: 1em;
   font-family: "微软雅黑";
+  color: #999;
 }
 #comments {
   background: #fff;
