@@ -81,7 +81,7 @@
     <entry>
       <title><![CDATA[test]]></title>
       <url>/2015/12/25/test/</url>
-      <content type="html"><![CDATA[<embed src="http://player.youku.com/player.php/Type/Folder/Fid/27690810/Ob/1/sid/XMTY1MTI3NjMyNA==/v.swf" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" allowfullscreen="true" mode="transparent" type="application/x-shockwave-flash">
+      <content type="html"><![CDATA[<iframe height="498" width="510" src="http://player.youku.com/embed/XMjQyMTAzMTIw" frameborder="0" 'allowfullscreen'=""></iframe>
 ]]></content>
       
         <categories>
