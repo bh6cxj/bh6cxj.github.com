@@ -3,27 +3,6 @@
   
     
     <entry>
-      <title><![CDATA[【测试】等离子扬声器]]></title>
-      <url>/2017/06/19/%E3%80%90%E6%B5%8B%E8%AF%95%E3%80%91%E7%AD%89%E7%A6%BB%E5%AD%90%E6%89%AC%E5%A3%B0%E5%99%A8/</url>
-      <content type="html"><![CDATA[<p>神奇的等离子扬声器-_-<br><iframe height="820" width="480" src="http://player.youku.com/embed/XMjUwNTc3Nzk4MA==" frameborder="0" allowfullscreen></iframe></p>
-]]></content>
-      
-        <categories>
-            
-            <category> DIY </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> DIY </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[python实现vpn自动重连]]></title>
       <url>/2016/02/22/python%E5%AE%9E%E7%8E%B0vpn%E8%87%AA%E5%8A%A8%E9%87%8D%E8%BF%9E/</url>
       <content type="html"><![CDATA[<p>一台windows机器需要保持连接vpn做跳板，但是长时间连接是总是会断开。所以参考网上的代码改了下。<br><a id="more"></a></p>
