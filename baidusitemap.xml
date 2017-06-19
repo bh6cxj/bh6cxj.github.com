@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://www.i-do.xyz/2017/06/19/%E3%80%90%E6%B5%8B%E8%AF%95%E3%80%91%E7%AD%89%E7%A6%BB%E5%AD%90%E6%89%AC%E5%A3%B0%E5%99%A8/</loc>
+    <lastmod>2017-06-19T01:50:20.140Z</lastmod>
+    <data>
+        <display>
+        <title>【测试】等离子扬声器</title>
+        <pubTime>2017-06-19T01:49:38.000Z</pubTime>
+        
+        <tag>DIY</tag>
+         
+         
+           
+             
+              <breadCrumb title="DIY" url="http://www.i-do.xyz/categories/DIY/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.i-do.xyz/2015/12/28/%E7%9B%91%E6%8E%A7%E7%BD%91%E7%AB%99URL%E8%84%9A%E6%9C%AC/</loc>
     <lastmod>2017-06-17T04:16:28.690Z</lastmod>
     <data>
@@ -174,21 +194,21 @@
 
     
   <url>
-    <loc>http://www.i-do.xyz/2015/10/25/%E5%90%91github%E5%92%8Cgitcafe%E5%90%8C%E6%97%B6%E9%83%A8%E7%BD%B2hexo/</loc>
+    <loc>http://www.i-do.xyz/2015/11/03/%E5%B0%8F%E5%9E%8B%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E9%83%A8%E8%87%AA%E7%94%A8%E5%9F%9F%E5%90%8Ddnsmasq%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2017-06-17T01:50:06.606Z</lastmod>
     <data>
         <display>
-        <title>向github和gitcafe同时部署hexo</title>
-        <pubTime>2015-10-25T06:20:03.000Z</pubTime>
+        <title>小型局域网内部自用域名dnsmasq配置</title>
+        <pubTime>2015-11-03T09:06:27.000Z</pubTime>
         
-        <tag>hexo</tag>
+        <tag>DNS</tag>
          
-        <tag>部署</tag>
+        <tag>内网</tag>
          
          
            
              
-              <breadCrumb title="hexo" url="http://www.i-do.xyz/categories/hexo/"/>
+              <breadCrumb title="Linux" url="http://www.i-do.xyz/categories/Linux/"/>
           
         </display>
     </data>
@@ -216,41 +236,21 @@
 
     
   <url>
-    <loc>http://www.i-do.xyz/2015/11/03/%E5%B0%8F%E5%9E%8B%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E9%83%A8%E8%87%AA%E7%94%A8%E5%9F%9F%E5%90%8Ddnsmasq%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://www.i-do.xyz/2015/10/25/%E5%90%91github%E5%92%8Cgitcafe%E5%90%8C%E6%97%B6%E9%83%A8%E7%BD%B2hexo/</loc>
     <lastmod>2017-06-17T01:50:06.606Z</lastmod>
     <data>
         <display>
-        <title>小型局域网内部自用域名dnsmasq配置</title>
-        <pubTime>2015-11-03T09:06:27.000Z</pubTime>
+        <title>向github和gitcafe同时部署hexo</title>
+        <pubTime>2015-10-25T06:20:03.000Z</pubTime>
         
-        <tag>DNS</tag>
+        <tag>hexo</tag>
          
-        <tag>内网</tag>
+        <tag>部署</tag>
          
          
            
              
-              <breadCrumb title="Linux" url="http://www.i-do.xyz/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.i-do.xyz/2015/11/04/%E7%BB%9F%E8%AE%A1%E6%AF%8F%E5%A4%A9%E6%B5%81%E9%87%8F/</loc>
-    <lastmod>2017-06-17T01:50:06.605Z</lastmod>
-    <data>
-        <display>
-        <title>统计每天流量</title>
-        <pubTime>2015-11-04T09:21:53.000Z</pubTime>
-        
-        <tag>流量</tag>
-         
-         
-           
-             
-              <breadCrumb title="Ops" url="http://www.i-do.xyz/categories/Ops/"/>
+              <breadCrumb title="hexo" url="http://www.i-do.xyz/categories/hexo/"/>
           
         </display>
     </data>
@@ -277,19 +277,19 @@
 
     
   <url>
-    <loc>http://www.i-do.xyz/2015/11/07/%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2017-06-17T01:50:06.604Z</lastmod>
+    <loc>http://www.i-do.xyz/2015/11/04/%E7%BB%9F%E8%AE%A1%E6%AF%8F%E5%A4%A9%E6%B5%81%E9%87%8F/</loc>
+    <lastmod>2017-06-17T01:50:06.605Z</lastmod>
     <data>
         <display>
-        <title>命令</title>
-        <pubTime>2015-11-07T05:42:03.000Z</pubTime>
+        <title>统计每天流量</title>
+        <pubTime>2015-11-04T09:21:53.000Z</pubTime>
         
-        <tag>命令</tag>
+        <tag>流量</tag>
          
          
            
              
-              <breadCrumb title="命令" url="http://www.i-do.xyz/categories/%E5%91%BD%E4%BB%A4/"/>
+              <breadCrumb title="Ops" url="http://www.i-do.xyz/categories/Ops/"/>
           
         </display>
     </data>
@@ -321,6 +321,26 @@
 
     
   <url>
+    <loc>http://www.i-do.xyz/2015/11/07/%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2017-06-17T01:50:06.604Z</lastmod>
+    <data>
+        <display>
+        <title>命令</title>
+        <pubTime>2015-11-07T05:42:03.000Z</pubTime>
+        
+        <tag>命令</tag>
+         
+         
+           
+             
+              <breadCrumb title="命令" url="http://www.i-do.xyz/categories/%E5%91%BD%E4%BB%A4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.i-do.xyz/2015/10/10/%E5%9B%BD%E5%BA%86%E8%8A%82%E5%AE%A3%E6%A1%A5%E6%9E%B6%E5%8F%B0/</loc>
     <lastmod>2017-06-17T01:50:06.603Z</lastmod>
     <data>
@@ -343,19 +363,23 @@
 
     
   <url>
-    <loc>http://www.i-do.xyz/2015/09/29/%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%E2%80%A6%E5%85%B6%E5%AE%9E%E6%98%AF%E5%B8%B8%E6%80%81/</loc>
+    <loc>http://www.i-do.xyz/2015/09/27/%E7%AC%AC%E4%B8%89%E6%9C%9FCW%E5%BC%80%E7%8F%AD/</loc>
     <lastmod>2017-06-17T01:50:06.602Z</lastmod>
     <data>
         <display>
-        <title>创业公司的这些问题…其实是常态</title>
-        <pubTime>2015-09-29T08:59:21.000Z</pubTime>
+        <title>第三期CW开班</title>
+        <pubTime>2015-09-27T11:58:53.000Z</pubTime>
         
-        <tag>创业</tag>
+        <tag>CW</tag>
+         
+        <tag>手键</tag>
+         
+        <tag>无线电</tag>
          
          
            
              
-              <breadCrumb title="偷一下" url="http://www.i-do.xyz/categories/%E5%81%B7%E4%B8%80%E4%B8%8B/"/>
+              <breadCrumb title="活动" url="http://www.i-do.xyz/categories/%E6%B4%BB%E5%8A%A8/"/>
           
         </display>
     </data>
@@ -405,23 +429,19 @@
 
     
   <url>
-    <loc>http://www.i-do.xyz/2015/09/27/%E7%AC%AC%E4%B8%89%E6%9C%9FCW%E5%BC%80%E7%8F%AD/</loc>
+    <loc>http://www.i-do.xyz/2015/09/29/%E5%88%9B%E4%B8%9A%E5%85%AC%E5%8F%B8%E7%9A%84%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%E2%80%A6%E5%85%B6%E5%AE%9E%E6%98%AF%E5%B8%B8%E6%80%81/</loc>
     <lastmod>2017-06-17T01:50:06.602Z</lastmod>
     <data>
         <display>
-        <title>第三期CW开班</title>
-        <pubTime>2015-09-27T11:58:53.000Z</pubTime>
+        <title>创业公司的这些问题…其实是常态</title>
+        <pubTime>2015-09-29T08:59:21.000Z</pubTime>
         
-        <tag>CW</tag>
-         
-        <tag>手键</tag>
-         
-        <tag>无线电</tag>
+        <tag>创业</tag>
          
          
            
              
-              <breadCrumb title="活动" url="http://www.i-do.xyz/categories/%E6%B4%BB%E5%8A%A8/"/>
+              <breadCrumb title="偷一下" url="http://www.i-do.xyz/categories/%E5%81%B7%E4%B8%80%E4%B8%8B/"/>
           
         </display>
     </data>

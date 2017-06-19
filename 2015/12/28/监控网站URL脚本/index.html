@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,16 +22,18 @@
     <link rel="alternative" href="/atom.xml" title="水面下的冰山" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.ico">
   
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/css/style.css">
-  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
   
+
 </head>
+
 <body>
-<div id="container">
-  <div id="wrap">
-    <header id="header">
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -55,7 +56,9 @@
         
           <a class="main-nav-link" href="/categories/活动">活动</a>
         
-          <a class="main-nav-link" href="/categories/DIY">DIY</a>
+          <a class="main-nav-link" href="/categories/电台">电台</a>
+        
+          <a class="main-nav-link" href="/categories/阅读">阅读</a>
         
           <a class="main-nav-link" href="/categories/随笔">随笔</a>
         
@@ -67,29 +70,13 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
-          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
-          <input type="submit" value="" class="search-form-submit">
-          <input name=tn type=hidden value="bds">
-          <input name=cl type=hidden value="3">
-          <input name=ct type=hidden value="2097152">
-          <input type="hidden" name="si" value="www.i-do.xyz">
-        </form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.i-do.xyz"></form>
       </div>
     </div>
   </div>
-  <script>
-    
-    var number_of_banners = 6;
-    var randnum = Math.floor(Math.random() * number_of_banners + 1);
-    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner" + randnum + ".jpg)";
-    
-</script>
-
 </header>
-
-    <div class="outer">
-      <section id="main"><article id="post-监控网站URL脚本" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="outer">
+        <section id="main"><article id="post-监控网站URL脚本" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/28/监控网站URL脚本/" class="article-date">
   <time datetime="2015-12-28T02:22:17.000Z" itemprop="datePublished">2015-12-28</time>
@@ -115,33 +102,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+
         <!-- Table of Contents -->
-         
+ 
         <p>先上脚本</p>
 <p>虽然后来没怎么用<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">WEB_URL=(<span class="string">"pre.xxxxxxxxx.com"</span> <span class="string">"www.xxxxxxxxx.com"</span> <span class="string">"api.xxxx.com/test"</span> <span class="string">"bbs.xxxxxxxxx.com"</span>)</div><div class="line">COUNT=5  <span class="comment">#监测循环次数</span></div><div class="line"><span class="built_in">let</span> LEN=<span class="variable">$&#123;#WEB_URL[@]&#125;</span>-1</div><div class="line"><span class="comment">#初始化数组</span></div><div class="line"><span class="keyword">for</span>((i=0;i&lt;=<span class="variable">$LEN</span>;i++))</div><div class="line"><span class="keyword">do</span></div><div class="line">    SMS_STATUS[i]=0</div><div class="line">    SMS_DATE[i]=0</div><div class="line">    SMS_RESET_DATE[i]=0</div><div class="line">    INTER_TIMEi[i]=0</div><div class="line">    error_code[i]=0</div><div class="line"><span class="keyword">done</span></div><div class="line"></div><div class="line"><span class="comment">#monitor web service</span></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span> </div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="keyword">for</span>((j=0;j&lt;=<span class="variable">$LEN</span>;j++))</div><div class="line">    <span class="keyword">do</span></div><div class="line">        myurl=<span class="variable">$&#123;WEB_URL[j]&#125;</span></div><div class="line">        WEB_COUNT=0</div><div class="line">        <span class="keyword">for</span>((k=1;k&lt;=<span class="variable">$COUNT</span>;k++))</div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="comment">#取得URL头部返回代码</span></div><div class="line">            http_code=`curl -Is <span class="variable">$myurl</span> | grep HTTP | awk <span class="string">'&#123;print $2&#125;'</span>`</div><div class="line">            [ <span class="variable">$&#123;http_code&#125;</span> <span class="_">-eq</span> 200 ] || &#123;</div><div class="line">                <span class="built_in">let</span> WEB_COUNT+=1</div><div class="line">                error_code[j]=<span class="variable">$http_code</span></div><div class="line">            &#125;</div><div class="line">            sleep 1s</div><div class="line">        <span class="keyword">done</span></div><div class="line">        <span class="comment">#正常访问日志</span></div><div class="line">        [ <span class="variable">$WEB_COUNT</span> <span class="_">-eq</span> 5 ] || <span class="built_in">echo</span> <span class="string">"<span class="variable">$myurl</span> is ok at <span class="variable">$(date)</span>."</span> &gt;&gt; /var/<span class="built_in">log</span>/checkweb.log</div><div class="line">        <span class="comment">#异常短信通知</span></div><div class="line">        [ <span class="variable">$WEB_COUNT</span> <span class="_">-eq</span> 5 ] &amp;&amp; [ <span class="variable">$&#123;SMS_STATUS[j]&#125;</span> <span class="_">-eq</span> 0 ] &amp;&amp; &#123;</div><div class="line">            <span class="built_in">echo</span> <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span>  &gt;&gt; /var/<span class="built_in">log</span>/checkweb_error.log</div><div class="line">            /script/sendsms.sh 13xxxxxxxxx <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span></div><div class="line">            /script/sendsms.sh 15xxxxxxxxx <span class="string">"<span class="variable">$myurl</span> is down at <span class="variable">$(date)</span>, http code is <span class="variable">$&#123;error_code[j]&#125;</span>"</span></div><div class="line">            <span class="comment">#发送一次短信之后，改变状态，后面一小时后重置状态，防止狂发短信</span></div><div class="line">            SMS_STATUS[j]=1</div><div class="line">            SMS_DATE[j]=`date +%s`</div><div class="line">        &#125;</div><div class="line">        <span class="comment">#一小时后重置短信状态</span></div><div class="line">        [ <span class="variable">$&#123;SMS_STATUS[j]&#125;</span> <span class="_">-eq</span> 1 ] &amp;&amp; &#123;</div><div class="line">            SMS_RESET_DATE[j]=`date +%s`</div><div class="line">            <span class="built_in">let</span> INTER_TIME[j]=<span class="variable">$&#123;SMS_RESET_DATE[j]&#125;</span>-<span class="variable">$&#123;SMS_DATE[j]&#125;</span></div><div class="line">            [ <span class="variable">$&#123;INTER_TIME[j]&#125;</span> -ge 3600 ] &amp;&amp; &#123;</div><div class="line">                SMS_STATUS[j]=0</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">done</span></div><div class="line">    <span class="comment">#5分钟后重新检测</span></div><div class="line">    sleep 5m</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure></p>
 <p>原本没有想到用数组，用变量在写，后来写着要用到变量间接引用。由于需要间接引用的变量太多，比较痛苦，本打算用Python后来想到数组，一想还挺好用，就直接上了。</p>
 
       
-      
-  <div class="article-statement">
-    <hr style="border:2px dashed #0000fff"/>
-    1.除非注明，本博文章均为原创，转载请以链接形式标明本文地址。<br>
-    2.本博文章只代表博主当时的观点或结论，与博主公司没有任何关系。<br>
-    3.如果本文帮到了您，不妨点一下右下角的 分享到 按钮。<br>
-    4.您的鼓励是博主写作的最大动力，感谢您的分享和赞赏，好人一生平安。<br>
-  </div>
-
-
     </div>
     <footer class="article-footer">
+      <a data-url="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/" data-id="cj43hvm7q001tpcri8v9h6evb" class="article-share-link">Share</a>
       
-        <a data-url="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/" data-id="cj43hvm7q001tpcri8v9h6evb" class="article-share-link" data-share="baidu" data-title="监控网站URL脚本">分享到</a>
-      
-
-      
-        <a href="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/#ds-thread" class="article-comment-link">评论</a>
-      
-
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
 
@@ -152,7 +124,7 @@
 <nav id="article-nav">
   
     <a href="/2015/12/31/tengine安装脚本/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           tengine安装脚本
@@ -162,7 +134,7 @@
   
   
     <a href="/2015/12/25/shell备忘/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">shell备忘</div>
     </a>
   
@@ -172,49 +144,46 @@
 </article>
 
 
-  <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2015/12/28/监控网站URL脚本/" data-title="监控网站URL脚本" data-url="http://www.i-do.xyz/2015/12/28/监控网站URL脚本/"></div>
-  </section>
-
 </section>
-      
-      <aside id="sidebar">
+        
+          <aside id="sidebar">
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/freebsd/">freebsd</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DIY/">DIY</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ops/">Ops</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PYTHON/">PYTHON</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/freebsd/">freebsd</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/偷一下/">偷一下</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/命令/">命令</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/活动/">活动</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ARP/" style="font-size: 10px; color: #000">ARP</a> <a href="/tags/CW/" style="font-size: 10px; color: #000">CW</a> <a href="/tags/DNS/" style="font-size: 10px; color: #000">DNS</a> <a href="/tags/Kali/" style="font-size: 10px; color: #000">Kali</a> <a href="/tags/Linux/" style="font-size: 20px; color: #f00">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px; color: #000">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px; color: #000">PM2</a> <a href="/tags/Python/" style="font-size: 10px; color: #000">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px; color: #500">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px; color: #500">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px; color: #000">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px; color: #500">git</a> <a href="/tags/hexo/" style="font-size: 13.33px; color: #500">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px; color: #000">keepalived</a> <a href="/tags/linux/" style="font-size: 10px; color: #000">linux</a> <a href="/tags/scp/" style="font-size: 10px; color: #000">scp</a> <a href="/tags/sed/" style="font-size: 10px; color: #000">sed</a> <a href="/tags/shell/" style="font-size: 16.67px; color: #a00">shell</a> <a href="/tags/ssh/" style="font-size: 10px; color: #000">ssh</a> <a href="/tags/vim/" style="font-size: 10px; color: #000">vim</a> <a href="/tags/windows/" style="font-size: 10px; color: #000">windows</a> <a href="/tags/内网/" style="font-size: 10px; color: #000">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px; color: #000">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px; color: #000">创业</a> <a href="/tags/命令/" style="font-size: 10px; color: #000">命令</a> <a href="/tags/图片/" style="font-size: 10px; color: #000">图片</a> <a href="/tags/思考/" style="font-size: 10px; color: #000">思考</a> <a href="/tags/手键/" style="font-size: 10px; color: #000">手键</a> <a href="/tags/无线电/" style="font-size: 10px; color: #000">无线电</a> <a href="/tags/架台/" style="font-size: 10px; color: #000">架台</a> <a href="/tags/树莓派/" style="font-size: 10px; color: #000">树莓派</a> <a href="/tags/流量/" style="font-size: 10px; color: #000">流量</a> <a href="/tags/网络/" style="font-size: 10px; color: #000">网络</a> <a href="/tags/部署/" style="font-size: 10px; color: #000">部署</a> <a href="/tags/野外/" style="font-size: 10px; color: #000">野外</a> <a href="/tags/阿里云/" style="font-size: 10px; color: #000">阿里云</a>
+      <a href="/tags/ARP/" style="font-size: 10px;">ARP</a> <a href="/tags/CW/" style="font-size: 10px;">CW</a> <a href="/tags/DIY/" style="font-size: 10px;">DIY</a> <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/Kali/" style="font-size: 10px;">Kali</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/PM2/" style="font-size: 10px;">PM2</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/VPN/" style="font-size: 13.33px;">VPN</a> <a href="/tags/ansible/" style="font-size: 13.33px;">ansible</a> <a href="/tags/freebsd/" style="font-size: 10px;">freebsd</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/tags/keepalived/" style="font-size: 10px;">keepalived</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/scp/" style="font-size: 10px;">scp</a> <a href="/tags/sed/" style="font-size: 10px;">sed</a> <a href="/tags/shell/" style="font-size: 16.67px;">shell</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/内网/" style="font-size: 10px;">内网</a> <a href="/tags/内网穿透/" style="font-size: 10px;">内网穿透</a> <a href="/tags/创业/" style="font-size: 10px;">创业</a> <a href="/tags/命令/" style="font-size: 10px;">命令</a> <a href="/tags/图片/" style="font-size: 10px;">图片</a> <a href="/tags/思考/" style="font-size: 10px;">思考</a> <a href="/tags/手键/" style="font-size: 10px;">手键</a> <a href="/tags/无线电/" style="font-size: 10px;">无线电</a> <a href="/tags/架台/" style="font-size: 10px;">架台</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/部署/" style="font-size: 10px;">部署</a> <a href="/tags/野外/" style="font-size: 10px;">野外</a> <a href="/tags/阿里云/" style="font-size: 10px;">阿里云</a>
     </div>
   </div>
-
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">2016年 02月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">2015年 12月</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">2015年 11月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">2015年 10月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">2015年 09月</a><span class="archive-list-count">8</span></li></ul>
-<!-- <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul> -->
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
-
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">近期文章</h3>
+    <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/19/【测试】等离子扬声器/">【测试】等离子扬声器</a>
+          </li>
         
           <li>
             <a href="/2016/02/22/python实现vpn自动重连/">python实现vpn自动重连</a>
@@ -232,55 +201,28 @@
             <a href="/2015/12/25/shell备忘/">shell备忘</a>
           </li>
         
-          <li>
-            <a href="/2015/12/24/自动生成ansible增量发布配置文件脚本/">自动生成ansible增量发布配置文件脚本</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">友情链接</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="http://www.linuxea.com" target="_blank">老唐</a>
-          </li>
-        
       </ul>
     </div>
   </div>
 
   
 </aside>
-      
-    </div>
-    <footer id="footer">
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </div>
+      <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 BH4CXJ | 
-    <span id="busuanzi_container_site_pv">
-      本站总访问量<span id="busuanzi_value_site_pv"></span>次
-    </span>
-    <span id="busuanzi_container_site_uv">
-      <span id="busuanzi_value_site_uv"></span>人
-    </span>
-    <br>
-      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
-      .
-      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次 </span>
   </div>
 </footer>
 
-  </div>
-  <nav id="mobile-nav">
+    </div>
+    <nav id="mobile-nav">
   
     <a href="/" class="mobile-nav-link">首页</a>
   
@@ -292,71 +234,24 @@
   
     <a href="/categories/活动" class="mobile-nav-link">活动</a>
   
-    <a href="/categories/DIY" class="mobile-nav-link">DIY</a>
+    <a href="/categories/电台" class="mobile-nav-link">电台</a>
+  
+    <a href="/categories/阅读" class="mobile-nav-link">阅读</a>
   
     <a href="/categories/随笔" class="mobile-nav-link">随笔</a>
   
 </nav>
-  <!-- totop start -->
-<div id="totop">
-<a title="返回顶部"><img src="/img/scrollup.png"/></a>
-</div>
+    
 
-<!-- totop end -->
-
-<!-- 多说公共js代码 start -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"bh4cxj"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script>
-<!-- 多说公共js代码 end -->
-
-
-<!-- 百度分享 start -->
-
-<div id="article-share-box" class="article-share-box">
-  <div id="bdshare" class="bdsharebuttonbox article-share-links">
-    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
-    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
-    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
-    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
-    <a class="article-share-more" data-cmd="more" title="更多"></a>
-  </div>
-</div>
-<script>
-  function SetShareData(cmd, config) {
-    if (shareDataTitle && shareDataUrl) {
-      config.bdText = shareDataTitle;
-      config.bdUrl = shareDataUrl;
-    }
-    return config;
-  }
-  window._bd_share_config={
-    "common":{onBeforeClick: SetShareData},
-    "share":{"bdCustomStyle":"/css/bdshare.css"}
-  };
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-
-<!-- 百度分享 end -->
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-
 <script src="/js/script.js"></script>
 
-</div>
+  </div>
 </body>
 </html>
